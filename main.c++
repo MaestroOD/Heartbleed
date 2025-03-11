@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-//keefe sucks
+// keefe rules
 
 int main()
 {
