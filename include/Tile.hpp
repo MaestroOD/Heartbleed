@@ -11,6 +11,19 @@ public:
     Tile(Texture *texture, Vector2f size, Vector2f position, int t);
     ~Tile();
 
+    Tile& operator=(const Tile& other)
+    {
+        if (this != &other)
+        {
+            body = other.body; 
+            type = other.type;
+
+            // Re-initialize collider to reference our 'body' instead of 'other.body'
+            collider = Collider(body);
+        }
+        return *this;
+    }
+
     void render(RenderWindow &window);
     Collider &getCollider() { return collider; };
 

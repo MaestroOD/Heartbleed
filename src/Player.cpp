@@ -167,3 +167,11 @@ void Player::renderBullet(RenderWindow &window)
 {
     bullet.draw(window, dt);
 }
+
+void Player::setPosition(float x, float y) {
+	body.setPosition(Vector2f(x,y)); 
+}
+
+Vector2f Player::getPosition() {
+	return body.getPosition();
+}

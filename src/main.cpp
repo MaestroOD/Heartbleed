@@ -33,12 +33,12 @@ int main()
 
     unsigned int width = 640;
     unsigned int height = 360;
+    unsigned int currentStage = 0;
 
-    sf::Texture texture;
-    if (!texture.loadFromFile("/Users/ricefarmerjohn/SFML /assets/images/test.png"))
-    {
-        std::cerr << "Error loading image!" << std::endl;
-    }
+
+
+    std::vector<std::vector<Tile>> gametiles = generateWorld();
+
     sf::RenderWindow *window = new sf::RenderWindow(sf::VideoMode({width, height}), "Prototype");
     window->setFramerateLimit(60); // Limit frames to 60 FPS for convenience
     Player player;
@@ -48,13 +48,13 @@ int main()
     enemy.setPos(sf::Vector2f(350, 231));
 
     // Tiles and shid
-    Tile wall1(nullptr, Vector2f(100.0f, 300.0f), Vector2f(500.0f, 180.0f), 0);    // (Texture path, size, pos, type), wall
-    Tile platform1(nullptr, Vector2f(600.0f, 50.0f), Vector2f(320.0f, 320.0f), 1); // Ground
-    Tile platform2(nullptr, Vector2f(50.0f, 5.0f), Vector2f(320.0f, 200.0f), 0);   // Random platform
-    std::vector<Tile> tiles;
-    tiles.push_back(wall1);
-    tiles.push_back(platform1);
-    tiles.push_back(platform2);
+    //Tile wall1(nullptr, Vector2f(100.0f, 300.0f), Vector2f(500.0f, 180.0f), 0);    // (Texture path, size, pos, type), wall
+    //Tile platform1(nullptr, Vector2f(600.0f, 50.0f), Vector2f(320.0f, 320.0f), 1); // Ground
+    //Tile platform2(nullptr, Vector2f(50.0f, 5.0f), Vector2f(320.0f, 200.0f), 0);   // Random platform
+    //std::vector<Tile> tiles;
+    //tiles.push_back(wall1);
+    //tiles.push_back(platform1);
+    //tiles.push_back(platform2);
     // Add all tiles to an array, and make a function that goes through the array and checks collision with player
     // Do same thing with enemies except enemies will also be in array, will run array check for tiles for each enemy
     // Make sure to start a thread for each check
@@ -82,6 +82,13 @@ int main()
 
         // Render (collision checks go here)
         player.update();
+        if (player.getPosition().x > 1000.0f) 
+        {
+            // Load the next stage
+            currentStage++;
+			player.setPosition(100.0f, 100.0f);
+        } 
+
         if (player.getMode())
         {
             enemy.setColor(sf::Color::Blue);
@@ -92,7 +99,7 @@ int main()
         }
         sf::Vector2f direction;
 
-        checkTilePlayerCollision(tiles, player, direction);
+        checkTilePlayerCollision(gametiles.at(currentStage), player, direction);
         enemy.checkBullet(player.getBullet());
 
         window->clear(sf::Color(0xFF8800FF));
@@ -100,7 +107,7 @@ int main()
         // Drawing shapes, sprites, etc.
         player.render(*window);
         player.renderBullet(*window);
-        renderTiles(tiles, window);
+        renderTiles(gametiles.at(currentStage), window, texture);
         enemy.draw(*window);
 
         window->display();
