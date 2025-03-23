@@ -105,7 +105,7 @@ void Player::jump()
     velocity.y = -sqrt(2.0f * 981.0f * jumpPower);
 }
 
-void Player::fire(RenderWindow &window)
+void Player::fire()
 {
     if (canFire)
     {
@@ -148,6 +148,10 @@ void Player::update()
     dt = deltaClock.restart();
     applyGravity(dt.asSeconds());
     move(dt.asSeconds());
+    if (isFiring)
+    {
+        fire(window);
+    }
     if (!canFire && inGameClock.getElapsedTime().asSeconds() - timeLastFired >= 0.5f)
     {
         canFire = true;
@@ -157,10 +161,6 @@ void Player::update()
 void Player::render(RenderWindow &window)
 {
     window.draw(body);
-    if (isFiring)
-    {
-        fire(window);
-    }
 }
 
 void Player::renderBullet(RenderWindow &window)

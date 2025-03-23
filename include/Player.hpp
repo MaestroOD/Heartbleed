@@ -43,7 +43,7 @@ public:
     void move(float deltaTime);
     // Fixed force
     void jump();
-    void fire(RenderWindow &window);
+    void fire();
     void takeDamage(int amount);
     void update();
     void render(RenderWindow &window);
