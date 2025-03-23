@@ -1,20 +1,24 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-
 using namespace sf;
 
 class Collider
 {
 public:
-    Collider(RectangleShape &body);
-    ~Collider();
+    Collider(RectangleShape &bodyRef);
+    ~Collider(); // We'll define it in the .cpp
 
-    void Move(float dx, float dy) { body.move({dx, dy}); };
+    // Copy & assignment
+    Collider(const Collider &other);
+    Collider &operator=(const Collider &other);
 
-    bool checkCollision(Collider &other, Vector2f &direction, float push); // Push determines whether the object can be moved or not when collided
-    Vector2f getPosition() { return body.getPosition(); };
-    Vector2f getHalfSize() { return body.getSize() / 2.0f; };
+    bool checkCollision(Collider &other, Vector2f &direction, float push);
+    void Move(float dx, float dy);
+
+    Vector2f getPosition() const;
+    Vector2f getHalfSize() const;
 
 private:
-    RectangleShape &body;
+    RectangleShape *bodyPtr;
 };
+

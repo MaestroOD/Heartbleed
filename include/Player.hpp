@@ -50,8 +50,7 @@ public:
     void renderBullet(RenderWindow &window);
     Bullet getBullet() { return bullet; };
     void setPosition(float x, float y);
-	Vector2f getPosition();
-
+    Vector2f getPosition();
 
     Collider &getCollider() { return collider; }
     void onCollision(Vector2f direction);
