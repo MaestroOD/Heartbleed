@@ -20,6 +20,17 @@ void checkTilePlayerCollision(std::vector<Tile> &tiles, Player &player, sf::Vect
     }
 }
 
+void checkTileEnemyCollision(std::vector<Tile> &tiles, Enemy &enemy, sf::Vector2f &direction)
+{
+    for (Tile &tile : tiles)
+    {
+        if (tile.getCollider().checkCollision(enemy.getCollider(), direction, 1.0f))
+        {
+            enemy.onCollision(direction);
+        }
+    }
+}
+
 // Draws all tiles
 void renderTiles(std::vector<Tile> &tiles, sf::RenderWindow *window)
 {
@@ -45,6 +56,10 @@ int main()
     std::vector<Bullet> bulletVec;
 
     enemy.setPos(sf::Vector2f(350, 231));
+    enemy.setDetectionRange(250.f);
+    enemy.setSpeed(100.f);
+
+    sf::Clock deltaClock;
 
     // Tiles and shid
     // Tile wall1(nullptr, Vector2f(100.0f, 300.0f), Vector2f(500.0f, 180.0f), 0);    // (Texture path, size, pos, type), wall
@@ -60,6 +75,8 @@ int main()
 
     while (window->isOpen())
     {
+        float deltaTime = deltaClock.restart().asSeconds();
+
         while (const std::optional event = window->pollEvent())
         {
             // Close when x button is pressed
@@ -81,6 +98,8 @@ int main()
 
         // Render (collision checks go here)
         player.update();
+        enemy.update(deltaTime, player.getPosition());
+
         if (player.getPosition().x > 1000.0f)
         {
             // Load the next stage
@@ -97,8 +116,10 @@ int main()
             enemy.setColor(sf::Color::Red);
         }
         sf::Vector2f direction;
+        sf::Vector2f enemyDirection;
 
         checkTilePlayerCollision(gametiles.at(currentStage), player, direction);
+        checkTileEnemyCollision(gametiles.at(currentStage), enemy, enemyDirection);
         enemy.checkBullet(player.getBullet());
 
         window->clear(sf::Color(0xFF8800FF));
