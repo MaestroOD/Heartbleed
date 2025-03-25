@@ -1,5 +1,6 @@
 #include "Player.hpp"
 #include "Bullet.hpp"
+#include <cmath>
 Player::Player() : collider(sprite), bullet({}), sprite(texture)
 {
     // Initialize base values of player
