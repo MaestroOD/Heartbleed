@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 #include "Player.hpp"
 #include "Tile.hpp"
@@ -50,6 +51,12 @@ int main()
         std::cerr << "Error loading font!" << std::endl;
     }
 
+    sf::Music music;
+    if (!music.openFromFile("assets/audio/temp.wav"))
+    {
+        std::cerr << "Failed to load music\n";
+    }
+    music.play();
     unsigned int width = 1000;
     unsigned int height = 800;
     unsigned int currentStage = 0;
@@ -136,7 +143,7 @@ int main()
 
         if (showFPS)
         {
-            int fps = static_cast<int>(1.f / deltaTime);
+            int fps = (1 / deltaTime);
             fpsText.setString("FPS: " + std::to_string(fps));
         }
 
