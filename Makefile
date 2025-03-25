@@ -5,9 +5,9 @@ SFML_INCLUDE = -I/usr/local/include -Iheader
 SFML_LIB     = -L/usr/local/lib
 COMPILEARG   = -c -O2 -g -fPIC $(SFML_INCLUDE) $(INCLUDE_PATH)
 TARGET       = main
-SRC_FILES    = main.cpp Bullet.cpp Enemy.cpp Collider.cpp Player.cpp Tile.cpp World.cpp
+SRC_FILES    = ./src/main.cpp ./src/Bullet.cpp ./src/Enemy.cpp ./src/Collider.cpp ./src/Player.cpp ./src/Tile.cpp ./src/World.cpp
 OBJ_FILES    = $(SRC_FILES:.cpp=.o)
-INCLUDE_PATH = -I../include
+INCLUDE_PATH = -I./include
 
 all: clean $(TARGET)
 
