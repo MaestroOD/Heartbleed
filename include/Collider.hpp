@@ -6,7 +6,8 @@ class Collider
 {
 public:
     Collider(RectangleShape &bodyRef);
-    ~Collider(); // We'll define it in the .cpp
+    Collider(Sprite &bodyRef); // For player and enemies with sprite sheets
+    ~Collider();               // We'll define it in the .cpp
 
     // Copy & assignment
     Collider(const Collider &other);
@@ -20,5 +21,5 @@ public:
 
 private:
     RectangleShape *bodyPtr;
+    Sprite *spritePtr;
 };
-

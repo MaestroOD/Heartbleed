@@ -15,10 +15,15 @@ private:
     float speed;
     float jumpPower;
     float timeLastFired;
+    float timeSinceFall;
     int health; // 100 Default
     bool isOnGround;
+    bool coyoteTime;
+    bool canJump;
     Texture texture;
     RectangleShape body;
+    IntRect rectSourceSprite;
+    Sprite sprite;
     Collider collider;
     Bullet bullet;
 
@@ -33,6 +38,7 @@ private:
     Time dt; // DeltaTime
     Clock deltaClock;
     Clock inGameClock; // Total elapsed time in-game
+    Clock spriteClock;
 
 public:
     Player();

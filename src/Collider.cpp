@@ -5,6 +5,11 @@ Collider::Collider(sf::RectangleShape &bodyRef)
 {
 }
 
+Collider::Collider(sf::Sprite &bodyRef)
+    : spritePtr(&bodyRef)
+{
+}
+
 Collider::~Collider()
 {
     // default destructor is fine, or keep empty if needed
@@ -27,17 +32,38 @@ Collider &Collider::operator=(const Collider &other)
 
 void Collider::Move(float dx, float dy)
 {
-    bodyPtr->move({dx, dy});
+    if (bodyPtr)
+    {
+        bodyPtr->move({dx, dy});
+    }
+    else
+    {
+        spritePtr->move({dx, dy});
+    }
 }
 
 Vector2f Collider::getPosition() const
 {
-    return bodyPtr->getPosition();
+    if (bodyPtr)
+    {
+        return bodyPtr->getPosition();
+    }
+    else
+    {
+        return spritePtr->getPosition();
+    }
 }
 
 Vector2f Collider::getHalfSize() const
 {
-    return bodyPtr->getSize() / 2.0f;
+    if (bodyPtr)
+    {
+        return bodyPtr->getSize() / 2.0f;
+    }
+    else
+    {
+        return {32, 32}; // constant
+    }
 }
 
 bool Collider::checkCollision(Collider &other, sf::Vector2f &direction, float push)

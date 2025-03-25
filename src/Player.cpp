@@ -1,6 +1,6 @@
 #include "Player.hpp"
 #include "Bullet.hpp"
-Player::Player() : collider(body), bullet({})
+Player::Player() : collider(sprite), bullet({}), sprite(texture)
 {
     // Initialize base values of player
     Vector2f size = {64, 64};
@@ -10,6 +10,7 @@ Player::Player() : collider(body), bullet({})
     speed = 150.0f;
     jumpPower = 125.0f;
     isOnGround = false;
+    canJump = true;
 
     // Initialize inputs
     left = false;
@@ -19,15 +20,18 @@ Player::Player() : collider(body), bullet({})
     toggleMode = false;
 
     // Initialize sprite
-    if (!texture.loadFromFile("assets/images/test.png"))
+    if (!texture.loadFromFile("assets/images/Player.png"))
     {
         std::cerr << "Error loading in player texture" << std::endl;
     }
 
-    body.setSize(size);
-    body.setOrigin(size / 2.0f);
-    body.setPosition(position);
-    body.setTexture(&texture);
+    // Switched from Rect to Sprite
+    rectSourceSprite = IntRect({0, 0}, {32, 32});
+    sprite.setTexture(texture);
+    sprite.setTextureRect(rectSourceSprite);
+    sprite.setOrigin({16, 16});
+    sprite.setScale({2.0f, 2.0f});
+    sprite.setPosition(position);
 }
 
 void Player::handleInput(Keyboard::Scancode key, bool checkPressed, RenderWindow &window)
@@ -36,18 +40,21 @@ void Player::handleInput(Keyboard::Scancode key, bool checkPressed, RenderWindow
     {
         if (key == Keyboard::Scancode::A)
         {
-            body.setScale({-1.f, 1.f}); // Flip right
+            sprite.setScale({-2.f, 2.f}); // Flip right
             left = true;
         }
         if (key == Keyboard::Scancode::D)
         {
-            body.setScale({1.f, 1.f}); // Flip left
+            sprite.setScale({2.f, 2.f}); // Flip left
             right = true;
         }
-        if (key == Keyboard::Scancode::Space && isOnGround)
+        if (key == Keyboard::Scancode::Space)
         {
-            isOnGround = false;
-            jump();
+            if (isOnGround || coyoteTime)
+            {
+                isOnGround = false;
+                jump();
+            }
         }
         if (key == Keyboard::Scancode::Enter)
         {
@@ -97,23 +104,64 @@ void Player::move(float deltaTime)
         velocity.x += speed;
     }
 
-    body.move(velocity * deltaTime);
+    if (left || right)
+    {
+        // Falling
+        if (!isOnGround)
+        {
+            rectSourceSprite.position.x = 32;
+        }
+        // Moving on ground
+        else if (isOnGround && spriteClock.getElapsedTime().asSeconds() > 0.25f)
+        {
+            if (rectSourceSprite.position.x == 0 || rectSourceSprite.position.x == 96)
+            {
+                rectSourceSprite.position.x = 64;
+            }
+            else
+            {
+                rectSourceSprite.position.x = 96;
+            }
+            spriteClock.restart();
+        }
+    }
+    // Idle
+    else if (isOnGround)
+    {
+        rectSourceSprite.position.x = 0;
+    }
+    // Falling/jumping
+    else
+    {
+        rectSourceSprite.position.x = 32;
+    }
+
+    sprite.move(velocity * deltaTime);
 }
 
 void Player::jump()
 {
-    velocity.y = -sqrt(2.0f * 981.0f * jumpPower);
+    if (canJump)
+    {
+        canJump = false;
+        velocity.y = -sqrt(2.0f * 981.0f * jumpPower);
+    }
 }
 
 void Player::fire()
 {
     if (canFire)
     {
+        int dir = 1;
         canFire = false;
         timeLastFired = inGameClock.getElapsedTime().asSeconds();
         bullet.setSize(sf::Vector2f(50, 5));
-        bullet.setPos(body.getPosition());
-        bullet.setDirection(body.getScale().x);
+        bullet.setPos(sprite.getPosition());
+        if (sprite.getScale().x < 0)
+        {
+            dir = -1;
+        }
+        bullet.setDirection(dir);
     }
 }
 
@@ -136,6 +184,8 @@ void Player::onCollision(Vector2f direction)
     {
         velocity.y = 0.0f; // colliding below
         isOnGround = true;
+        canJump = true;
+        coyoteTime = false;
     }
     else if (direction.y > 0.0f)
     {
@@ -156,11 +206,32 @@ void Player::update()
     {
         canFire = true;
     }
+    // Check if free falling
+    if (velocity.y > 0.0f)
+    {
+        // Initiate coyote time
+        if (isOnGround)
+        {
+            isOnGround = false;
+            timeSinceFall = inGameClock.getElapsedTime().asSeconds();
+        }
+        if (!coyoteTime && canJump && inGameClock.getElapsedTime().asSeconds() - timeSinceFall < 0.15f)
+        {
+            coyoteTime = true;
+        }
+    }
+    // Check if coyote time is over
+    if (coyoteTime && inGameClock.getElapsedTime().asSeconds() - timeSinceFall >= 0.15f)
+    {
+        coyoteTime = false;
+    }
+    // Set sprite animation
+    sprite.setTextureRect(rectSourceSprite);
 }
 
 void Player::render(RenderWindow &window)
 {
-    window.draw(body);
+    window.draw(sprite);
 }
 
 void Player::renderBullet(RenderWindow &window)
@@ -170,10 +241,10 @@ void Player::renderBullet(RenderWindow &window)
 
 void Player::setPosition(float x, float y)
 {
-    body.setPosition(Vector2f(x, y));
+    sprite.setPosition(Vector2f(x, y));
 }
 
 Vector2f Player::getPosition()
 {
-    return body.getPosition();
+    return sprite.getPosition();
 }

@@ -9,6 +9,7 @@
 #include "World.hpp"
 
 // Checks collision of all tiles with the player specifically
+
 void checkTilePlayerCollision(std::vector<Tile> &tiles, Player &player, sf::Vector2f &direction)
 {
     for (Tile &tile : tiles)
@@ -43,6 +44,12 @@ void renderTiles(std::vector<Tile> &tiles, sf::RenderWindow *window)
 int main()
 {
 
+    sf::Font font;
+    if (!font.openFromFile("assets/font/Roboto-Thin.ttf"))
+    {
+        std::cerr << "Error loading font!" << std::endl;
+    }
+
     unsigned int width = 1000;
     unsigned int height = 800;
     unsigned int currentStage = 0;
@@ -59,7 +66,13 @@ int main()
     enemy.setDetectionRange(250.f);
     enemy.setSpeed(100.f);
 
+    sf::Text fpsText(font);
+    fpsText.setCharacterSize(20);
+    fpsText.setFillColor(sf::Color::White);
+    fpsText.setPosition(sf::Vector2f(50.f, 10.f));
+
     sf::Clock deltaClock;
+    bool showFPS = false;
 
     // Tiles and shid
     // Tile wall1(nullptr, Vector2f(100.0f, 300.0f), Vector2f(500.0f, 180.0f), 0);    // (Texture path, size, pos, type), wall
@@ -88,6 +101,11 @@ int main()
             else if (const auto *keyPressed = event->getIf<sf::Event::KeyPressed>())
             {
                 player.handleInput(keyPressed->scancode, true, *window);
+
+                if (keyPressed->scancode == sf::Keyboard::Scancode::B)
+                {
+                    showFPS = !showFPS;
+                }
             }
             // Stop input
             else if (const auto *keyPressed = event->getIf<sf::Event::KeyReleased>())
@@ -115,6 +133,13 @@ int main()
         {
             enemy.setColor(sf::Color::Red);
         }
+
+        if (showFPS)
+        {
+            int fps = static_cast<int>(1.f / deltaTime);
+            fpsText.setString("FPS: " + std::to_string(fps));
+        }
+
         sf::Vector2f direction;
         sf::Vector2f enemyDirection;
 
@@ -125,11 +150,14 @@ int main()
         window->clear(sf::Color(0xFF8800FF));
 
         // Drawing shapes, sprites, etc.
-        player.render(*window);
+        if (showFPS)
+        {
+            window->draw(fpsText);
+        }
         player.renderBullet(*window);
+        player.render(*window);
         renderTiles(gametiles.at(currentStage), window);
         enemy.draw(*window);
-
         window->display();
     }
 
