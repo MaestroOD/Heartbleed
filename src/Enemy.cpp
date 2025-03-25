@@ -1,4 +1,5 @@
 #include "Enemy.hpp"
+#include <cmath>
 
 Enemy::Enemy(sf::Vector2f size, sf::Color color, bool canMove) : collider(enemy)
 {
