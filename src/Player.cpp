@@ -1,7 +1,8 @@
 #include "Player.hpp"
 #include "Bullet.hpp"
 #include <cmath>
-Player::Player() : collider(sprite), bullet({}), sprite(texture)
+#include <iostream>
+Player::Player() : collider(sprite), bullet({}, 0), sprite(texture)
 {
     // Initialize base values of player
     Vector2f size = {64, 64};
@@ -156,7 +157,7 @@ void Player::fire()
         int dir = 1;
         canFire = false;
         timeLastFired = inGameClock.getElapsedTime().asSeconds();
-        bullet.setSize(sf::Vector2f(50, 5));
+        bullet.setSize(sf::Vector2f(32, 32));
         bullet.setPos(sprite.getPosition());
         if (sprite.getScale().x < 0)
         {
@@ -168,6 +169,14 @@ void Player::fire()
 
 void Player::takeDamage(int amount)
 {
+    if (health >= amount)
+    {
+        health -= amount;
+    }
+    else
+    {
+        health = 0;
+    }
 }
 
 void Player::onCollision(Vector2f direction)
@@ -191,6 +200,25 @@ void Player::onCollision(Vector2f direction)
     else if (direction.y > 0.0f)
     {
         velocity.y = 0.0f; // colliding above
+    }
+}
+
+void Player::checkEnemyBullet(Bullet &bullet, int damage)
+{
+    sf::Vector2f otherPosition = bullet.getPos();
+    sf::Vector2f otherHalfSize = bullet.getHalfSize();
+    sf::Vector2f thisPosition = sprite.getPosition();
+    sf::Vector2f thisHalfSize = {16, 16};
+
+    float deltaX = otherPosition.x - thisPosition.x;
+    float deltaY = otherPosition.y - thisPosition.y;
+    float intersectX = std::abs(deltaX) - (otherHalfSize.x + thisHalfSize.x);
+    float intersectY = std::abs(deltaY) - (otherHalfSize.y + thisHalfSize.y);
+
+    if (intersectX < 0.f && intersectY < 0.f)
+    {
+        bullet.setPos(sf::Vector2f(420420420, 420420420));
+        takeDamage(damage);
     }
 }
 

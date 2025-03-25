@@ -1,9 +1,16 @@
 #include "Bullet.hpp"
 
-Bullet::Bullet(sf::Vector2f size)
+Bullet::Bullet(sf::Vector2f size, int o)
 {
+    owner = o;
     bullet.setSize(size);
-    bullet.setFillColor(sf::Color::Black);
+
+    if (!texture.loadFromFile("assets/images/bullet.png"))
+    {
+        std::cerr << "Error loading in bullet texture" << std::endl;
+    }
+
+    bullet.setTexture(&texture);
 }
 
 void Bullet::fire(sf::Vector2f speed, Time dt)

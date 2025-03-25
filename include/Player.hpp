@@ -50,11 +50,13 @@ public:
     // Fixed force
     void jump();
     void fire();
+    int getHP() { return health; };
     void takeDamage(int amount);
     void update();
     void render(RenderWindow &window);
     void renderBullet(RenderWindow &window);
-    Bullet getBullet() { return bullet; };
+    Bullet *getBullet() { return &bullet; };
+    void checkEnemyBullet(Bullet &bullet, int damage);
     void setPosition(float x, float y);
     Vector2f getPosition();
 

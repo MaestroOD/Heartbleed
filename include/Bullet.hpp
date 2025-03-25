@@ -6,19 +6,20 @@ using namespace sf;
 class Bullet
 {
 public:
-    Bullet(sf::Vector2f size);
+    Bullet(sf::Vector2f size, int owner);
 
     void fire(sf::Vector2f speed, Time dt);
     void setSize(sf::Vector2f size);
-    int getRight() { return bullet.getPosition().x + bullet.getSize().x; };
-    int getLeft() { return bullet.getPosition().x; };
-    int getTop() { return bullet.getPosition().y; };
-    int getBottom() { return bullet.getPosition().y + bullet.getSize().y; }
+    int getOwner() { return owner; };
+    Vector2f getPos() { return bullet.getPosition(); };
+    Vector2f getHalfSize() { return bullet.getSize() / 2.0f; };
     void draw(sf::RenderWindow &window, Time dt);
     void setPos(sf::Vector2f newPos);
     void setDirection(float dir);
 
 private:
     sf::RectangleShape bullet;
+    sf::Texture texture;
     float direction;
+    int owner; // 0 = Player, 1 = enemy
 };
