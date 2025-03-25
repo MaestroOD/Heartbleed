@@ -66,7 +66,7 @@ int main()
     // std::cerr << "Failed to load music\n";
     //}
     // music.play();
-    unsigned int width = 1000;
+    unsigned int width = 1024;
     unsigned int height = 800;
     unsigned int currentStage = 0;
 

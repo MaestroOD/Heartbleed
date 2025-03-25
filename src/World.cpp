@@ -2,11 +2,13 @@
 
 #include <vector>
 
+#define tilew 32.f
+#define tileh 32.f
+
 std::vector<std::vector<Tile>> generateWorld()
 {
 
     std::vector<std::vector<Tile>> gametiles;
-    gametiles.reserve(100);
 
     /* 	nullptr nullptr;
         if (!nullptr.loadFromFile("images/tile-wires.png")) {
@@ -157,7 +159,67 @@ std::vector<std::vector<Tile>> generateWorld()
         sf::Vector2f(980.f, 780.f),
         2 // no collision
         ));
+    /////////////////////////////
+    // Spencer's Tutorial Stage
+    /////////////////////////////
 
+    std::vector<Tile> TutorialLevel;
+    // total game window size
+    float xwidth = 32 * tilew;
+    float ywidth = 25 * tileh;
+    // inner game working area margins
+    float innerx_min = 3 * tilew;
+    float innery_min = 3 * tileh;
+    float innerx_max = xwidth - innerx_min;
+    float innery_max = ywidth - innery_min;
+
+    // this block is the frame size in which all game elements should be contained
+    // left wall
+    float horizontalwall_w = 25 * tilew;
+    float horizontalwall_h = 1 * tileh;
+
+    float verticalwall_w = 1 * tileh;
+    float verticalwall_h = 19 * tilew;
+
+    Tile TutWall1(nullptr, sf::Vector2f(verticalwall_w, verticalwall_h), sf::Vector2f(innerx_min + verticalwall_w / 2, innery_min + verticalwall_h / 2), 0);
+    // top wall
+    Tile TutWall2(nullptr, sf::Vector2f(verticalwall_w, verticalwall_h), sf::Vector2f(innerx_max - verticalwall_w / 2, innery_max - verticalwall_h / 2), 0);
+    // right wall
+    Tile TutWall3(nullptr, sf::Vector2f(horizontalwall_w, horizontalwall_h), sf::Vector2f(innerx_min + horizontalwall_w / 2, innery_min + horizontalwall_h / 2), 0);
+    // bottom wall
+    Tile TutWall4(nullptr, sf::Vector2f(horizontalwall_w, horizontalwall_h), sf::Vector2f(innerx_max - horizontalwall_w / 2, innery_max - horizontalwall_h / 2), 0);
+
+    TutorialLevel.push_back(TutWall1);
+    TutorialLevel.push_back(TutWall2);
+    TutorialLevel.push_back(TutWall3);
+    TutorialLevel.push_back(TutWall4);
+    // above block is basic framework for level building
+
+    float threetileplat_w = 3 * tilew;
+    float threetileplat_h = 1 * tileh;
+
+    Tile TutPlat1(nullptr, sf::Vector2f(threetileplat_w, threetileplat_h), sf::Vector2f(innerx_min + tileh + threetileplat_w / 2, innery_max - 3 * tileh - threetileplat_h / 2), 0);
+    TutorialLevel.push_back(TutPlat1);
+
+    Tile TutPlat2(nullptr, sf::Vector2f(threetileplat_w, threetileplat_h), sf::Vector2f(innerx_min + 3 * tileh + threetileplat_w / 2, innery_max - 6 * tileh - threetileplat_h / 2), 0);
+    TutorialLevel.push_back(TutPlat2);
+
+    Tile TutPlat3(nullptr, sf::Vector2f(threetileplat_w, threetileplat_h), sf::Vector2f(innerx_min + tileh + threetileplat_w / 2, innery_max - 9 * tileh - threetileplat_h / 2), 0);
+    TutorialLevel.push_back(TutPlat3);
+
+    Tile TutPlat4(nullptr, sf::Vector2f(threetileplat_w, threetileplat_h), sf::Vector2f(innerx_min + 3 * tileh + threetileplat_w / 2, innery_max - 12 * tileh - threetileplat_h / 2), 0);
+    TutorialLevel.push_back(TutPlat4);
+
+    Tile TutPlat5(nullptr, sf::Vector2f(threetileplat_w, threetileplat_h), sf::Vector2f(innerx_min + tileh + threetileplat_w / 2, innery_max - 15 * tileh - threetileplat_h / 2), 0);
+    TutorialLevel.push_back(TutPlat5);
+
+    float centerwall_w = 2 * tilew;
+    float centerwall_h = 14 * tileh;
+
+    Tile TutCenterWall(nullptr, sf::Vector2f(centerwall_w, centerwall_h), sf::Vector2f((innerx_min + innerx_max) / 2, innery_min + centerwall_h / 2), 0);
+    TutorialLevel.push_back(TutCenterWall);
+
+    gametiles.push_back(TutorialLevel);
     gametiles.push_back(stage4);
     gametiles.push_back(stage5);
     gametiles.push_back(stage1);
