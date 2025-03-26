@@ -57,7 +57,7 @@ public:
     void renderBullet(RenderWindow &window);
     Bullet *getBullet() { return &bullet; };
     void checkEnemyBullet(Bullet &bullet, int damage);
-    void setPosition(float x, float y);
+    void setPosition(Vector2f pos);
     Vector2f getPosition();
 
     Collider &getCollider() { return collider; }

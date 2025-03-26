@@ -268,9 +268,9 @@ void Player::renderBullet(RenderWindow &window)
     bullet.draw(window, dt);
 }
 
-void Player::setPosition(float x, float y)
+void Player::setPosition(Vector2f pos)
 {
-    sprite.setPosition(Vector2f(x, y));
+    sprite.setPosition(pos);
 }
 
 Vector2f Player::getPosition()

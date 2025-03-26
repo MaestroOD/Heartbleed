@@ -7,7 +7,10 @@ Tile::Tile(Texture *texture, Vector2f size, Vector2f position, int t) : collider
     body.setOrigin(size / 2.0f);
     body.setTexture(texture);
     body.setPosition(position);
-}
+    Vector2 intposition = Vector2(int(position.x),int(position.y));
+    Vector2 intsize = Vector2(int(size.x),int(size.y));
+
+    body.setTextureRect(sf::IntRect(intposition,intsize));}
 
 Tile::~Tile()
 {

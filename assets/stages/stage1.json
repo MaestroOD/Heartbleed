@@ -1,0 +1,75 @@
+{
+    "playerSpawn": {
+      "x": 3,
+      "y": 5
+    },
+    "goalPoint": {
+      "x": 12,
+      "y": 12
+    },
+    "enemies": [
+      {
+        "x": 150,
+        "y": 400,
+        "color": "red",
+        "type": 0
+      },
+      {
+        "x": 500,
+        "y": 600,
+        "color": "red",
+        "type": 1
+      }
+    ],
+    "tiles": [
+      {
+        "texture": "assets/images/tile-wires.png",
+        "position": {
+          "x": 0,
+          "y": 0
+        },
+        "size": {
+          "width": 26,
+          "height": 1
+        },
+        "type": 0
+      },
+      {
+        "texture": "assets/images/tile-corner.png",
+        "position": {
+          "x": 0,
+          "y": 19
+        },
+        "size": {
+          "width": 26,
+          "height": 1
+        },
+        "type": 1
+      },
+      {
+        "texture": "assets/images/tile-corner.png",
+        "position": {
+          "x": 0,
+          "y": 0
+        },
+        "size": {
+          "width": 1,
+          "height": 19
+        },
+        "type": 1
+      },
+      {
+        "texture": "assets/images/tile-corner.png",
+        "position": {
+          "x": 25,
+          "y": 0
+        },
+        "size": {
+          "width": 1,
+          "height": 19
+        },
+        "type": 0
+      }
+    ]
+  }
+  
