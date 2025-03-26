@@ -53,19 +53,16 @@ void renderTiles(std::vector<Tile> &tiles, sf::RenderWindow *window)
 
 int main()
 {
-
-    sf::Font font;
-    if (!font.openFromFile("assets/font/Roboto-Thin.ttf"))
-    {
-        std::cerr << "Error loading font!" << std::endl;
-    }
-
     // sf::Music music;
     // if (!music.openFromFile("assets/audio/temp.wav"))
     //{
     // std::cerr << "Failed to load music\n";
     //}
     // music.play();
+
+    sf::Font font;
+    (void)font.openFromFile("assets/font/Penis Typography Black.ttf");
+
     unsigned int width = 1024;
     unsigned int height = 800;
     unsigned int currentStage = 0;
@@ -87,13 +84,13 @@ int main()
     enemy2.setDetectionRange(250.f);
     enemy2.setDirection(-1.f); // -1 = left, 1 = right
 
-    sf::Text fpsText(font);
-    fpsText.setCharacterSize(20);
-    fpsText.setFillColor(sf::Color::White);
-    fpsText.setPosition(sf::Vector2f(50.f, 10.f));
+    sf::Text debugText(font);
+    debugText.setCharacterSize(20);
+    debugText.setFillColor(sf::Color::White);
+    debugText.setPosition(sf::Vector2f(50.f, 10.f));
 
     sf::Clock deltaClock;
-    bool showFPS = false;
+    bool debugMode = false;
 
     // Tiles and shid
     // Tile wall1(nullptr, Vector2f(100.0f, 300.0f), Vector2f(500.0f, 180.0f), 0);    // (Texture path, size, pos, type), wall
@@ -126,7 +123,7 @@ int main()
 
                 if (keyPressed->scancode == sf::Keyboard::Scancode::B)
                 {
-                    showFPS = !showFPS;
+                    debugMode = !debugMode;
                 }
             }
             // Stop input
@@ -157,10 +154,10 @@ int main()
             enemy.setColor(sf::Color::Red);
         }
 
-        if (showFPS)
+        if (debugMode)
         {
             int fps = (1 / dt.asSeconds());
-            fpsText.setString("Health: " + std::to_string(player.getHP()));
+            debugText.setString("Fps: " + std::to_string(fps) + "\nPlayer Coords: x: " + std::to_string(player.getPosition().x) + ", y: " + std::to_string(player.getPosition().y));
         }
 
         sf::Vector2f direction;
@@ -177,9 +174,9 @@ int main()
         window->clear(sf::Color(0xFF8800FF));
 
         // Drawing shapes, sprites, etc.
-        if (showFPS)
+        if (debugMode)
         {
-            window->draw(fpsText);
+            window->draw(debugText);
         }
 
         player.renderBullet(*window);
