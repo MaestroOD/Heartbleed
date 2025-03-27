@@ -155,7 +155,7 @@ int main()
             current++;
             currentStage = &stages[current];
             player.setPosition(currentStage->getPlayerSpawn());
-            std::vector<Tile> gametiles = currentStage->getTiles();
+            gametiles = currentStage->getTiles();
 
         }
 

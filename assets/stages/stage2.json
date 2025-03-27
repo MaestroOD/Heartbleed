@@ -4,8 +4,8 @@
       "y": 3
     },
     "goalPoint": {
-      "x": 3,
-      "y": 3
+      "x": 2,
+      "y": 2
     },
     "enemies": [
       {
@@ -167,6 +167,18 @@
           "height": 1
         },
         "type": 2
+      },
+      {
+        "texture": "assets/images/tile-corner.png",
+        "position": {
+          "x": 9,
+          "y": 16
+        },
+        "size": {
+          "width": 2,
+          "height": 1
+        },
+        "type": 1
       }
     ]
   }

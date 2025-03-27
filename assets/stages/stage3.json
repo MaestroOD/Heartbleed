@@ -1,173 +1,184 @@
 {
-    "playerSpawn": {
-      "x": 3,
-      "y": 12
+  "playerSpawn": {
+    "x": 2,
+    "y": 2
+  },
+  "goalPoint": {
+    "x": 2,
+    "y": 18
+  },
+  "enemies": [
+    {
+      "x": 11,
+      "y": 14,
+      "color": "red",
+      "type": 0,
+      "direction": -1
     },
-    "goalPoint": {
-      "x": 12,
-      "y": 12
+    {
+      "x": 15,
+      "y": 14,
+      "color": "red",
+      "type": 1,
+      "direction": -1
+    }
+  ],
+  "tiles": [
+    {
+      "texture": "assets/images/tile-wires.png",
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "size": {
+        "width": 26,
+        "height": 1
+      },
+      "type": 0
     },
-    "enemies": [
-      {
-        "x": 11,
-        "y": 14,
-        "color": "red",
-        "type": 0,
-        "direction": -1
+    {
+      "texture": "assets/images/tile-corner.png",
+      "position": {
+        "x": 0,
+        "y": 19
       },
-      {
-        "x": 15,
-        "y": 14,
-        "color": "red",
-        "type": 1,
-        "direction": -1
-      }
-    ],
-    "tiles": [
-      {
-        "texture": "assets/images/tile-wires.png",
-        "position": {
-          "x": 0,
-          "y": 0
-        },
-        "size": {
-          "width": 26,
-          "height": 1
-        },
-        "type": 0
+      "size": {
+        "width": 26,
+        "height": 1
       },
-      {
-        "texture": "assets/images/tile-corner.png",
-        "position": {
-          "x": 0,
-          "y": 19
-        },
-        "size": {
-          "width": 26,
-          "height": 1
-        },
-        "type": 1
+      "type": 1
+    },
+    {
+      "texture": "assets/images/tile-corner.png",
+      "position": {
+        "x": 0,
+        "y": 0
       },
-      {
-        "texture": "assets/images/tile-corner.png",
-        "position": {
-          "x": 0,
-          "y": 0
-        },
-        "size": {
-          "width": 1,
-          "height": 19
-        },
-        "type": 1
+      "size": {
+        "width": 1,
+        "height": 19
       },
-      {
-        "texture": "assets/images/tile-corner.png",
-        "position": {
-          "x": 25,
-          "y": 0
-        },
-        "size": {
-          "width": 1,
-          "height": 19
-        },
-        "type": 0
+      "type": 1
+    },
+    {
+      "texture": "assets/images/tile-corner.png",
+      "position": {
+        "x": 25,
+        "y": 0
       },
-      {
-        "texture": "assets/images/tile-corner.png",
-        "position": {
-          "x": 12,
-          "y": 4
-        },
-        "size": {
-          "width": 2,
-          "height": 15
-        },
-        "type": 0
+      "size": {
+        "width": 1,
+        "height": 19
       },
-      {
-        "texture": "assets/images/tile-wires.png",
-        "position": {
-          "x": 1,
-          "y": 15
-        },
-        "size": {
-          "width": 4,
-          "height": 1
-        },
-        "type": 0
+      "type": 0
+    },
+    {
+      "texture": "assets/images/tile-corner.png",
+      "position": {
+        "x": 12,
+        "y": 1
       },
-      {
-        "texture": "assets/images/tile-wires.png",
-        "position": {
-          "x": 9,
-          "y": 13
-        },
-        "size": {
-          "width": 3,
-          "height": 1
-        },
-        "type": 0
+      "size": {
+        "width": 2,
+        "height": 15
       },
-      {
-        "texture": "assets/images/tile-wires.png",
-        "position": {
-          "x": 1,
-          "y": 11
-        },
-        "size": {
-          "width": 3,
-          "height": 1
-        },
-        "type": 0
+      "type": 0
+    },
+    {
+      "texture": "assets/images/tile-wires.png",
+      "position": {
+        "x": 1,
+        "y": 15
       },
-      {
-        "texture": "assets/images/tile-wires.png",
-        "position": {
-          "x": 9,
-          "y": 9
-        },
-        "size": {
-          "width": 3,
-          "height": 1
-        },
-        "type": 0
+      "size": {
+        "width": 4,
+        "height": 1
       },
-      {
-        "texture": "assets/images/tile-wires.png",
-        "position": {
-          "x": 5,
-          "y": 8
-        },
-        "size": {
-          "width": 2,
-          "height": 1
-        },
-        "type": 0
+      "type": 0
+    },
+    {
+      "texture": "assets/images/tile-wires.png",
+      "position": {
+        "x": 9,
+        "y": 13
       },
-      {
-        "texture": "assets/images/tile-wires.png",
-        "position": {
-          "x": 1,
-          "y": 5
-        },
-        "size": {
-          "width": 1,
-          "height": 1
-        },
-        "type": 0
+      "size": {
+        "width": 3,
+        "height": 1
       },
-      {
-        "texture": "assets/images/tile-wires.png",
-        "position": {
-          "x": 6,
-          "y": 5
-        },
-        "size": {
-          "width": 1,
-          "height": 1
-        },
-        "type": 0
-      }
-    ]
-  }
-  
+      "type": 0
+    },
+    {
+      "texture": "assets/images/tile-wires.png",
+      "position": {
+        "x": 1,
+        "y": 11
+      },
+      "size": {
+        "width": 3,
+        "height": 1
+      },
+      "type": 0
+    },
+    {
+      "texture": "assets/images/tile-wires.png",
+      "position": {
+        "x": 9,
+        "y": 9
+      },
+      "size": {
+        "width": 3,
+        "height": 1
+      },
+      "type": 0
+    },
+    {
+      "texture": "assets/images/tile-wires.png",
+      "position": {
+        "x": 5,
+        "y": 8
+      },
+      "size": {
+        "width": 2,
+        "height": 1
+      },
+      "type": 0
+    },
+    {
+      "texture": "assets/images/tile-wires.png",
+      "position": {
+        "x": 1,
+        "y": 5
+      },
+      "size": {
+        "width": 1,
+        "height": 1
+      },
+      "type": 0
+    },
+    {
+      "texture": "assets/images/Star.png",
+      "position": {
+        "x": 2,
+        "y": 18
+      },
+      "size": {
+        "width": 1,
+        "height": 1
+      },
+      "type": 2
+    },
+    {
+      "texture": "assets/images/tile-corner.png",
+      "position": {
+        "x": 9,
+        "y": 16
+      },
+      "size": {
+        "width": 2,
+        "height": 1
+      },
+      "type": 1
+    }
+  ]
+}
