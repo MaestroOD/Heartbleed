@@ -157,16 +157,16 @@
         "type": 0
       },
       {
-        "texture": "assets/images/tile-wires.png",
+        "texture": "assets/images/Star.png",
         "position": {
-          "x": 6,
-          "y": 5
+          "x": 2,
+          "y": 2
         },
         "size": {
           "width": 1,
           "height": 1
         },
-        "type": 0
+        "type": 2
       }
     ]
   }

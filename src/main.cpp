@@ -154,8 +154,9 @@ int main()
             // Load the next stage
             current++;
             currentStage = &stages[current];
-            
             player.setPosition(currentStage->getPlayerSpawn());
+            std::vector<Tile> gametiles = currentStage->getTiles();
+
         }
 
         if (player.getMode())
