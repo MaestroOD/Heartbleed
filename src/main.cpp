@@ -53,12 +53,12 @@ void renderTiles(std::vector<Tile>& tiles, sf::RenderWindow* window)
 
 int main()
 {
-    // sf::Music music;
-    // if (!music.openFromFile("assets/audio/temp.wav"))
-    //{
-    // std::cerr << "Failed to load music\n";
-    //}
-    // music.play();
+    sf::Music music;
+    if (!music.openFromFile("assets/audio/temp2.wav"))
+        {
+        std::cerr << "Failed to load music\n";
+        }
+    music.play();
 
     sf::Font font;
     (void)font.openFromFile("assets/font/Penis Typography Black.ttf");
@@ -69,23 +69,24 @@ int main()
     Stage currentStage = Stage("./assets/stages/stage1.json");
     std::vector<Tile> gametiles = currentStage.getTiles();
 
-    sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode({ width, height }), "Prototype");
+    sf::RenderWindow *window = new sf::RenderWindow(sf::VideoMode({width, height}), "Heartbleed");
     window->setFramerateLimit(60); // Limit frames to 60 FPS for convenience
 
+    // initialize player
     Player player;
     player.setPosition(currentStage.getPlayerSpawn());
 
-    Enemy enemy(sf::Vector2f(64, 64), sf::Color::White, true); // normal foolow
-    Enemy enemy2(sf::Vector2f(64, 64), sf::Color::White, false);
+    Enemy enemy(sf::Vector2f(64, 64), sf::Color::Red, true); // normal foolow
+    Enemy enemy2(sf::Vector2f(64, 64), sf::Color::Red, false);
     std::vector<Bullet> bulletVec;
 
     enemy.setPos(sf::Vector2f(350, 231));
     enemy.setDetectionRange(250.f);
     enemy.setSpeed(100.f);
 
-    enemy2.setPos(sf::Vector2f(390, 231));
-    enemy2.setDetectionRange(250.f);
-    enemy2.setDirection(-1.f); // -1 = left, 1 = right
+    //enemy2.setPos(sf::Vector2f(390, 231));
+    //enemy2.setDetectionRange(250.f);
+    //enemy2.setDirection(-1.f); // -1 = left, 1 = right
 
     sf::Text debugText(font);
     debugText.setCharacterSize(20);
@@ -126,8 +127,12 @@ int main()
 
         // Render (collision checks go here)
         player.update();
-        enemy.update(dt, player.getPosition());
-        enemy2.update(dt, player.getPosition());
+        //enemy.update(dt, player.getPosition());
+        //enemy2.update(dt, player.getPosition());
+
+        for (auto enemy : currentStage.getEnemies()) {
+            enemy.update(dt, player.getPosition());
+        }
 
         if (player.getPosition().x > 1000.0f)
         {
@@ -156,11 +161,20 @@ int main()
         sf::Vector2f enemyDirection2;
 
         checkTilePlayerCollision(gametiles, player, direction);
-        checkTileEnemyCollision(gametiles, enemy, enemyDirection);
-        checkTileEnemyCollision(gametiles, enemy2, enemyDirection2);
-        checkPlayerEnemyCollision(player, enemy, direction);
-        enemy.checkBullet(*player.getBullet());
-        player.checkEnemyBullet(enemy2.getBullet(), enemy2.getDamage());
+
+        for (auto enemy : currentStage.getEnemies()) {
+            checkTileEnemyCollision(gametiles, enemy, enemyDirection);
+            checkPlayerEnemyCollision(player, enemy, direction);
+            enemy.checkBullet(*player.getBullet());
+            player.checkEnemyBullet(enemy.getBullet(), enemy.getDamage());
+
+        } 
+        //checkTileEnemyCollision(gametiles, enemy, enemyDirection);
+        //checkTileEnemyCollision(gametiles, enemy2, enemyDirection2);
+
+        //checkPlayerEnemyCollision(player, enemy, direction);
+        //enemy.checkBullet(*player.getBullet());
+        //player.checkEnemyBullet(enemy2.getBullet(), enemy2.getDamage());
 
         window->clear(sf::Color(0x3b3b3b));
 
@@ -173,9 +187,13 @@ int main()
         player.renderBullet(*window);
         player.render(*window);
         renderTiles(gametiles, window);
-        enemy.draw(*window);
-        enemy2.drawBullet(*window);
-        enemy2.draw(*window);
+        for (auto enemy : currentStage.getEnemies()) {
+            enemy.draw(*window);
+            enemy.drawBullet(*window);
+        } 
+        //enemy.draw(*window);
+        //enemy2.drawBullet(*window);
+        //enemy2.draw(*window);
         window->display();
     }
 

@@ -29,7 +29,7 @@ public:
     const std::vector<Tile>& getTiles() const;
     sf::Vector2f getPlayerSpawn() const;
     sf::Vector2f getGoalPoint() const;
-    const std::vector<sf::Vector2f>& getEnemies() const;
+    std::vector<Enemy>& getEnemies();
 
 private:
     // Map to hold textures (persist for the stage's lifetime)
@@ -41,7 +41,7 @@ private:
     // Additional stage data.
     sf::Vector2f playerSpawn;
     sf::Vector2f goalPoint;
-    std::vector<sf::Vector2f> enemies;
+    std::vector<Enemy> enemies;
 
     // Helper to parse a single tile from JSON.
     Enemy parseEnemy(const nlohmann::json& enemyData);

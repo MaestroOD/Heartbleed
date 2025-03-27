@@ -194,3 +194,8 @@ void Enemy::drawBullet(sf::RenderWindow& window)
 {
     enemyBullet.draw(window, dt);
 }
+
+void Enemy::setMove(bool move)
+{
+    canMove = move;
+}

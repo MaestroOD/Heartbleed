@@ -28,6 +28,7 @@ public:
     void fireProjectile();
     int getDamage() { return damage; };
     void onCollision(sf::Vector2f direction);
+    void setMove(bool move);
 
     Bullet& getBullet() { return enemyBullet; };
     Collider& getCollider() { return collider; }

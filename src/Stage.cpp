@@ -6,17 +6,32 @@
 
 #define tilex 32.f
 #define tiley 32.f
-
 #define totalx = 32 * tilex
 #define totaly = 25 * tiley
-
-
-#define bottommargin = totaly - topmargin
 
 #define origin = sf::Vector2f(0.f,0.f)
 #define innerorigin = sf::Vector2f(leftmargin, topmargin)
 
 using json = nlohmann::json;
+
+
+sf::Color stringToColor(const std::string& colorName) {
+    static const std::unordered_map<std::string, sf::Color> colorMap = {
+        {"red", sf::Color::Red},
+        {"green", sf::Color::Green},
+        {"blue", sf::Color::Blue},
+        {"white", sf::Color::White},
+        {"black", sf::Color::Black},
+        {"yellow", sf::Color::Yellow},
+        {"magenta", sf::Color::Magenta},
+        {"cyan", sf::Color::Cyan}
+    };
+    auto it = colorMap.find(colorName);
+    if (it != colorMap.end())
+        return it->second;
+    else
+        return sf::Color::White;
+}
 
 Stage::Stage(const std::string& jsonFile) {
 
@@ -47,10 +62,13 @@ Stage::Stage(const std::string& jsonFile) {
     
     // Read enemy spawn locations.
     if (j.contains("enemies")) {
-        for (const auto& enemy : j["enemies"]) {
-            sf::Vector2f spawn;
-            spawn.x = enemy["x"].get<float>() * tileSize + leftmargin;
-            spawn.y = enemy["y"].get<float>() * tileSize + topmargin;
+        for (auto& enemy : j["enemies"]) {
+            Enemy spawn(sf::Vector2f(64, 64), sf::Color::Red, true);
+            spawn.setPos(sf::Vector2f(enemy["x"].get<float>() * tileSize + leftmargin, enemy["y"].get<float>() * tileSize + topmargin));
+            spawn.setColor(stringToColor(enemy["color"].get<std::string>()));
+            if (enemy["type"].get<int>() == 0) {
+                spawn.setMove(false);
+            }
             enemies.push_back(spawn);
         }
     }
@@ -108,7 +126,7 @@ sf::Vector2f Stage::getGoalPoint() const {
     return goalPoint;
 }
 
-const std::vector<sf::Vector2f>& Stage::getEnemies() const {
+std::vector<Enemy>& Stage::getEnemies() {
     return enemies;
 }
 
