@@ -130,7 +130,7 @@ int main()
         //enemy.update(dt, player.getPosition());
         //enemy2.update(dt, player.getPosition());
 
-        for (auto enemy : currentStage.getEnemies()) {
+        for (auto& enemy : currentStage.getEnemies()) {
             enemy.update(dt, player.getPosition());
         }
 
@@ -162,7 +162,7 @@ int main()
 
         checkTilePlayerCollision(gametiles, player, direction);
 
-        for (auto enemy : currentStage.getEnemies()) {
+        for (auto& enemy : currentStage.getEnemies()) {
             checkTileEnemyCollision(gametiles, enemy, enemyDirection);
             checkPlayerEnemyCollision(player, enemy, direction);
             enemy.checkBullet(*player.getBullet());
@@ -187,7 +187,7 @@ int main()
         player.renderBullet(*window);
         player.render(*window);
         renderTiles(gametiles, window);
-        for (auto enemy : currentStage.getEnemies()) {
+        for (auto& enemy : currentStage.getEnemies()) {
             enemy.draw(*window);
             enemy.drawBullet(*window);
         } 

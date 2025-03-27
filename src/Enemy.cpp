@@ -199,3 +199,8 @@ void Enemy::setMove(bool move)
 {
     canMove = move;
 }
+
+Vector2f Enemy::getPos()
+{
+    return enemy.get
+}
