@@ -11,9 +11,9 @@
 
 // Checks collision of all tiles with the player specifically
 
-void checkTilePlayerCollision(std::vector<Tile> &tiles, Player &player, sf::Vector2f &direction)
+void checkTilePlayerCollision(std::vector<Tile>& tiles, Player& player, sf::Vector2f& direction)
 {
-    for (Tile &tile : tiles)
+    for (Tile& tile : tiles)
     {
         if (tile.getCollider().checkCollision(player.getCollider(), direction, 1.0f))
         {
@@ -22,9 +22,9 @@ void checkTilePlayerCollision(std::vector<Tile> &tiles, Player &player, sf::Vect
     }
 }
 
-void checkTileEnemyCollision(std::vector<Tile> &tiles, Enemy &enemy, sf::Vector2f &direction)
+void checkTileEnemyCollision(std::vector<Tile>& tiles, Enemy& enemy, sf::Vector2f& direction)
 {
-    for (Tile &tile : tiles)
+    for (Tile& tile : tiles)
     {
         if (tile.getCollider().checkCollision(enemy.getCollider(), direction, 1.0f))
         {
@@ -33,7 +33,7 @@ void checkTileEnemyCollision(std::vector<Tile> &tiles, Enemy &enemy, sf::Vector2
     }
 }
 
-void checkPlayerEnemyCollision(Player &player, Enemy &enemy, sf::Vector2f &direction)
+void checkPlayerEnemyCollision(Player& player, Enemy& enemy, sf::Vector2f& direction)
 {
     if (enemy.getCollider().checkCollision(player.getCollider(), direction, 1.0f) && enemy.getCanAttack())
     {
@@ -43,9 +43,9 @@ void checkPlayerEnemyCollision(Player &player, Enemy &enemy, sf::Vector2f &direc
 }
 
 // Draws all tiles
-void renderTiles(std::vector<Tile> &tiles, sf::RenderWindow *window)
+void renderTiles(std::vector<Tile>& tiles, sf::RenderWindow* window)
 {
-    for (Tile &tile : tiles)
+    for (Tile& tile : tiles)
     {
         tile.render(*window);
     }
@@ -69,14 +69,14 @@ int main()
     Stage currentStage = Stage("./assets/stages/stage1.json");
     std::vector<Tile> gametiles = currentStage.getTiles();
 
-    sf::RenderWindow *window = new sf::RenderWindow(sf::VideoMode({width, height}), "Prototype");
+    sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode({ width, height }), "Prototype");
     window->setFramerateLimit(60); // Limit frames to 60 FPS for convenience
 
     Player player;
     player.setPosition(currentStage.getPlayerSpawn());
 
-    Enemy enemy(sf::Vector2f(64, 64), sf::Color::Red, true); // normal foolow
-    Enemy enemy2(sf::Vector2f(64, 64), sf::Color::Red, false);
+    Enemy enemy(sf::Vector2f(64, 64), sf::Color::White, true); // normal foolow
+    Enemy enemy2(sf::Vector2f(64, 64), sf::Color::White, false);
     std::vector<Bullet> bulletVec;
 
     enemy.setPos(sf::Vector2f(350, 231));
@@ -108,7 +108,7 @@ int main()
                 window->close();
             }
             // Check keyboard inputs
-            else if (const auto *keyPressed = event->getIf<sf::Event::KeyPressed>())
+            else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
             {
                 player.handleInput(keyPressed->scancode, true, *window);
 
@@ -118,7 +118,7 @@ int main()
                 }
             }
             // Stop input
-            else if (const auto *keyPressed = event->getIf<sf::Event::KeyReleased>())
+            else if (const auto* keyPressed = event->getIf<sf::Event::KeyReleased>())
             {
                 player.handleInput(keyPressed->scancode, false, *window);
             }
@@ -138,11 +138,11 @@ int main()
 
         if (player.getMode())
         {
-            enemy.setColor(sf::Color::Blue);
+            enemy.setColor(sf::Color::Red);
         }
         else
         {
-            enemy.setColor(sf::Color::Red);
+            enemy.setColor(sf::Color::White);
         }
 
         if (debugMode)

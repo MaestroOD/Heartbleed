@@ -2,7 +2,7 @@
 #include <iostream>
 #include <cmath>
 
-Enemy::Enemy(sf::Vector2f size, sf::Color color, bool cMove) : collider(enemy), enemyBullet({32, 32}, 1)
+Enemy::Enemy(sf::Vector2f size, sf::Color color, bool cMove) : collider(enemy), enemyBullet({ 32, 32 }, 1)
 {
     health = 100;
     velocity = Vector2f(0, 0);
@@ -12,6 +12,26 @@ Enemy::Enemy(sf::Vector2f size, sf::Color color, bool cMove) : collider(enemy), 
     atkCooldown = 0.8f;
     canMove = cMove;
 
+    if (canMove) 
+    {
+        if (!texture.loadFromFile("assets/images/chaser.png")) {
+            std::cerr << "Error: Unable to load in enemy sprite!";
+        }
+        if (!attackTexture.loadFromFile("assets/images/chaser-attack.png")) {
+            std::cerr << "Error: Unable to load in enemy sprite!";
+        }
+    }
+    else 
+    {
+        if (!texture.loadFromFile("assets/images/turret.png")) {
+            std::cerr << "Error: Unable to load in enemy sprite!";
+        }
+        if (!attackTexture.loadFromFile("assets/images/turret-attack.png")) {
+            std::cerr << "Error: Unable to load in enemy sprite!";
+        }
+    }
+
+    enemy.setTexture(&texture);
     enemy.setFillColor(color);
     enemy.setSize(size);
     enemy.setOrigin(size / 2.0f);
@@ -26,6 +46,7 @@ void Enemy::disableAttack()
 {
     timeSinceAtk = enemyClock.getElapsedTime().asSeconds();
     canAttack = false;
+    enemy.setTexture(&attackTexture);
 }
 
 void Enemy::enableAttack()
@@ -43,7 +64,7 @@ void Enemy::setColor(sf::Color color)
     enemy.setFillColor(color);
 }
 
-void Enemy::checkBullet(Bullet &bullet)
+void Enemy::checkBullet(Bullet& bullet)
 {
     sf::Vector2f otherPosition = bullet.getPos();
     sf::Vector2f otherHalfSize = bullet.getHalfSize();
@@ -107,6 +128,10 @@ void Enemy::update(Time deltaTime, Vector2f playerPos)
     {
         enableAttack();
     }
+    else if (enemyClock.getElapsedTime().asSeconds() - timeSinceAtk >= atkCooldown / 2.f)
+    {
+        enemy.setTexture(&texture);
+    }
 
     enemy.move(velocity * deltaTime.asSeconds());
 }
@@ -131,7 +156,7 @@ void Enemy::fireProjectile()
 
 void Enemy::setDirection(float dir)
 {
-    enemy.setScale({dir, 1.0f});
+    enemy.setScale({ dir, 1.0f });
 }
 
 void Enemy::setSpeed(float newSpeed)
@@ -160,12 +185,12 @@ void Enemy::onCollision(Vector2f direction)
     }
 }
 
-void Enemy::draw(sf::RenderWindow &window)
+void Enemy::draw(sf::RenderWindow& window)
 {
     window.draw(enemy);
 }
 
-void Enemy::drawBullet(sf::RenderWindow &window)
+void Enemy::drawBullet(sf::RenderWindow& window)
 {
     enemyBullet.draw(window, dt);
 }
