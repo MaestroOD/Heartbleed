@@ -75,18 +75,19 @@ int main()
     // initialize player
     Player player;
     player.setPosition(currentStage.getPlayerSpawn());
+    std::vector<Bullet> bulletVec;
+    //std::vector<Enemy> enemies = currentStage.getEnemies();
 
     Enemy enemy(sf::Vector2f(64, 64), sf::Color::Red, true); // normal foolow
     Enemy enemy2(sf::Vector2f(64, 64), sf::Color::Red, false);
-    std::vector<Bullet> bulletVec;
 
-    enemy.setPos(sf::Vector2f(350, 231));
+    enemy.setPos(sf::Vector2f(350, 331));
     enemy.setDetectionRange(250.f);
     enemy.setSpeed(100.f);
 
-    //enemy2.setPos(sf::Vector2f(390, 231));
-    //enemy2.setDetectionRange(250.f);
-    //enemy2.setDirection(-1.f); // -1 = left, 1 = right
+    enemy2.setPos(sf::Vector2f(420, 331));
+    enemy2.setDetectionRange(250.f);
+    enemy2.setDirection(-1.f); // -1 = left, 1 = right
 
     sf::Text debugText(font);
     debugText.setCharacterSize(20);
@@ -127,12 +128,12 @@ int main()
 
         // Render (collision checks go here)
         player.update();
-        //enemy.update(dt, player.getPosition());
-        //enemy2.update(dt, player.getPosition());
+        enemy.update(dt, player.getPosition());
+        enemy2.update(dt, player.getPosition());
 
-        for (auto& enemy : currentStage.getEnemies()) {
+  /*       for (auto& enemy : currentStage.getEnemies()) {
             enemy.update(dt, player.getPosition());
-        }
+        } */
 
         if (player.getPosition().x > 1000.0f)
         {
@@ -153,7 +154,11 @@ int main()
         if (debugMode)
         {
             int fps = (1 / dt.asSeconds());
-            debugText.setString("Fps: " + std::to_string(fps) + "\nPlayer Coords: x: " + std::to_string(player.getPosition().x) + ", y: " + std::to_string(player.getPosition().y));
+            debugText.setString("Fps: " + std::to_string(fps) + 
+            "\nPlayer Coords: x: " + std::to_string(player.getPosition().x) + 
+            ", y: " + std::to_string(player.getPosition().y) + 
+            "\nPlayer Block: x: " + std::to_string((int)((player.getPosition().x / 32)-3)) +
+            ", y: " + std::to_string((int)((player.getPosition().y / 32)-3)));
         }
 
         sf::Vector2f direction;
@@ -162,19 +167,21 @@ int main()
 
         checkTilePlayerCollision(gametiles, player, direction);
 
-        for (auto& enemy : currentStage.getEnemies()) {
+/*         for (auto& enemy : currentStage.getEnemies()) {
             checkTileEnemyCollision(gametiles, enemy, enemyDirection);
             checkPlayerEnemyCollision(player, enemy, direction);
             enemy.checkBullet(*player.getBullet());
             player.checkEnemyBullet(enemy.getBullet(), enemy.getDamage());
 
-        } 
-        //checkTileEnemyCollision(gametiles, enemy, enemyDirection);
-        //checkTileEnemyCollision(gametiles, enemy2, enemyDirection2);
+        }  */
 
-        //checkPlayerEnemyCollision(player, enemy, direction);
-        //enemy.checkBullet(*player.getBullet());
-        //player.checkEnemyBullet(enemy2.getBullet(), enemy2.getDamage());
+
+        checkTileEnemyCollision(gametiles, enemy, enemyDirection);
+        checkTileEnemyCollision(gametiles, enemy2, enemyDirection2);
+
+        checkPlayerEnemyCollision(player, enemy, direction);
+        enemy.checkBullet(*player.getBullet());
+        player.checkEnemyBullet(enemy2.getBullet(), enemy2.getDamage());
 
         window->clear(sf::Color(0x3b3b3b));
 
@@ -187,13 +194,15 @@ int main()
         player.renderBullet(*window);
         player.render(*window);
         renderTiles(gametiles, window);
-        for (auto& enemy : currentStage.getEnemies()) {
+
+/*         for (auto& enemy : currentStage.getEnemies()) {
             enemy.draw(*window);
             enemy.drawBullet(*window);
-        } 
-        //enemy.draw(*window);
-        //enemy2.drawBullet(*window);
-        //enemy2.draw(*window);
+        }  */
+       
+        enemy.draw(*window);
+        enemy2.drawBullet(*window);
+        enemy2.draw(*window);
         window->display();
     }
 
