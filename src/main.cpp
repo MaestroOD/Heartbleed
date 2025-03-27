@@ -66,7 +66,10 @@ int main()
     unsigned int width = 1024;
     unsigned int height = 800;
 
-    Stage currentStage = Stage("./assets/stages/stage1.json");
+    std::vector<String> stages = {"./assets/stages/stage1.json","./assets/stages/stage2.json","./assets/stages/stage3.json","./assets/stages/stage4.json"};
+
+    int current = 0;
+    Stage currentStage = Stage(stages[current]);
     std::vector<Tile> gametiles = currentStage.getTiles();
 
     sf::RenderWindow *window = new sf::RenderWindow(sf::VideoMode({width, height}), "Heartbleed");
@@ -135,10 +138,11 @@ int main()
             enemy.update(dt, player.getPosition());
         } */
 
-        if (player.getPosition().x > 1000.0f)
+        if (player.getPosition().x + 32 > currentStage.getGoalPoint().x && player.getPosition().y + 32 > currentStage.getGoalPoint().y)
         {
             // Load the next stage
-            currentStage;
+            current++;
+            currentStage = Stage(stages[current]);
             player.setPosition(currentStage.getPlayerSpawn());
         }
 
