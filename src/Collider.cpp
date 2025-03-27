@@ -68,6 +68,9 @@ Vector2f Collider::getHalfSize() const
 
 bool Collider::checkCollision(Collider &other, sf::Vector2f &direction, float push)
 {
+
+
+
     sf::Vector2f otherPosition = other.getPosition();
     sf::Vector2f otherHalfSize = other.getHalfSize();
     sf::Vector2f thisPosition = getPosition();

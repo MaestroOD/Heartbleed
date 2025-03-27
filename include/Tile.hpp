@@ -36,6 +36,7 @@ public:
 
     void render(RenderWindow &window);
     Collider &getCollider() { return collider; };
+    int getType();
 
 private:
     int type; // 0 = Normal platform type, 1 = Ground, 2 = No collision

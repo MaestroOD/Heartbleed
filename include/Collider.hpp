@@ -18,8 +18,10 @@ public:
 
     Vector2f getPosition() const;
     Vector2f getHalfSize() const;
+    void setType(int type);
 
 private:
     RectangleShape *bodyPtr;
     Sprite *spritePtr;
+    int type = 0;
 };

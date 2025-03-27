@@ -15,7 +15,7 @@ void checkTilePlayerCollision(std::vector<Tile>& tiles, Player& player, sf::Vect
 {
     for (Tile& tile : tiles)
     {
-        if (tile.getCollider().checkCollision(player.getCollider(), direction, 1.0f))
+        if (tile.getType() != 2 && tile.getCollider().checkCollision(player.getCollider(), direction, 1.0f))
         {
             player.onCollision(direction);
         }
@@ -154,6 +154,7 @@ int main()
             // Load the next stage
             current++;
             currentStage = &stages[current];
+            
             player.setPosition(currentStage->getPlayerSpawn());
         }
 

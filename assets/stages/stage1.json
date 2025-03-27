@@ -167,6 +167,18 @@
           "height": 1
         },
         "type": 0
+      },
+      {
+        "texture": "assets/images/Star.png",
+        "position": {
+          "x": 24,
+          "y": 18
+        },
+        "size": {
+          "width": 1,
+          "height": 1
+        },
+        "type": 2
       }
     ]
   }

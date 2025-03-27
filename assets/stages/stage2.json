@@ -1,11 +1,11 @@
 {
     "playerSpawn": {
-      "x": 3,
-      "y": 12
+      "x": 24,
+      "y": 3
     },
     "goalPoint": {
-      "x": 12,
-      "y": 12
+      "x": 3,
+      "y": 3
     },
     "enemies": [
       {
@@ -76,7 +76,7 @@
         "texture": "assets/images/tile-corner.png",
         "position": {
           "x": 12,
-          "y": 4
+          "y": 1
         },
         "size": {
           "width": 2,
