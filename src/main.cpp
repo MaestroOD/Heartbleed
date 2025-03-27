@@ -66,18 +66,24 @@ int main()
     unsigned int width = 1024;
     unsigned int height = 800;
 
-    std::vector<String> stages = {"./assets/stages/stage1.json","./assets/stages/stage2.json","./assets/stages/stage3.json","./assets/stages/stage4.json"};
+    std::vector<String> stagestrings = {"./assets/stages/stage1.json","./assets/stages/stage2.json","./assets/stages/stage3.json","./assets/stages/stage4.json"};
 
+    std::vector<Stage> stages;
     int current = 0;
-    Stage currentStage = Stage(stages[current]);
-    std::vector<Tile> gametiles = currentStage.getTiles();
+
+    for (String stage : stagestrings) {
+        stages.emplace_back(Stage(stage));
+    }
+    
+    Stage* currentStage = &stages[current];
+    std::vector<Tile> gametiles = currentStage->getTiles();
 
     sf::RenderWindow *window = new sf::RenderWindow(sf::VideoMode({width, height}), "Heartbleed");
     window->setFramerateLimit(60); // Limit frames to 60 FPS for convenience
 
     // initialize player
     Player player;
-    player.setPosition(currentStage.getPlayerSpawn());
+    player.setPosition(currentStage->getPlayerSpawn());
     std::vector<Bullet> bulletVec;
     //std::vector<Enemy> enemies = currentStage.getEnemies();
 
@@ -138,12 +144,17 @@ int main()
             enemy.update(dt, player.getPosition());
         } */
 
-        if (player.getPosition().x + 32 > currentStage.getGoalPoint().x && player.getPosition().y + 32 > currentStage.getGoalPoint().y)
+        const float tolerance = 5.0f;
+        sf::Vector2f playerPos = player.getPosition();
+        sf::Vector2f goalPos = currentStage->getGoalPoint();
+        
+        if (std::abs(playerPos.x - goalPos.x) < tolerance &&
+            std::abs(playerPos.y - goalPos.y) < tolerance)
         {
             // Load the next stage
             current++;
-            currentStage = Stage(stages[current]);
-            player.setPosition(currentStage.getPlayerSpawn());
+            currentStage = &stages[current];
+            player.setPosition(currentStage->getPlayerSpawn());
         }
 
         if (player.getMode())
