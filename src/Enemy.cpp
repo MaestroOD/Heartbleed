@@ -8,6 +8,9 @@ Enemy::Enemy(sf::Vector2f size, sf::Color color, bool cMove) : collider(enemy), 
     velocity = Vector2f(0, 0);
     speed = 150.0f;
     setDamage(10);
+    enemyBullet.setSpeed(1000.f);
+    enemyBullet.setDamage(10);
+    enemyBullet.setPos({4206042060, 69696969696969});
     canAttack = true;
     atkCooldown = 0.8f;
     canMove = cMove;

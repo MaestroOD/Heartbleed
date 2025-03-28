@@ -9,6 +9,7 @@
 #include "Enemy.hpp"
 #include "Stage.hpp"
 #include "ScreenState.hpp"
+#include "UI.hpp"
 
 // Checks collision of all tiles with the player specifically
 
@@ -90,6 +91,30 @@ int main()
     
     Stage* currentStage = &stages[current];
     std::vector<Tile> gametiles = currentStage->getTiles();
+
+    std::vector<String> weaponstrings = {"./assets/ui-layout/weapon1.json","././assets/ui-layout/weapon2.json"};
+    std::vector<String> healthstrings = {"./assets/ui-layout/5hp.json","./assets/ui-layout/4hp.json","./assets/ui-layout/3hp.json","./assets/ui-layout/2hp.json","./assets/ui-layout/1hp.json"};
+
+    std::vector<UI> weapons;
+    std::vector<UI> health;
+
+    bool currentWeapon = 0;
+    int currentHealth = 0;
+    
+    for (String ui : weaponstrings) {
+        weapons.emplace_back(UI(ui));
+    }
+
+    for (String ui : healthstrings) {
+        health.emplace_back(UI(ui));
+    }
+
+    UI* weaponTiles = &weapons[currentWeapon];
+    UI* healthTiles = &health[currentHealth];
+
+    std::vector<Tile> weapontiles = weaponTiles->getTiles();
+    std::vector<Tile> healthtiles = healthTiles->getTiles();
+
 
     sf::RenderWindow *window = new sf::RenderWindow(sf::VideoMode({width, height}), "Heartbleed");
     window->setFramerateLimit(60); // Limit frames to 60 FPS for convenience
@@ -219,7 +244,8 @@ int main()
 
         checkPlayerEnemyCollision(player, enemy, direction);
         enemy.checkBullet(*player.getBullet());
-        player.checkEnemyBullet(enemy2.getBullet(), enemy2.getDamage());
+        enemy2.checkBullet(*player.getBullet());
+        player.checkEnemyBullet(enemy2.getBullet(), enemy2.getBullet().getDamage());
 
         if (player.getHP() <= 0)
         {
@@ -271,6 +297,9 @@ int main()
         player.renderBullet(*window);
         player.render(*window);
         renderTiles(gametiles, window);
+        renderTiles(weapontiles, window);
+        renderTiles(healthtiles, window);
+
 
 /*         for (auto& enemy : currentStage.getEnemies()) {
             enemy.draw(*window);

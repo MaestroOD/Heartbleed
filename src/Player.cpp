@@ -41,8 +41,9 @@ Player::Player() : collider(sprite), bullet({}, 0), upBullet({}, 0), sprite(text
     sprite.setTexture(texture);
     sprite.setTextureRect(rectSourceSprite);
     sprite.setOrigin({16, 16});
-    sprite.setScale({2.0f, 2.0f});
+    sprite.setScale({2.f, 2.f});
     sprite.setPosition(position);
+
 }
 
 void Player::handleInput(Keyboard::Scancode key, bool checkPressed, RenderWindow &window)
