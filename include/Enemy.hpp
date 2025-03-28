@@ -12,9 +12,9 @@ public:
     Enemy(sf::Vector2f size, sf::Color color, bool canMove);
     void setPos(sf::Vector2f newPos);
     void setColor(sf::Color color);
-    void checkBullet(Bullet& bullet);
-    void draw(sf::RenderWindow& window);
-    void drawBullet(sf::RenderWindow& window);
+    void checkBullet(Bullet &bullet);
+    void draw(sf::RenderWindow &window);
+    void drawBullet(sf::RenderWindow &window);
     void update(Time deltaTime, sf::Vector2f playerPos);
     void setSpeed(float newSpeed);
     void setDetectionRange(float newRange);
@@ -30,20 +30,22 @@ public:
     int getDamage() { return damage; };
     void onCollision(sf::Vector2f direction);
     void setMove(bool move);
+    void setAsWall();
 
-    Bullet& getBullet() { return enemyBullet; };
-    Collider& getCollider() { return collider; }
+    Bullet &getBullet() { return enemyBullet; };
+    Collider &getCollider() { return collider; }
 
 private:
-    sf::Texture texture; // Idle texture
+    sf::Texture texture;       // Idle texture
     sf::Texture attackTexture; // Attack texture
-    sf::RectangleShape enemy; // Change to a sprite later
+    sf::RectangleShape enemy;  // Change to a sprite later
     int health;
     sf::Vector2f position;
     sf::Vector2f velocity;
     float speed;
     float range = 250.0f;
     bool canMove;
+    bool isWall;
     Collider collider;
 
     int damage;

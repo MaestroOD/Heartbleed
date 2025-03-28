@@ -62,6 +62,7 @@ public:
     Bullet *getBullet();
     void checkEnemyBullet(Bullet &bullet, int damage);
     void setPosition(Vector2f pos);
+    void upgradeBullet();
     Vector2f getPosition();
 
     Collider &getCollider() { return collider; }

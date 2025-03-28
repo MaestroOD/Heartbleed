@@ -20,7 +20,7 @@ void Bullet::fire(sf::Vector2f speed, Time dt)
 
 void Bullet::draw(sf::RenderWindow &window, Time dt)
 {
-    fire({1000.0f, 0.0f}, dt);
+    fire({speed, 0.0f}, dt);
     window.draw(bullet);
 }
 

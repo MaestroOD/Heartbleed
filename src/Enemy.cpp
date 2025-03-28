@@ -2,7 +2,7 @@
 #include <iostream>
 #include <cmath>
 
-Enemy::Enemy(sf::Vector2f size, sf::Color color, bool cMove) : collider(enemy), enemyBullet({ 32, 32 }, 1)
+Enemy::Enemy(sf::Vector2f size, sf::Color color, bool cMove) : collider(enemy), enemyBullet({32, 32}, 1)
 {
     health = 100;
     velocity = Vector2f(0, 0);
@@ -14,19 +14,23 @@ Enemy::Enemy(sf::Vector2f size, sf::Color color, bool cMove) : collider(enemy), 
 
     if (canMove)
     {
-        if (!texture.loadFromFile("assets/images/chaser.png")) {
+        if (!texture.loadFromFile("assets/images/chaser.png"))
+        {
             std::cerr << "Error: Unable to load in enemy sprite!";
         }
-        if (!attackTexture.loadFromFile("assets/images/chaser-attack.png")) {
+        if (!attackTexture.loadFromFile("assets/images/chaser-attack.png"))
+        {
             std::cerr << "Error: Unable to load in enemy sprite!";
         }
     }
     else
     {
-        if (!texture.loadFromFile("assets/images/turret.png")) {
+        if (!texture.loadFromFile("assets/images/turret.png"))
+        {
             std::cerr << "Error: Unable to load in enemy sprite!";
         }
-        if (!attackTexture.loadFromFile("assets/images/turret-attack.png")) {
+        if (!attackTexture.loadFromFile("assets/images/turret-attack.png"))
+        {
             std::cerr << "Error: Unable to load in enemy sprite!";
         }
     }
@@ -66,7 +70,7 @@ void Enemy::setColor(sf::Color color)
     enemy.setFillColor(color);
 }
 
-void Enemy::checkBullet(Bullet& bullet)
+void Enemy::checkBullet(Bullet &bullet)
 {
     sf::Vector2f otherPosition = bullet.getPos();
     sf::Vector2f otherHalfSize = bullet.getHalfSize();
@@ -81,7 +85,15 @@ void Enemy::checkBullet(Bullet& bullet)
     if (intersectX < 0.f && intersectY < 0.f)
     {
         bullet.setPos(sf::Vector2f(420420420, 420420420));
-        takeDamage(50);
+        if (!isWall)
+        {
+            takeDamage(bullet.getDamage());
+        }
+        else if (bullet.getDamage() > 25)
+        {
+            takeDamage(bullet.getDamage());
+        }
+        // Play hit audio
     }
 }
 
@@ -96,6 +108,10 @@ void Enemy::takeDamage(int dmg)
 
 void Enemy::update(Time deltaTime, Vector2f playerPos)
 {
+    if (isWall)
+    {
+        return;
+    }
     dt = deltaTime;
     // Apply gravity
     velocity.y += 981.0f * deltaTime.asSeconds();
@@ -140,7 +156,7 @@ void Enemy::update(Time deltaTime, Vector2f playerPos)
 
 void Enemy::fireProjectile()
 {
-    if (canAttack)
+    if (canAttack && !isWall)
     {
         disableAttack();
         timeSinceAtk = enemyClock.getElapsedTime().asSeconds();
@@ -158,7 +174,7 @@ void Enemy::fireProjectile()
 
 void Enemy::setDirection(float dir)
 {
-    enemy.setScale({ dir, 1.0f });
+    enemy.setScale({dir, 1.0f});
 }
 
 void Enemy::setSpeed(float newSpeed)
@@ -169,6 +185,11 @@ void Enemy::setSpeed(float newSpeed)
 void Enemy::setDetectionRange(float newRange)
 {
     range = newRange;
+}
+
+void Enemy::setAsWall()
+{
+    isWall = true;
 }
 
 void Enemy::onCollision(Vector2f direction)
@@ -187,12 +208,12 @@ void Enemy::onCollision(Vector2f direction)
     }
 }
 
-void Enemy::draw(sf::RenderWindow& window)
+void Enemy::draw(sf::RenderWindow &window)
 {
     window.draw(enemy);
 }
 
-void Enemy::drawBullet(sf::RenderWindow& window)
+void Enemy::drawBullet(sf::RenderWindow &window)
 {
     enemyBullet.draw(window, dt);
 }

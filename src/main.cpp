@@ -8,6 +8,7 @@
 #include "Bullet.hpp"
 #include "Enemy.hpp"
 #include "Stage.hpp"
+#include "ScreenState.hpp"
 
 // Checks collision of all tiles with the player specifically
 
@@ -36,7 +37,7 @@ void checkTileEnemyCollision(std::vector<Tile>& tiles, Enemy& enemy, sf::Vector2
 void checkPlayerEnemyCollision(Player& player, Enemy& enemy, sf::Vector2f& direction)
 {
     float push = 1.0f;
-    if (!enemy.getCanMove()) {
+    if (enemy.getCanMove() == true) {
         push = 0.0f;
     }
     if (enemy.getCollider().checkCollision(player.getCollider(), direction, push))
@@ -92,6 +93,14 @@ int main()
 
     sf::RenderWindow *window = new sf::RenderWindow(sf::VideoMode({width, height}), "Heartbleed");
     window->setFramerateLimit(60); // Limit frames to 60 FPS for convenience
+ 
+    bool playChosen = showEndScreen(*window, font);
+    if (!playChosen)
+    {
+        // User wants to exit, or closed window
+        delete window; // Free the window
+        return 0;      // End program
+    }
 
     // initialize player
     Player player;
@@ -211,6 +220,45 @@ int main()
         checkPlayerEnemyCollision(player, enemy, direction);
         enemy.checkBullet(*player.getBullet());
         player.checkEnemyBullet(enemy2.getBullet(), enemy2.getDamage());
+
+        if (player.getHP() <= 0)
+        {
+            // Capture the last frame in 'lastFrame'
+            auto winSize = window->getSize();
+            sf::Vector2u textureSize(winSize.x, winSize.y);
+
+            sf::Texture lastFrame(textureSize);
+            // If you need sRGB false explicitly:
+            // sf::Texture lastFrame(textureSize, false);
+
+            lastFrame.update(*window);
+
+            // Show the game over screen
+            bool restart = showGameOver(*window, font, lastFrame);
+            if (restart)
+            {
+                // Reset everything (e.g., health=100, stage=0, etc.)
+                //player.setHP(100);
+                //current = 0;
+                //currentStage = Stage(stages[current]);
+                //gametiles = currentStage.getTiles();
+                //player.setPosition(currentStage.getPlayerSpawn());
+
+                player.setHP(100);
+                currentStage = &stages[0];
+                gametiles = currentStage->getTiles();
+                player.setPosition(currentStage->getPlayerSpawn());
+
+                // Possibly reset enemies, bullets, etc.
+                // ...
+            }
+            else
+            {
+                // Close or exit the game
+                window->close();
+                break; // or return 0;
+            }
+        }
 
         window->clear(sf::Color(0x3b3b3b));
 
