@@ -2,11 +2,12 @@
 #include "Bullet.hpp"
 #include <cmath>
 #include <iostream>
-Player::Player() : collider(sprite), bullet({}, 0), sprite(texture)
+Player::Player() : collider(sprite), bullet({}, 0), upBullet({}, 0), sprite(texture)
 {
     // Initialize base values of player
     Vector2f size = {64, 64};
     health = 100;
+    currentBullet = 1;
     position = Vector2f(200, 200);
     velocity = Vector2f(0, 0);
     speed = 150.0f;
@@ -20,6 +21,14 @@ Player::Player() : collider(sprite), bullet({}, 0), sprite(texture)
     space = false;
     canFire = true;
     toggleMode = false;
+    upgrade = true;
+
+    bullet.setDamage(25);
+    bullet.setSpeed(800.f);
+
+    upBullet.setDamage(50);
+    upBullet.setSpeed(1200.f);
+    upBullet.setColor(sf::Color::Red);
 
     // Initialize sprite
     if (!texture.loadFromFile("assets/images/Player.png"))
@@ -65,6 +74,19 @@ void Player::handleInput(Keyboard::Scancode key, bool checkPressed, RenderWindow
         if (key == Keyboard::Scancode::T)
         {
             toggleMode = !toggleMode;
+        }
+        if (upgrade && canFire)
+        {
+            if (key == Keyboard::Scancode::Num1)
+            {
+                std::cout << "Gun 1";
+                currentBullet = 1;
+            }
+            else if (key == Keyboard::Scancode::Num2)
+            {
+                std::cout << "Gun 2";
+                currentBullet = 2;
+            }
         }
     }
     if (checkPressed == false)
@@ -157,13 +179,23 @@ void Player::fire()
         int dir = 1;
         canFire = false;
         timeLastFired = inGameClock.getElapsedTime().asSeconds();
-        bullet.setSize(sf::Vector2f(32, 32));
-        bullet.setPos(sprite.getPosition());
         if (sprite.getScale().x < 0)
         {
             dir = -1;
         }
-        bullet.setDirection(dir);
+
+        if (currentBullet == 1)
+        {
+            bullet.setSize(sf::Vector2f(32, 32));
+            bullet.setPos(sprite.getPosition());
+            bullet.setDirection(dir);
+        }
+        else if (currentBullet == 2)
+        {
+            upBullet.setSize(sf::Vector2f(32, 32));
+            upBullet.setPos(sprite.getPosition());
+            upBullet.setDirection(dir);
+        }
     }
 }
 
@@ -265,7 +297,23 @@ void Player::render(RenderWindow &window)
 
 void Player::renderBullet(RenderWindow &window)
 {
-    bullet.draw(window, dt);
+    if (currentBullet == 1)
+    {
+        bullet.draw(window, dt);
+    }
+    else if (currentBullet == 2)
+    {
+        upBullet.draw(window, dt);
+    }
+}
+
+Bullet *Player::getBullet()
+{
+    if (currentBullet == 2)
+    {
+        return &upBullet;
+    }
+    return &bullet;
 }
 
 void Player::setPosition(Vector2f pos)
@@ -276,4 +324,9 @@ void Player::setPosition(Vector2f pos)
 Vector2f Player::getPosition()
 {
     return sprite.getPosition();
+}
+
+void Player::setHP(int hp)
+{
+    health = hp;
 }

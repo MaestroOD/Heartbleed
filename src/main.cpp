@@ -35,12 +35,24 @@ void checkTileEnemyCollision(std::vector<Tile>& tiles, Enemy& enemy, sf::Vector2
 
 void checkPlayerEnemyCollision(Player& player, Enemy& enemy, sf::Vector2f& direction)
 {
-    if (enemy.getCollider().checkCollision(player.getCollider(), direction, 1.0f) && enemy.getCanAttack())
+    float push = 1.0f;
+    if (!enemy.getCanMove()) {
+        push = 0.0f;
+    }
+    if (enemy.getCollider().checkCollision(player.getCollider(), direction, push))
     {
-        enemy.disableAttack();
-        player.takeDamage(enemy.getDamage());
+        if (push == 0.0f && enemy.getCanAttack()) 
+        {
+            enemy.disableAttack();
+            player.takeDamage(enemy.getDamage());
+        }
+        else 
+        {
+            player.onCollision(direction);
+        }   
     }
 }
+
 
 // Draws all tiles
 void renderTiles(std::vector<Tile>& tiles, sf::RenderWindow* window)
@@ -61,7 +73,7 @@ int main()
     music.play();
 
     sf::Font font;
-    (void)font.openFromFile("assets/font/Penis Typography Black.ttf");
+    (void)font.openFromFile("assets/font/Hyper Oxide.ttf");
 
     unsigned int width = 1024;
     unsigned int height = 800;
@@ -85,7 +97,7 @@ int main()
     Player player;
     player.setPosition(currentStage->getPlayerSpawn());
     std::vector<Bullet> bulletVec;
-    //std::vector<Enemy> enemies = currentStage.getEnemies();
+    std::vector<Enemy> enemies = currentStage->getEnemies();
 
     Enemy enemy(sf::Vector2f(64, 64), sf::Color::Red, true); // normal foolow
     Enemy enemy2(sf::Vector2f(64, 64), sf::Color::Red, false);

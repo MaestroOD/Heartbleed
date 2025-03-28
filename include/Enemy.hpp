@@ -25,6 +25,7 @@ public:
     void enableAttack();  // Will be called ONLY in Enemy.cpp
     void setAtkCooldown(float cooldown);
     bool getCanAttack() { return canAttack; };
+    bool getCanMove() { return canMove; };
     void fireProjectile();
     int getDamage() { return damage; };
     void onCollision(sf::Vector2f direction);

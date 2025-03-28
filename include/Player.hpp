@@ -16,16 +16,19 @@ private:
     float jumpPower;
     float timeLastFired;
     float timeSinceFall;
-    int health; // 100 Default
+    int health;        // 100 Default
+    int currentBullet; // 1 default
     bool isOnGround;
     bool coyoteTime;
     bool canJump;
+    bool upgrade;
     Texture texture;
     RectangleShape body;
     IntRect rectSourceSprite;
     Sprite sprite;
     Collider collider;
     Bullet bullet;
+    Bullet upBullet; // Bullet upgrade
 
     // Input bools
     bool left;
@@ -51,11 +54,12 @@ public:
     void jump();
     void fire();
     int getHP() { return health; };
+    void setHP(int hp);
     void takeDamage(int amount);
     void update();
     void render(RenderWindow &window);
     void renderBullet(RenderWindow &window);
-    Bullet *getBullet() { return &bullet; };
+    Bullet *getBullet();
     void checkEnemyBullet(Bullet &bullet, int damage);
     void setPosition(Vector2f pos);
     Vector2f getPosition();

@@ -12,7 +12,7 @@ Enemy::Enemy(sf::Vector2f size, sf::Color color, bool cMove) : collider(enemy), 
     atkCooldown = 0.8f;
     canMove = cMove;
 
-    if (canMove) 
+    if (canMove)
     {
         if (!texture.loadFromFile("assets/images/chaser.png")) {
             std::cerr << "Error: Unable to load in enemy sprite!";
@@ -21,7 +21,7 @@ Enemy::Enemy(sf::Vector2f size, sf::Color color, bool cMove) : collider(enemy), 
             std::cerr << "Error: Unable to load in enemy sprite!";
         }
     }
-    else 
+    else
     {
         if (!texture.loadFromFile("assets/images/turret.png")) {
             std::cerr << "Error: Unable to load in enemy sprite!";
@@ -47,11 +47,13 @@ void Enemy::disableAttack()
     timeSinceAtk = enemyClock.getElapsedTime().asSeconds();
     canAttack = false;
     enemy.setTexture(&attackTexture);
+    speed = 0.0f;
 }
 
 void Enemy::enableAttack()
 {
     canAttack = true;
+    speed = 150.0f;
 }
 
 void Enemy::setPos(sf::Vector2f newPos)

@@ -16,10 +16,16 @@ public:
     void draw(sf::RenderWindow &window, Time dt);
     void setPos(sf::Vector2f newPos);
     void setDirection(float dir);
+    int getDamage() { return damage; };
+    void setDamage(int dmg);
+    void setSpeed(float speed);
+    void setColor(sf::Color col);
 
 private:
     sf::RectangleShape bullet;
     sf::Texture texture;
     float direction;
     int owner; // 0 = Player, 1 = enemy
+    int damage;
+    float speed;
 };

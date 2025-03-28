@@ -38,3 +38,18 @@ void Bullet::setDirection(float dir)
 {
     direction = dir;
 }
+
+void Bullet::setDamage(int dmg)
+{
+    damage = dmg;
+}
+
+void Bullet::setSpeed(float spd)
+{
+    speed = spd;
+}
+
+void Bullet::setColor(sf::Color col)
+{
+    bullet.setFillColor(col);
+}

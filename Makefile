@@ -15,7 +15,7 @@ $(TARGET): $(OBJ_FILES)
 	$(CPP) -o $@ $^ $(SFML_LIB) $(SFML_LIBS) $(INCLUDE_PATH)
 
 %.o: %.cpp
-	$(CPP) $(WARNINGS) $(COMPILEARG) -c $< -o $@
+	$(CPP) $(COMPILEARG) -c $< -o $@
 
 clean:
 	rm -f $(OBJ_FILES) $(TARGET)
