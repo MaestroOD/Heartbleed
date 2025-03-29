@@ -93,7 +93,7 @@ Stage::Stage(const std::string& jsonFile) {
         }
     }
 
-    std::cout << "success parsing " << jsonFile;
+    std::cout << "success parsing " << jsonFile << std::endl;
 }
 
 bool Stage::loadTexture(const std::string& textureName, const std::string& filename) {
