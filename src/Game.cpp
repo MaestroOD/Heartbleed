@@ -95,9 +95,13 @@ void Game::run() {
     Player player;
     player.setPosition(currentStage->getPlayerSpawn());
     std::vector<Bullet> bulletVec;
-    std::vector<Enemy> enemies = currentStage->getEnemies();
+    std::vector<Enemy>& gameenemies = currentStage->getEnemies();
 
-    Enemy enemy(sf::Vector2f(64, 64), sf::Color::Red, true);
+    for (Enemy& enemy : gameenemies) {
+        enemy.printStatus();
+    }
+
+/*     Enemy enemy(sf::Vector2f(64, 64), sf::Color::Red, true);
     Enemy enemy2(sf::Vector2f(64, 64), sf::Color::Red, false);
 
     enemy.setPos(sf::Vector2f(350, 331));
@@ -106,7 +110,7 @@ void Game::run() {
 
     enemy2.setPos(sf::Vector2f(420, 331));
     enemy2.setDetectionRange(250.f);
-    enemy2.setDirection(-1.f);
+    enemy2.setDirection(-1.f); */
 
     sf::Text debugText(font);
     debugText.setCharacterSize(20);
@@ -143,8 +147,14 @@ void Game::run() {
 
         // Update game objects
         player.update();
-        enemy.update(dt, player.getPosition());
-        enemy2.update(dt, player.getPosition());
+
+        for (Enemy& enemy : gameenemies) {
+            // 1. Update enemy logic
+            enemy.update(dt, player.getPosition());
+        }
+
+        //enemy.update(dt, player.getPosition());
+        //enemy2.update(dt, player.getPosition());
 
         const float tolerance = 16.0f;
         sf::Vector2f playerPos = player.getPosition();
@@ -159,11 +169,11 @@ void Game::run() {
             gametiles = currentStage->getTiles();
         }
 
-        if (player.getMode()) {
+/*         if (player.getMode()) {
             enemy.setColor(sf::Color::Red);
         } else {
             enemy.setColor(sf::Color::White);
-        }
+        } */
 
         if (debugMode) {
             int fps = static_cast<int>(1 / dt.asSeconds());
@@ -175,17 +185,29 @@ void Game::run() {
         }
 
         sf::Vector2f direction;
-        sf::Vector2f enemyDirection;
-        sf::Vector2f enemyDirection2;
+        //sf::Vector2f enemyDirection;
+        //sf::Vector2f enemyDirection2;
 
         checkTilePlayerCollision(gametiles, player, direction);
-        checkTileEnemyCollision(gametiles, enemy, enemyDirection);
-        checkTileEnemyCollision(gametiles, enemy2, enemyDirection2);
 
-        checkPlayerEnemyCollision(player, enemy, direction);
-        enemy.checkBullet(*player.getBullet());
-        enemy2.checkBullet(*player.getBullet());
-        player.checkEnemyBullet(enemy2.getBullet(), enemy2.getBullet().getDamage());
+        for (Enemy& enemy : gameenemies) {
+            sf::Vector2f enemyDirection;
+      
+            checkTileEnemyCollision(gametiles, enemy, enemyDirection);
+            checkPlayerEnemyCollision(player, enemy, direction);
+      
+            enemy.checkBullet(*player.getBullet());
+      
+            player.checkEnemyBullet(enemy.getBullet(), enemy.getDamage());
+        }
+
+        //checkTileEnemyCollision(gametiles, enemy, enemyDirection);
+        //checkTileEnemyCollision(gametiles, enemy2, enemyDirection2);
+
+        //checkPlayerEnemyCollision(player, enemy, direction);
+        //enemy.checkBullet(*player.getBullet());
+        //enemy2.checkBullet(*player.getBullet());
+        //player.checkEnemyBullet(enemy2.getBullet(), enemy2.getBullet().getDamage());
 
         if (player.getHP() <= 0) {
             auto winSize = window->getSize();
@@ -216,9 +238,17 @@ void Game::run() {
         renderTiles(health[player.getHP() - 1].getTiles(), window);
         renderTiles(weapon[player.getBulletType() - 1].getTiles(), window);
        
-        enemy.draw(*window);
-        enemy2.drawBullet(*window);
-        enemy2.draw(*window);
+        //enemy.draw(*window);
+        //enemy2.drawBullet(*window);
+        //enemy2.draw(*window);
+
+        for (Enemy& enemy : gameenemies) {
+            enemy.draw(*window);
+            if (enemy.getCanAttack()) {
+                enemy.drawBullet(*window);
+            }
+        }
+        
         window->display();
     }
 
@@ -244,6 +274,7 @@ void checkTileEnemyCollision(std::vector<Tile>& tiles, Enemy& enemy, sf::Vector2
 
 void checkPlayerEnemyCollision(Player& player, Enemy& enemy, sf::Vector2f& direction) {
     float push = 1.0f;
+    
     if (enemy.getCanMove() == true) {
         push = 0.0f;
     }

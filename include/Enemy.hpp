@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <iostream>
 #include "Bullet.hpp"
 #include "Collider.hpp"
@@ -10,6 +11,7 @@ class Enemy
 {
 public:
     Enemy(sf::Vector2f size, sf::Color color, bool canMove);
+    Enemy(const Enemy& other);
     void setPos(sf::Vector2f newPos);
     void setColor(sf::Color color);
     void checkBullet(Bullet &bullet);
@@ -31,9 +33,11 @@ public:
     void onCollision(sf::Vector2f direction);
     void setMove(bool move);
     void setAsWall();
+    void printStatus() const;
 
     Bullet &getBullet() { return enemyBullet; };
-    Collider &getCollider() { return collider; }
+    Collider &getCollider() { return collider; };
+    sf::SoundBuffer &getSoundBuffer(std::string soundName);
 
 private:
     sf::Texture texture;       // Idle texture
@@ -46,12 +50,19 @@ private:
     float range = 250.0f;
     bool canMove;
     bool isWall;
+    sf::SoundBuffer hurtBuffer;
+    sf::Sound hurtSound;
+    sf::SoundBuffer laserBuffer;
+    sf::Sound laserSound;
+    sf::SoundBuffer screamBuffer;
+    sf::Sound screamSound;
     Collider collider;
 
     int damage;
     bool canAttack;
     float atkCooldown;
     float timeSinceAtk;
+    float timeSinceScream; // hehehehaw
     Time dt;
     Clock enemyClock;
     Bullet enemyBullet;

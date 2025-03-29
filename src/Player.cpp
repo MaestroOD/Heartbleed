@@ -2,7 +2,7 @@
 #include "Bullet.hpp"
 #include <cmath>
 #include <iostream>
-Player::Player() : collider(sprite), bullet({}, 0), upBullet({}, 0), sprite(texture)
+Player::Player() : collider(sprite), bullet({}, 0), upBullet({}, 0), sprite(texture), hurtSound(getSoundBuffer("hurt")), laserSound(getSoundBuffer("laser"))
 {
     // Initialize base values of player
     Vector2f size = {64, 64};
@@ -23,10 +23,10 @@ Player::Player() : collider(sprite), bullet({}, 0), upBullet({}, 0), sprite(text
     toggleMode = false;
     upgrade = true;
 
-    bullet.setDamage(25);
+    bullet.setDamage(1);
     bullet.setSpeed(800.f);
 
-    upBullet.setDamage(50);
+    upBullet.setDamage(2);
     upBullet.setSpeed(1200.f);
     upBullet.setColor(sf::Color::Red);
 
@@ -35,15 +35,20 @@ Player::Player() : collider(sprite), bullet({}, 0), upBullet({}, 0), sprite(text
     {
         std::cerr << "Error loading in player texture" << std::endl;
     }
+    // Customize sound effects
+    hurtSound.setVolume(100);
+    hurtSound.setPitch(2);
+
+    laserSound.setVolume(100);
+    laserSound.setPitch(1.2);
 
     // Switched from Rect to Sprite
     rectSourceSprite = IntRect({0, 0}, {32, 32});
     sprite.setTexture(texture);
     sprite.setTextureRect(rectSourceSprite);
     sprite.setOrigin({16, 16});
-    sprite.setScale({2.f, 2.f});
+    sprite.setScale({2.0f, 2.0f});
     sprite.setPosition(position);
-
 }
 
 void Player::handleInput(Keyboard::Scancode key, bool checkPressed, RenderWindow &window)
@@ -80,12 +85,10 @@ void Player::handleInput(Keyboard::Scancode key, bool checkPressed, RenderWindow
         {
             if (key == Keyboard::Scancode::Num1)
             {
-                std::cout << "Gun 1";
                 currentBullet = 1;
             }
             else if (key == Keyboard::Scancode::Num2)
             {
-                std::cout << "Gun 2";
                 currentBullet = 2;
             }
         }
@@ -197,19 +200,14 @@ void Player::fire()
             upBullet.setPos(sprite.getPosition());
             upBullet.setDirection(dir);
         }
+        laserSound.play();
     }
 }
 
 void Player::takeDamage(int amount)
 {
-    if (health >= amount)
-    {
-        health -= amount;
-    }
-    else
-    {
-        health = 0;
-    }
+    health = std::max(0, health - amount);
+    hurtSound.play();
 }
 
 void Player::onCollision(Vector2f direction)
@@ -317,6 +315,11 @@ Bullet *Player::getBullet()
     return &bullet;
 }
 
+void Player::upgradeBullet()
+{
+    upgrade = true;
+}
+
 void Player::setPosition(Vector2f pos)
 {
     sprite.setPosition(pos);
@@ -335,4 +338,26 @@ void Player::setHP(int hp)
 int Player::getBulletType()
 {
     return currentBullet;
+}
+
+SoundBuffer &Player::getSoundBuffer(std::string soundName)
+{
+    if (soundName.compare("hurt") == 0)
+    {
+        if (!hurtBuffer.loadFromFile("assets/audio/Pdamage.wav"))
+        {
+            std::cerr << "Error loading hurt sound\n";
+        }
+
+        return hurtBuffer;
+    }
+    else
+    {
+        if (!laserBuffer.loadFromFile("assets/audio/laser.wav"))
+        {
+            std::cerr << "Error loading hurt sound\n";
+        }
+
+        return laserBuffer;
+    }
 }

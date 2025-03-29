@@ -60,21 +60,42 @@ Stage::Stage(const std::string& jsonFile) {
         goalPoint.y = j["goalPoint"]["y"].get<float>() * tileSize + topmargin;
     }
     
-    // Read enemy spawn locations.
-    if (j.contains("enemies")) {
-        for (auto& enemy : j["enemies"]) {
-            Enemy spawn(sf::Vector2f(64, 64), sf::Color::Red, true);
-            spawn.setPos(sf::Vector2f(enemy["x"].get<float>() * tileSize + leftmargin, enemy["y"].get<float>() * tileSize + topmargin));
-            spawn.setColor(stringToColor(enemy["color"].get<std::string>()));
-            if (enemy["type"].get<int>() == 0) {
-                spawn.setMove(false);
+// Read enemy spawn locations.
+if (j.contains("enemies")) {
+    for (auto& enemyData : j["enemies"]) {
+        Enemy tempEnemy(
+           sf::Vector2f(64, 64),
+           sf::Color::Red,
+           enemyData["type"].get<int>() == 1
+       );
+       
+tempEnemy.setPos(sf::Vector2f(enemyData["x"].get<float>() * tileSize + leftmargin, enemyData["y"].get<float>() * tileSize + topmargin));
+
+      tempEnemy.setColor(stringToColor(enemyData["color"].get<std::string>()));
+
+
+       if (enemyData["type"].get<int>() == 1) {
+           tempEnemy.setSpeed(100.f);
+       }
+       else {
+           tempEnemy.setDirection(-1.f);
+       }
+
+       tempEnemy.setPos(sf::Vector2f(
+           enemyData["x"].get<float>() * tileSize,
+           enemyData["y"].get<float>() * tileSize
+       ));
+
+            if (enemyData["iswall"].get<int>() == 1) {
+                tempEnemy.setAsWall();
             }
-            if (enemy["iswall"].get<int>() == 1) {
-                spawn.setAsWall();
-            }
-            enemies.push_back(spawn);
-        }
+
+       tempEnemy.setDetectionRange(250.f);
+       // Explicit copy here (copy constructor used automatically):
+       enemies.push_back(tempEnemy);
+
     }
+}
     
     // Process tiles.
     if (j.contains("tiles")) {

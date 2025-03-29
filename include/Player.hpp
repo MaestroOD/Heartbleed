@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "Collider.hpp"
 #include "Bullet.hpp"
 #include <iostream>
@@ -26,6 +27,10 @@ private:
     RectangleShape body;
     IntRect rectSourceSprite;
     Sprite sprite;
+    sf::SoundBuffer hurtBuffer;
+    sf::Sound hurtSound;
+    sf::SoundBuffer laserBuffer;
+    sf::Sound laserSound;
     Collider collider;
     Bullet bullet;
     Bullet upBullet; // Bullet upgrade
@@ -67,6 +72,7 @@ public:
     int getBulletType();
 
     Collider &getCollider() { return collider; }
+    sf::SoundBuffer &getSoundBuffer(std::string soundName);
     void onCollision(Vector2f direction);
 
     bool getMode() { return toggleMode; };

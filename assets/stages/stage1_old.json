@@ -1,17 +1,15 @@
 {
     "playerSpawn": {
-      "_comment": "Spawn bottom left corner",
       "x": 3,
       "y": 12
     },
     "goalPoint": {
-      "_comment": "Goal bottom right corner",
       "x": 24,
       "y": 18
     },
     "enemies": [
       {
-        "x": 29,
+        "x": 11,
         "y": 14,
         "color": "red",
         "type": 0,
@@ -19,16 +17,16 @@
         "iswall": 0
       },
       {
-        "x": 20,
-        "y": 9,
+        "x": 15,
+        "y": 14,
         "color": "red",
         "type": 1,
         "direction": -1,
         "iswall": 0
       },
       {
-        "x": 23,
-        "y": 14,
+        "x": 20,
+        "y": 16,
         "color": "red",
         "type": 1,
         "direction": -1,
@@ -37,106 +35,50 @@
     ],
     "tiles": [
       {
-        "_comment": "Bottom right green border corner",
-        "texture": "assets/images/top-left-border.png",
-        "position": {
-          "x": 25,
-          "y": 19
-        },
-        "size": {
-          "width": 1,
-          "height": 1
-        },
-        "type": 0
-      },
-      {
-        "_comment": "Bottom left green border corner",
-        "texture": "assets/images/bottom-left-border.png",
-        "position": {
-          "x": 0,
-          "y": 19
-        },
-        "size": {
-          "width": 1,
-          "height": 1
-        },
-        "type": 0
-      },
-      {
-        "_comment": "Top right green border corner",
-        "texture": "assets/images/top-right-border.png",
-        "position": {
-          "x": 25,
-          "y": 0
-        },
-        "size": {
-          "width": 1,
-          "height": 1
-        },
-        "type": 0
-      },
-      {
-        "_comment": "Top left green border corner",
-        "texture": "assets/images/top-left-border.png",
+        "texture": "assets/images/tile-walls-8.png",
         "position": {
           "x": 0,
           "y": 0
         },
         "size": {
-          "width": 1,
+          "width": 26,
           "height": 1
         },
         "type": 0
       },
       {
-        "_comment": "Top green border wall",
-        "texture": "assets/images/floor-border.png",
+        "texture": "assets/images/tile-corner-8.png",
         "position": {
-          "x": 1,
-          "y": 0
-        },
-        "size": {
-          "width": 25,
-          "height": 1
-        },
-        "type": 0
-      },
-      {
-        "_comment": "Bottom green border wall",
-        "texture": "assets/images/floor-border.png",
-        "position": {
-          "x": 1,
+          "x": 0,
           "y": 19
         },
         "size": {
-          "width": 25,
+          "width": 26,
           "height": 1
         },
         "type": 1
       },
       {
-        "_comment": "Left green border wall",
-        "texture": "assets/images/wall-border.png",
+        "texture": "assets/images/tile-corner-8.png",
         "position": {
           "x": 0,
-          "y": 1
+          "y": 0
         },
         "size": {
           "width": 1,
-          "height": 18
+          "height": 19
         },
         "type": 1
       },
       {
-        "_comment": "Right green border wall",
-        "texture": "assets/images/wall-border.png",
+        "texture": "assets/images/tile-corner-8.png",
         "position": {
           "x": 25,
-          "y": 1
+          "y": 0
         },
         "size": {
           "width": 1,
-          "height": 18
+          "height": 19
         },
         "type": 0
       },

@@ -2,9 +2,9 @@
 #include <iostream>
 #include <cmath>
 
-Enemy::Enemy(sf::Vector2f size, sf::Color color, bool cMove) : collider(enemy), enemyBullet({32, 32}, 1)
+Enemy::Enemy(sf::Vector2f size, sf::Color color, bool cMove) : collider(enemy), enemyBullet({32, 32}, 1), hurtSound(getSoundBuffer("hurt")), laserSound(getSoundBuffer("laser")), screamSound(getSoundBuffer("hehehehaw"))
 {
-    health = 100;
+    health = 4;
     velocity = Vector2f(0, 0);
     speed = 150.0f;
     setDamage(1);
@@ -27,7 +27,7 @@ Enemy::Enemy(sf::Vector2f size, sf::Color color, bool cMove) : collider(enemy), 
             std::cerr << "Error: Unable to load in enemy sprite!";
         }
     }
-    else if (!canMove && !isWall)
+    else
     {
         if (!texture.loadFromFile("assets/images/turret.png"))
         {
@@ -38,19 +38,43 @@ Enemy::Enemy(sf::Vector2f size, sf::Color color, bool cMove) : collider(enemy), 
             std::cerr << "Error: Unable to load in enemy sprite!";
         }
     }
-    else
-    {
-        if (!texture.loadFromFile("assets/images/tile-corner.png"))
-        {
-            std::cerr << "Error: Unable to load in enemy sprite!";
-        }
-    }
+
+    // Customize sound effects
+    hurtSound.setVolume(100);
+    hurtSound.setPitch(2);
+
+    laserSound.setVolume(100);
+    laserSound.setPitch(0.8);
+
+    screamSound.setVolume(100);
+    timeSinceScream = enemyClock.getElapsedTime().asSeconds();
 
     enemy.setTexture(&texture);
     enemy.setFillColor(color);
     enemy.setSize(size);
     enemy.setOrigin(size / 2.0f);
 }
+
+Enemy::Enemy(const Enemy& other)
+   : enemy(other.enemy),
+   collider(enemy),
+   enemyBullet(other.enemyBullet),
+   health(other.health),
+   velocity(other.velocity),
+   speed(other.speed),
+   damage(other.damage),
+   canAttack(other.canAttack),
+   atkCooldown(other.atkCooldown),
+   canMove(other.canMove),
+   attackTexture(other.attackTexture),
+   texture(other.texture),
+   hurtSound(getSoundBuffer("hurt")), 
+   laserSound(getSoundBuffer("laser")), 
+   screamSound(getSoundBuffer("hehehehaw"))
+{
+   enemy.setTexture(&texture);
+}
+
 
 void Enemy::setDamage(int dmg)
 {
@@ -115,12 +139,18 @@ void Enemy::takeDamage(int dmg)
     {
         enemy.setPosition(sf::Vector2f(69696969, 6969696969));
     }
+    hurtSound.play();
 }
 
 void Enemy::update(Time deltaTime, Vector2f playerPos)
 {
-    if (isWall)
+    if (isWall || health <= 0)
     {
+        if (enemyClock.getElapsedTime().asSeconds() - timeSinceScream >= 5 && health > 0)
+        {
+            timeSinceScream = enemyClock.getElapsedTime().asSeconds();
+            screamSound.play();
+        }
         return;
     }
     dt = deltaTime;
@@ -167,7 +197,7 @@ void Enemy::update(Time deltaTime, Vector2f playerPos)
 
 void Enemy::fireProjectile()
 {
-    if (canAttack && !isWall)
+    if (canAttack && !isWall && health > 0)
     {
         disableAttack();
         timeSinceAtk = enemyClock.getElapsedTime().asSeconds();
@@ -180,6 +210,8 @@ void Enemy::fireProjectile()
             dir = -1;
         }
         enemyBullet.setDirection(dir);
+
+        laserSound.play();
     }
 }
 
@@ -201,6 +233,14 @@ void Enemy::setDetectionRange(float newRange)
 void Enemy::setAsWall()
 {
     isWall = true;
+    if (!texture.loadFromFile("assets/images/tile-corner.png"))
+    {
+        std::cerr << "Error: Unable to load in enemy sprite!";
+    }
+
+    enemy.setTexture(&texture);
+    setColor(sf::Color::Red);
+    hurtSound.setPitch(0.8);
 }
 
 void Enemy::onCollision(Vector2f direction)
@@ -232,4 +272,54 @@ void Enemy::drawBullet(sf::RenderWindow &window)
 void Enemy::setMove(bool move)
 {
     canMove = move;
+}
+
+SoundBuffer &Enemy::getSoundBuffer(std::string soundName)
+{
+    if (soundName.compare("hurt") == 0)
+    {
+        if (!hurtBuffer.loadFromFile("assets/audio/classic_hurt.wav"))
+        {
+            std::cerr << "Error loading hurt sound\n";
+        }
+
+        return hurtBuffer;
+    }
+    else if (soundName.compare("laser") == 0)
+    {
+        if (!laserBuffer.loadFromFile("assets/audio/laser.wav"))
+        {
+            std::cerr << "Error loading hurt sound\n";
+        }
+
+        return laserBuffer;
+    }
+    else
+    {
+        if (!screamBuffer.loadFromFile("assets/audio/heheha.wav"))
+        {
+            std::cerr << "Error loading hurt sound\n";
+        }
+
+        return screamBuffer;
+    }
+}
+
+void Enemy::printStatus() const {
+    std::cout << "----- Enemy Status -----" << std::endl;
+    std::cout << "Position: (" << enemy.getPosition().x << ", " << enemy.getPosition().y << ")" << std::endl;
+    std::cout << "Velocity: (" << velocity.x << ", " << velocity.y << ")" << std::endl;
+    std::cout << "Size: (" << enemy.getSize().x << ", " << enemy.getSize().y << ")" << std::endl;
+    std::cout << "Health: " << health << std::endl;
+    std::cout << "Speed: " << speed << std::endl;
+    std::cout << "Detection Range: " << range << std::endl;
+    std::cout << "Can Move: " << (canMove ? "Yes" : "No") << std::endl;
+    std::cout << "Can Attack: " << (canAttack ? "Yes" : "No") << std::endl;
+    std::cout << "Attack Cooldown: " << atkCooldown << std::endl;
+    std::cout << "Time Since Last Attack: " << timeSinceAtk << std::endl;
+    std::cout << "Damage: " << damage << std::endl;
+    //std::cout << "Bullet Position: ("
+    //    << enemyBullet.getPos().x << ", "
+    //    << enemyBullet.getPos().y << ")" << std::endl;
+    std::cout << "------------------------" << std::endl;
 }
