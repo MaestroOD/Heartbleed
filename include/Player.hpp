@@ -64,6 +64,7 @@ public:
     void setPosition(Vector2f pos);
     void upgradeBullet();
     Vector2f getPosition();
+    int getBulletType();
 
     Collider &getCollider() { return collider; }
     void onCollision(Vector2f direction);

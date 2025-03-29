@@ -26,7 +26,7 @@ public:
     void addTile(const Tile& tile);
 
     // Accessors for stage data.
-    const std::vector<Tile>& getTiles() const;
+    std::vector<Tile>& getTiles();
     sf::Vector2f getPlayerSpawn() const;
     sf::Vector2f getGoalPoint() const;
     std::vector<Enemy>& getEnemies();

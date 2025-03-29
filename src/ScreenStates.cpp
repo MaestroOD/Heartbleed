@@ -12,7 +12,7 @@ bool showMenu(sf::RenderWindow &window, sf::Font &font)
 
     sf::Text title(font);
     title.setString("HeartBleed");
-    title.setCharacterSize(60);
+    title.setCharacterSize(52);
     title.setPosition({200.f, 100.f});
 
     sf::Text playText(font);

@@ -1,29 +1,16 @@
 {
-    "tiles": [
-      {
-        "texture": "assets/ui-texture/weapons-1.png",
-        "position": {
-          "x": -2.5,
-          "y": 5.5
-        },
-        "size": {
-          "width": 2,
-          "height": 7.34375
-        },
-        "type": 0
+  "tiles": [
+        {
+      "texture": "assets/ui-texture/hp-bar-3.png",
+      "position": {
+        "x": 26.5,
+        "y": 4
       },
-      {
-        "texture": "assets/ui-texture/hp-bar-1.png",
-        "position": {
-          "x": 26.5,
-          "y": 4
-        },
-        "size": {
-          "width": 2,
-          "height": 10.65625
-        },
-        "type": 1
-      }
-    ]
-  }
-  
+      "size": {
+        "width": 2,
+        "height": 10.65625
+      },
+      "type": 1
+    }
+  ]
+}

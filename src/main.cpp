@@ -82,6 +82,8 @@ int main()
 
     std::vector<String> stagestrings = {"./assets/stages/stage1.json","./assets/stages/stage2.json","./assets/stages/stage3.json","./assets/stages/stage4.json"};
 
+    std::cout << "pre-loading stages";
+
     std::vector<Stage> stages;
     int current = 0;
 
@@ -92,29 +94,26 @@ int main()
     Stage* currentStage = &stages[current];
     std::vector<Tile> gametiles = currentStage->getTiles();
 
-    std::vector<String> weaponstrings = {"./assets/ui-layout/weapon1.json","././assets/ui-layout/weapon2.json"};
-    std::vector<String> healthstrings = {"./assets/ui-layout/5hp.json","./assets/ui-layout/4hp.json","./assets/ui-layout/3hp.json","./assets/ui-layout/2hp.json","./assets/ui-layout/1hp.json"};
+    std::cout << "stage loading complete";
 
-    std::vector<UI> weapons;
+
+    std::vector<String> weaponstrings = {"./assets/ui-layout/weapon1.json","././assets/ui-layout/weapon2.json"};
+    std::vector<String> healthstrings = {"./assets/ui-layout/1hp.json","./assets/ui-layout/2hp.json","./assets/ui-layout/3hp.json","./assets/ui-layout/4hp.json","./assets/ui-layout/5hp.json"};
+
+    std::vector<UI> weapon;
     std::vector<UI> health;
 
-    bool currentWeapon = 0;
-    int currentHealth = 0;
     
     for (String ui : weaponstrings) {
-        weapons.emplace_back(UI(ui));
+        weapon.emplace_back(UI(ui));
     }
 
     for (String ui : healthstrings) {
         health.emplace_back(UI(ui));
     }
 
-    UI* weaponTiles = &weapons[currentWeapon];
-    UI* healthTiles = &health[currentHealth];
-
-    std::vector<Tile> weapontiles = weaponTiles->getTiles();
-    std::vector<Tile> healthtiles = healthTiles->getTiles();
-
+    UI weaponTiles = weapon[0];
+    UI healthTiles = health[0];
 
     sf::RenderWindow *window = new sf::RenderWindow(sf::VideoMode({width, height}), "Heartbleed");
     window->setFramerateLimit(60); // Limit frames to 60 FPS for convenience
@@ -169,6 +168,22 @@ int main()
             {
                 player.handleInput(keyPressed->scancode, true, *window);
 
+/*                 if (keyPressed->scancode == sf::Keyboard::Scancode::Num1)
+                {
+                    currentWeapon = false;
+                    weaponTiles = &weapons[(currentWeapon)];
+                    weapontiles = weaponTiles->getTiles();
+                    renderTiles(weapontiles, window);
+                } */
+
+ /*                if (keyPressed->scancode == sf::Keyboard::Scancode::Num2)
+                {
+                    currentWeapon = true;
+                    weaponTiles = &weapons[(currentWeapon)];
+                    weapontiles = weaponTiles->getTiles();
+                    renderTiles(weapontiles, window);
+                } */
+
                 if (keyPressed->scancode == sf::Keyboard::Scancode::B)
                 {
                     debugMode = !debugMode;
@@ -190,7 +205,7 @@ int main()
             enemy.update(dt, player.getPosition());
         } */
 
-        const float tolerance = 5.0f;
+        const float tolerance = 16.0f;
         sf::Vector2f playerPos = player.getPosition();
         sf::Vector2f goalPos = currentStage->getGoalPoint();
         
@@ -297,8 +312,8 @@ int main()
         player.renderBullet(*window);
         player.render(*window);
         renderTiles(gametiles, window);
-        renderTiles(weapontiles, window);
-        renderTiles(healthtiles, window);
+        renderTiles(health[player.getHP() - 1].getTiles(), window);
+        renderTiles(weapon[player.getBulletType() - 1].getTiles(), window);
 
 
 /*         for (auto& enemy : currentStage.getEnemies()) {

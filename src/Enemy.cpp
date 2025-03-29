@@ -7,13 +7,14 @@ Enemy::Enemy(sf::Vector2f size, sf::Color color, bool cMove) : collider(enemy), 
     health = 100;
     velocity = Vector2f(0, 0);
     speed = 150.0f;
-    setDamage(10);
+    setDamage(1);
     enemyBullet.setSpeed(1000.f);
-    enemyBullet.setDamage(10);
-    enemyBullet.setPos({4206042060, 69696969696969});
+    enemyBullet.setDamage(1);
+    enemyBullet.setPos({100000.f, 100000.f});
     canAttack = true;
     atkCooldown = 0.8f;
     canMove = cMove;
+    isWall = false;
 
     if (canMove)
     {
@@ -26,13 +27,20 @@ Enemy::Enemy(sf::Vector2f size, sf::Color color, bool cMove) : collider(enemy), 
             std::cerr << "Error: Unable to load in enemy sprite!";
         }
     }
-    else
+    else if (!canMove && !isWall)
     {
         if (!texture.loadFromFile("assets/images/turret.png"))
         {
             std::cerr << "Error: Unable to load in enemy sprite!";
         }
         if (!attackTexture.loadFromFile("assets/images/turret-attack.png"))
+        {
+            std::cerr << "Error: Unable to load in enemy sprite!";
+        }
+    }
+    else
+    {
+        if (!texture.loadFromFile("assets/images/tile-corner.png"))
         {
             std::cerr << "Error: Unable to load in enemy sprite!";
         }

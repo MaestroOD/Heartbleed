@@ -25,7 +25,7 @@ public:
     void addTile(const Tile& tile);
 
     // Accessors for stage data.
-    const std::vector<Tile>& getTiles() const;
+    std::vector<Tile>& getTiles();
 
 private:
     // Map to hold textures (persist for the stage's lifetime)

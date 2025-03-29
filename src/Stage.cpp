@@ -69,6 +69,9 @@ Stage::Stage(const std::string& jsonFile) {
             if (enemy["type"].get<int>() == 0) {
                 spawn.setMove(false);
             }
+            if (enemy["iswall"].get<int>() == 1) {
+                spawn.setAsWall();
+            }
             enemies.push_back(spawn);
         }
     }
@@ -89,6 +92,8 @@ Stage::Stage(const std::string& jsonFile) {
             addTile(tile);
         }
     }
+
+    std::cout << "success parsing " << jsonFile;
 }
 
 bool Stage::loadTexture(const std::string& textureName, const std::string& filename) {
@@ -114,7 +119,7 @@ void Stage::addTile(const Tile& tile) {
     tiles.push_back(tile);
 }
 
-const std::vector<Tile>& Stage::getTiles() const {
+std::vector<Tile>& Stage::getTiles() {
     return tiles;
 }
 
@@ -163,7 +168,6 @@ Tile Stage::parseTile(const nlohmann::json& tileData) {
             texturePtr = nullptr;
         }
     }
-
     return Tile(texturePtr, size, centerPosition, type);
 }
 

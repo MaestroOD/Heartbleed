@@ -11,18 +11,6 @@
           "height": 7.34375
         },
         "type": 0
-      },
-      {
-        "texture": "assets/ui-texture/hp-bar-1.png",
-        "position": {
-          "x": 26.5,
-          "y": 4
-        },
-        "size": {
-          "width": 2,
-          "height": 10.65625
-        },
-        "type": 1
       }
     ]
   }

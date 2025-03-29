@@ -13,14 +13,24 @@
         "y": 14,
         "color": "red",
         "type": 0,
-        "direction": -1
+        "direction": -1,
+        "iswall": 0
       },
       {
         "x": 15,
         "y": 14,
         "color": "red",
         "type": 1,
-        "direction": -1
+        "direction": -1,
+        "iswall": 0
+      },
+      {
+        "x": 20,
+        "y": 16,
+        "color": "red",
+        "type": 1,
+        "direction": -1,
+        "iswall": 1
       }
     ],
     "tiles": [

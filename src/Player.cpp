@@ -6,7 +6,7 @@ Player::Player() : collider(sprite), bullet({}, 0), upBullet({}, 0), sprite(text
 {
     // Initialize base values of player
     Vector2f size = {64, 64};
-    health = 100;
+    health = 5;
     currentBullet = 1;
     position = Vector2f(200, 200);
     velocity = Vector2f(0, 0);
@@ -330,4 +330,9 @@ Vector2f Player::getPosition()
 void Player::setHP(int hp)
 {
     health = hp;
+}
+
+int Player::getBulletType()
+{
+    return currentBullet;
 }

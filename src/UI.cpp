@@ -70,7 +70,7 @@ void UI::addTile(const Tile& tile) {
     tiles.push_back(tile);
 }
 
-const std::vector<Tile>& UI::getTiles() const {
+std::vector<Tile>& UI::getTiles() {
     return tiles;
 }
 
