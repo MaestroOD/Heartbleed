@@ -14,50 +14,13 @@
 #include <optional>
 #include <string>
 
-// Helper functions for collisions and rendering.
-// We put these in an anonymous namespace so they are local to Game.cpp.
-namespace {
-    void checkTilePlayerCollision(std::vector<Tile>& tiles, Player& player, sf::Vector2f& direction) {
-        for (Tile& tile : tiles) {
-            if (tile.getType() != 2 && tile.getCollider().checkCollision(player.getCollider(), direction, 1.0f)) {
-                player.onCollision(direction);
-            }
-        }
-    }
-
-    void checkTileEnemyCollision(std::vector<Tile>& tiles, Enemy& enemy, sf::Vector2f& direction) {
-        for (Tile& tile : tiles) {
-            if (tile.getCollider().checkCollision(enemy.getCollider(), direction, 1.0f)) {
-                enemy.onCollision(direction);
-            }
-        }
-    }
-
-    void checkPlayerEnemyCollision(Player& player, Enemy& enemy, sf::Vector2f& direction) {
-        float push = 1.0f;
-        if (enemy.getCanMove() == true) {
-            push = 0.0f;
-        }
-        if (enemy.getCollider().checkCollision(player.getCollider(), direction, push)) {
-            if (push == 0.0f && enemy.getCanAttack()) {
-                enemy.disableAttack();
-                player.takeDamage(enemy.getDamage());
-            }
-            else {
-                player.onCollision(direction);
-            }
-        }
-    }
-
-    void renderTiles(std::vector<Tile>& tiles, sf::RenderWindow* window) {
-        for (Tile& tile : tiles) {
-            tile.render(*window);
-        }
-    }
-} // anonymous namespace
+void checkTilePlayerCollision(std::vector<Tile>& tiles, Player& player, sf::Vector2f& direction);
+void checkTileEnemyCollision(std::vector<Tile>& tiles, Enemy& enemy, sf::Vector2f& direction);
+void checkPlayerEnemyCollision(Player& player, Enemy& enemy, sf::Vector2f& direction);
+void renderTiles(std::vector<Tile>& tiles, sf::RenderWindow* window);
 
 Game::Game() {
-    // You could initialize members here if needed.
+
 }
 
 void Game::run() {
@@ -260,4 +223,43 @@ void Game::run() {
     }
 
     delete window;
+}
+
+
+void checkTilePlayerCollision(std::vector<Tile>& tiles, Player& player, sf::Vector2f& direction) {
+    for (Tile& tile : tiles) {
+        if (tile.getType() != 2 && tile.getCollider().checkCollision(player.getCollider(), direction, 1.0f)) {
+            player.onCollision(direction);
+        }
+    }
+}
+
+void checkTileEnemyCollision(std::vector<Tile>& tiles, Enemy& enemy, sf::Vector2f& direction) {
+    for (Tile& tile : tiles) {
+        if (tile.getCollider().checkCollision(enemy.getCollider(), direction, 1.0f)) {
+            enemy.onCollision(direction);
+        }
+    }
+}
+
+void checkPlayerEnemyCollision(Player& player, Enemy& enemy, sf::Vector2f& direction) {
+    float push = 1.0f;
+    if (enemy.getCanMove() == true) {
+        push = 0.0f;
+    }
+    if (enemy.getCollider().checkCollision(player.getCollider(), direction, push)) {
+        if (push == 0.0f && enemy.getCanAttack()) {
+            enemy.disableAttack();
+            player.takeDamage(enemy.getDamage());
+        }
+        else {
+            player.onCollision(direction);
+        }
+    }
+}
+
+void renderTiles(std::vector<Tile>& tiles, sf::RenderWindow* window) {
+    for (Tile& tile : tiles) {
+        tile.render(*window);
+    }
 }
