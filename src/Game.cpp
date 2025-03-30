@@ -137,7 +137,7 @@ void Game::run() {
     sf::Text stageTitle(font);
     stageTitle.setCharacterSize(46);
     stageTitle.setFillColor(sf::Color::Green);
-    stageTitle.setPosition(sf::Vector2f(96.f, 16.f));
+    stageTitle.setPosition(sf::Vector2f(96.f, 22.f));
     stageTitle.setString(currentStage->getName());
 
     sf::Clock gameClock;

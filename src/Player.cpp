@@ -197,13 +197,13 @@ void Player::fire()
         if (currentBullet == 1)
         {
             bullet.setSize(sf::Vector2f(32, 32));
-            bullet.setPos(sprite.getPosition());
+            bullet.setPos({(sprite.getPosition().x), (sprite.getPosition().y -15)});
             bullet.setDirection(dir);
         }
         else if (currentBullet == 2)
         {
             upBullet.setSize(sf::Vector2f(32, 32));
-            upBullet.setPos(sprite.getPosition());
+            upBullet.setPos({(sprite.getPosition().x), (sprite.getPosition().y -15)});
             upBullet.setDirection(dir);
         }
         laserSound.play();
