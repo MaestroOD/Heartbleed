@@ -20,6 +20,7 @@ void checkTileEnemyCollision(std::vector<Tile>& tiles, Enemy& enemy, sf::Vector2
 void checkPlayerEnemyCollision(Player& player, Enemy& enemy, sf::Vector2f& direction);
 void renderTiles(std::vector<Tile>& tiles, sf::RenderWindow* window);
 
+
 Game::Game() {
 
 }
@@ -47,7 +48,7 @@ void Game::run() {
         "./assets/stages/stage4.json"
     };
 
-    std::cout << "pre-loading stages";
+    std::cout << "pre-loading stages" << std::endl;
 
     std::vector<Stage> stages;
     int current = 0;
@@ -58,12 +59,15 @@ void Game::run() {
     Stage* currentStage = &stages[current];
     std::vector<Tile> gametiles = currentStage->getTiles();
 
-    std::cout << "stage loading complete";
+    std::cout << "stage loading complete" << std::endl;
 
     std::vector<std::string> weaponstrings = {
         "./assets/ui-layout/weapon1.json",
         "./assets/ui-layout/weapon2.json"
     };
+
+    std::cout << "weapon loading complete" << std::endl;
+
     std::vector<std::string> healthstrings = {
         "./assets/ui-layout/1hp.json",
         "./assets/ui-layout/2hp.json",
@@ -71,6 +75,8 @@ void Game::run() {
         "./assets/ui-layout/4hp.json",
         "./assets/ui-layout/5hp.json"
     };
+
+    std::cout << "ui loading complete" << std::endl;
 
     std::vector<UI> weapon;
     std::vector<UI> health;
