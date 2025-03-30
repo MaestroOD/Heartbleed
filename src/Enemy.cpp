@@ -2,7 +2,7 @@
 #include <iostream>
 #include <cmath>
 
-Enemy::Enemy(sf::Vector2f size, sf::Color color, bool cMove) : collider(enemy), enemyBullet({32, 32}, 1), hurtSound(getSoundBuffer("hurt")), laserSound(getSoundBuffer("laser")), screamSound(getSoundBuffer("hehehehaw"))
+Enemy::Enemy(sf::Vector2f size, sf::Color color, bool cMove) : collider(enemy), enemyBullet({ 32, 32 }, 1), hurtSound(getSoundBuffer("hurt")), laserSound(getSoundBuffer("laser")), screamSound(getSoundBuffer("hehehehaw"))
 {
     health = 4;
     velocity = Vector2f(0, 0);
@@ -10,7 +10,7 @@ Enemy::Enemy(sf::Vector2f size, sf::Color color, bool cMove) : collider(enemy), 
     setDamage(1);
     enemyBullet.setSpeed(1000.f);
     enemyBullet.setDamage(1);
-    enemyBullet.setPos({100000.f, 100000.f});
+    enemyBullet.setPos({ 100000.f, 100000.f });
     canAttack = true;
     atkCooldown = 0.8f;
     canMove = cMove;
@@ -40,39 +40,41 @@ Enemy::Enemy(sf::Vector2f size, sf::Color color, bool cMove) : collider(enemy), 
     }
 
     // Customize sound effects
-    hurtSound.setVolume(100);
+    hurtSound.setVolume(10);
     hurtSound.setPitch(2);
 
-    laserSound.setVolume(100);
+    laserSound.setVolume(2);
     laserSound.setPitch(0.8);
 
-    screamSound.setVolume(100);
+    screamSound.setVolume(10);
     timeSinceScream = enemyClock.getElapsedTime().asSeconds();
 
     enemy.setTexture(&texture);
     enemy.setFillColor(color);
     enemy.setSize(size);
     enemy.setOrigin(size / 2.0f);
+
+    std::srand(time(0));
 }
 
 Enemy::Enemy(const Enemy& other)
-   : enemy(other.enemy),
-   collider(enemy),
-   enemyBullet(other.enemyBullet),
-   health(other.health),
-   velocity(other.velocity),
-   speed(other.speed),
-   damage(other.damage),
-   canAttack(other.canAttack),
-   atkCooldown(other.atkCooldown),
-   canMove(other.canMove),
-   attackTexture(other.attackTexture),
-   texture(other.texture),
-   hurtSound(getSoundBuffer("hurt")), 
-   laserSound(getSoundBuffer("laser")), 
-   screamSound(getSoundBuffer("hehehehaw"))
+    : enemy(other.enemy),
+    collider(enemy),
+    enemyBullet(other.enemyBullet),
+    health(other.health),
+    velocity(other.velocity),
+    speed(other.speed),
+    damage(other.damage),
+    canAttack(other.canAttack),
+    atkCooldown(other.atkCooldown),
+    canMove(other.canMove),
+    attackTexture(other.attackTexture),
+    texture(other.texture),
+    hurtSound(getSoundBuffer("hurt")),
+    laserSound(getSoundBuffer("laser")),
+    screamSound(getSoundBuffer("hehehehaw"))
 {
-   enemy.setTexture(&texture);
+    enemy.setTexture(&texture);
 }
 
 
@@ -105,7 +107,7 @@ void Enemy::setColor(sf::Color color)
     enemy.setFillColor(color);
 }
 
-void Enemy::checkBullet(Bullet &bullet)
+void Enemy::checkBullet(Bullet& bullet)
 {
     sf::Vector2f otherPosition = bullet.getPos();
     sf::Vector2f otherHalfSize = bullet.getHalfSize();
@@ -124,11 +126,10 @@ void Enemy::checkBullet(Bullet &bullet)
         {
             takeDamage(bullet.getDamage());
         }
-        else if (bullet.getDamage() > 25)
+        else if (bullet.getDamage() > 1)
         {
             takeDamage(bullet.getDamage());
         }
-        // Play hit audio
     }
 }
 
@@ -139,6 +140,7 @@ void Enemy::takeDamage(int dmg)
     {
         enemy.setPosition(sf::Vector2f(69696969, 6969696969));
     }
+    std::cout << health;
     hurtSound.play();
 }
 
@@ -204,7 +206,15 @@ void Enemy::fireProjectile()
         // fire projectile
         int dir = 1;
         enemyBullet.setSize(sf::Vector2f(32, 32));
-        enemyBullet.setPos(enemy.getPosition());
+        if (!isBoss) 
+        {
+            enemyBullet.setPos(enemy.getPosition());
+        }
+        else 
+        {
+            enemyBullet.setPos({ enemy.getPosition().x, 180.f + (std::rand() % 650)});
+        }
+        
         if (enemy.getScale().x < 0)
         {
             dir = -1;
@@ -217,7 +227,7 @@ void Enemy::fireProjectile()
 
 void Enemy::setDirection(float dir)
 {
-    enemy.setScale({dir, 1.0f});
+    enemy.setScale({ dir, 1.0f });
 }
 
 void Enemy::setSpeed(float newSpeed)
@@ -259,12 +269,12 @@ void Enemy::onCollision(Vector2f direction)
     }
 }
 
-void Enemy::draw(sf::RenderWindow &window)
+void Enemy::draw(sf::RenderWindow& window)
 {
     window.draw(enemy);
 }
 
-void Enemy::drawBullet(sf::RenderWindow &window)
+void Enemy::drawBullet(sf::RenderWindow& window)
 {
     enemyBullet.draw(window, dt);
 }
@@ -274,7 +284,7 @@ void Enemy::setMove(bool move)
     canMove = move;
 }
 
-SoundBuffer &Enemy::getSoundBuffer(std::string soundName)
+SoundBuffer& Enemy::getSoundBuffer(std::string soundName)
 {
     if (soundName.compare("hurt") == 0)
     {

@@ -14,15 +14,15 @@ public:
     Enemy(const Enemy& other);
     void setPos(sf::Vector2f newPos);
     void setColor(sf::Color color);
-    void checkBullet(Bullet &bullet);
-    void draw(sf::RenderWindow &window);
-    void drawBullet(sf::RenderWindow &window);
+    void checkBullet(Bullet& bullet);
+    void draw(sf::RenderWindow& window);
+    void drawBullet(sf::RenderWindow& window);
     void update(Time deltaTime, sf::Vector2f playerPos);
     void setSpeed(float newSpeed);
     void setDetectionRange(float newRange);
     void setDamage(int dmg);
     void setDirection(float dir); // For turret only
-    void takeDamage(int amount);
+    virtual void takeDamage(int amount);
     void disableAttack(); // Will be called in main
     void enableAttack();  // Will be called ONLY in Enemy.cpp
     void setAtkCooldown(float cooldown);
@@ -35,11 +35,11 @@ public:
     void setAsWall();
     void printStatus() const;
 
-    Bullet &getBullet() { return enemyBullet; };
-    Collider &getCollider() { return collider; };
-    sf::SoundBuffer &getSoundBuffer(std::string soundName);
+    Bullet& getBullet() { return enemyBullet; };
+    Collider& getCollider() { return collider; };
+    sf::SoundBuffer& getSoundBuffer(std::string soundName);
 
-private:
+protected:
     sf::Texture texture;       // Idle texture
     sf::Texture attackTexture; // Attack texture
     sf::RectangleShape enemy;  // Change to a sprite later
@@ -50,6 +50,7 @@ private:
     float range = 250.0f;
     bool canMove;
     bool isWall;
+    bool isBoss;
     sf::SoundBuffer hurtBuffer;
     sf::Sound hurtSound;
     sf::SoundBuffer laserBuffer;
