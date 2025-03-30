@@ -12,19 +12,84 @@
     },
     "enemies": [
       {
+        "_comment": "1st turret",
+        "x": 9,
+        "y": 4,
+        "color": "red",
+        "type": 0,
+        "direction": 1,
+        "iswall": 0
+      },
+      {
+        "_comment": "2nd turret",
+        "x": 16,
+        "y": 4,
+        "color": "red",
+        "type": 0,
+        "direction": 1,
+        "iswall": 0
+      },
+      {
+        "_comment": "3rd turret",
+        "x": 18,
+        "y": 7,
+        "color": "red",
+        "type": 0,
+        "direction": 1,
+        "iswall": 0
+      },
+      {
+        "_comment": "4th turret",
         "x": 11,
-        "y": 14,
+        "y": 7,
+        "color": "red",
+        "type": 0,
+        "direction": 1,
+        "iswall": 0
+      },
+      {
+        "_comment": "5th turret",
+        "x":12,
+        "y": 10,
         "color": "red",
         "type": 0,
         "direction": -1,
         "iswall": 0
       },
       {
-        "x": 15,
-        "y": 14,
+        "_comment": "6th turret",
+        "x": 18,
+        "y": 10,
+        "color": "red",
+        "type": 0,
+        "direction": -1,
+        "iswall": 0
+      },
+      {
+        "_comment": "7th turret",
+        "x": 18,
+        "y": 13,
+        "color": "red",
+        "type": 0,
+        "direction": 1,
+        "iswall": 0
+      },
+      {
+        "_comment": "8th turret",
+        "x": 12,
+        "y": 13,
+        "color": "red",
+        "type": 0,
+        "direction": 1,
+        "iswall": 0
+      },
+      {
+        "_comment": "Chasing enemy",
+        "x": 18,
+        "y": 13,
         "color": "red",
         "type": 1,
-        "direction": -1,
+        "direction": 1,
         "iswall": 0
       }
     ],

@@ -70,29 +70,26 @@ if (j.contains("enemies")) {
         Enemy tempEnemy(
            sf::Vector2f(64, 64),
            sf::Color::Red,
-           enemyData["type"].get<int>() == 1
+           enemyData["type"].get<int>()
        );
        
-        tempEnemy.setPos(sf::Vector2f(enemyData["x"].get<float>() * tileSize + leftmargin, enemyData["y"].get<float>() * tileSize + topmargin));
-
         tempEnemy.setColor(stringToColor(enemyData["color"].get<std::string>()));
 
-
-       if (enemyData["type"].get<int>() == 1) {
-           tempEnemy.setSpeed(100.f);
-       }
-       else {
-           tempEnemy.setDirection(-1.f);
-       }
+        if (enemyData["type"].get<int>() == 0) {
+            tempEnemy.setSpeed(100.f);
+        } else {
+            float dir = enemyData["direction"].get<float>();
+            tempEnemy.setDirection(dir);
+        }
 
        tempEnemy.setPos(sf::Vector2f(
            enemyData["x"].get<float>() * tileSize + leftmargin,
            enemyData["y"].get<float>() * tileSize + topmargin
        ));
 
-            if (enemyData["iswall"].get<int>() == 1) {
+/*         if (enemyData["iswall"].get<int>() == 1) {
                 tempEnemy.setAsWall();
-            }
+        } */
 
        tempEnemy.setDetectionRange(250.f);
        // Explicit copy here (copy constructor used automatically):

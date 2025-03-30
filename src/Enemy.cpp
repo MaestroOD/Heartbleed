@@ -328,6 +328,7 @@ void Enemy::printStatus() const {
     std::cout << "Attack Cooldown: " << atkCooldown << std::endl;
     std::cout << "Time Since Last Attack: " << timeSinceAtk << std::endl;
     std::cout << "Damage: " << damage << std::endl;
+    std::cout << "IsWall: " << isWall << std::endl;
     //std::cout << "Bullet Position: ("
     //    << enemyBullet.getPos().x << ", "
     //    << enemyBullet.getPos().y << ")" << std::endl;

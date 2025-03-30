@@ -31,7 +31,7 @@ Player::Player() : sprite(texture), collider(), bullet({}, 0), upBullet({}, 0), 
     upBullet.setColor(sf::Color::Red);
 
     // Initialize sprite
-    if (!texture.loadFromFile("assets/images/Player2.png"))
+    if (!texture.loadFromFile("assets/images/player/Player2.png"))
     {
         std::cerr << "Error loading in player texture" << std::endl;
     }

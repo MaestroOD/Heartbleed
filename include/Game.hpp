@@ -6,7 +6,7 @@
 class Game {
 public:
     Game();
-    void run();
+    int run();
 };
 
 #endif // GAME_HPP

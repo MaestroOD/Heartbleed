@@ -27,7 +27,7 @@ Game::Game() {
 
 }
 
-void Game::run() {
+int Game::run() {
     // --- Initialization ---
     sf::Music music;
     if (!music.openFromFile("assets/audio/temp2.wav")) {
@@ -53,12 +53,18 @@ void Game::run() {
     std::cout << "pre-loading stages" << std::endl;
 
     std::vector<Stage> stages;
+    std::vector<std::vector<Enemy>> stageEnemies;
+    
     int current = 0;
     for (const String& stage : stagestrings) {
         stages.emplace_back(Stage(stage));
     }
+    for (auto stage : stages) {
+        stageEnemies.emplace_back(stage.getEnemies());
+    }
     
     Stage* currentStage = &stages[current];
+    
     std::vector<Tile> gametiles = currentStage->getTiles();
 
     std::cout << "stage loading complete" << std::endl;
@@ -111,9 +117,7 @@ void Game::run() {
     Player player;
     player.setPosition(currentStage->getPlayerSpawn());
     std::vector<Bullet> bulletVec;
-    std::vector<Enemy>& gameenemies = currentStage->getEnemies();
-
-    for (Enemy& enemy : gameenemies) {
+    for (Enemy& enemy : stageEnemies[current]) {
         enemy.printStatus();
     }
 
@@ -157,6 +161,7 @@ void Game::run() {
 
         while (const std::optional event = window->pollEvent()) {
             if (event->is<sf::Event::Closed>()) {
+                music.stop();
                 window->close();
             }
             else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
@@ -179,7 +184,7 @@ void Game::run() {
         // Update game objects
         player.update();
 
-        for (Enemy& enemy : gameenemies) {
+        for (Enemy& enemy : stageEnemies[current]) {
             // 1. Update enemy logic
             enemy.update(dt, player.getPosition());
         }
@@ -200,6 +205,10 @@ void Game::run() {
             player.setPosition(currentStage->getPlayerSpawn());
             gametiles = currentStage->getTiles();
             stageTitle.setString(currentStage->getName());
+
+            for (Enemy& enemy : stageEnemies[current]) {
+                enemy.printStatus();
+            }
         }
 
 /*         if (player.getMode()) {
@@ -231,7 +240,7 @@ void Game::run() {
         //player.checkEnemyBullet(boss.getOtherBullet(), boss.getDamage());
 
 
-        for (Enemy& enemy : gameenemies) {
+        for (Enemy& enemy : stageEnemies[current]) {
             sf::Vector2f enemyDirection;
       
             checkTileEnemyCollision(gametiles, enemy, enemyDirection);
@@ -267,7 +276,7 @@ void Game::run() {
             }
         }
 
-        if (player.getPosition().x > 300.0f)
+/*         if (player.getPosition().x > 300.0f)
         {
             bool playAgain = showEndScreen(*window, font, gameClock.getElapsedTime());
 
@@ -281,7 +290,7 @@ void Game::run() {
                 window->close();
                 break;
             }
-        }
+        } */
         
         window->clear(sf::Color(16, 36, 29, 255));
 
@@ -325,7 +334,7 @@ void Game::run() {
         //boss.draw(*window);
 
 
-        for (Enemy& enemy : gameenemies) {
+        for (Enemy& enemy : stageEnemies[current]) {
             
             enemy.draw(*window);
             if (!enemy.getCanMove()) {
@@ -337,7 +346,9 @@ void Game::run() {
         window->display();
     }
 
+    music.stop();
     delete window;
+    return 0;
 }
 
 
