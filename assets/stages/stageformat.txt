@@ -1,0 +1,77 @@
+{
+    "playerSpawn": { // player spawn position
+      "x": 3,
+      "y": 3
+    },
+    "goalPoint": { // position that will trigger next stage transition
+      "x": 12,
+      "y": 12
+    },
+    "enemies": [ // list of enemies, you can include multiple
+      {
+        "x": 10, // position the enemy will spawn (measured in 32x32 blocks from origin of topleft)
+        "y": 4,
+        "color": "red", // colour -> replace with sprite?
+        "type": 0, // 0 is stationary/moving?
+        "direction": -1 // initial facing, -1 = left, 1 = right
+      },
+      {
+        "x": 5,
+        "y": 6,
+        "color": "red",
+        "type": 1,
+        "direction": 0
+      }
+    ],
+    "tiles": [ // list of tiles, can include multiple
+      {
+        "texture": "assets/images/tile-wires.png", // texture of tile
+        "position": { // top left corner of block (measured in 32x32 chunks, origin of topleft)
+          "x": 0,
+          "y": 0
+        },
+        "size": { // measured in 32x32 blocks
+          "width": 26,
+          "height": 1
+        },
+        "type": 0 // 0,1 = collision, 2 = no collision
+      },
+      {
+        "texture": "assets/images/tile-corner.png",
+        "position": {
+          "x": 0,
+          "y": 19
+        },
+        "size": {
+          "width": 26,
+          "height": 1
+        },
+        "type": 1
+      },
+      {
+        "texture": "assets/images/tile-corner.png",
+        "position": {
+          "x": 0,
+          "y": 0
+        },
+        "size": {
+          "width": 1,
+          "height": 19
+        },
+        "type": 1
+      },
+      {
+        "texture": "assets/images/tile-corner.png",
+        "position": {
+          "x": 25,
+          "y": 0
+        },
+        "size": {
+          "width": 1,
+          "height": 19
+        },
+        "type": 0
+      }
+    ]
+  }
+  

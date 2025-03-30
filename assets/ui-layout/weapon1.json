@@ -1,0 +1,17 @@
+{
+    "tiles": [
+      {
+        "texture": "assets/ui-texture/weapons-1.png",
+        "position": {
+          "x": -2.5,
+          "y": 5.5
+        },
+        "size": {
+          "width": 2,
+          "height": 7.34375
+        },
+        "type": 0
+      }
+    ]
+  }
+  
