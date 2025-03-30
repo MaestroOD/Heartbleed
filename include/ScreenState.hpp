@@ -3,9 +3,20 @@
 
 #include <SFML/Graphics.hpp>
 #include <optional>
+#include <vector>
+#include <iostream>
+#include <sstream>
+#include <iomanip>
 
-bool showMenu(sf::RenderWindow &window, sf::Font &font);
+enum class MenuResult
+{
+    Play,
+    HardMode,
+    Exit
+};
+
+MenuResult showMenu(sf::RenderWindow &window, sf::Font &font);
 bool showGameOver(sf::RenderWindow &window, sf::Font &font, const sf::Texture &backgroundTexture);
-bool showEndScreen(sf::RenderWindow &window, sf::Font &font);
+bool showEndScreen(sf::RenderWindow &window, sf::Font &font, sf::Time timer);
 
 #endif // MENU_HPP

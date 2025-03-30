@@ -94,11 +94,18 @@ void Game::run() {
     sf::RenderWindow *window = new sf::RenderWindow(sf::VideoMode({width, height}), "Heartbleed");
     window->setFramerateLimit(60); // Limit frames to 60 FPS
 
-    bool playChosen = showEndScreen(*window, font);
-    if (!playChosen) {
-        delete window;
-        return;
-    }
+    bool hardModeEnabled = false;
+
+    MenuResult menuResult = showMenu(*window, font);
+     if (menuResult == MenuResult::Exit)
+     {
+         delete window;
+         return 0;
+     }
+     else if (menuResult == MenuResult::HardMode)
+     {
+         hardModeEnabled = true;
+     }
 
     // --- Game Objects ---
     Player player;
@@ -260,6 +267,22 @@ void Game::run() {
             }
         }
 
+        if (player.getPosition().x > 300.0f)
+        {
+            bool playAgain = showEndScreen(*window, font, gameClock.getElapsedTime());
+
+            if (playAgain)
+            {
+                window->close();
+                break;
+            }
+            else
+            {
+                window->close();
+                break;
+            }
+        }
+        
         window->clear(sf::Color(16, 36, 29, 255));
 
         if (debugMode) {
