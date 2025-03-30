@@ -86,8 +86,8 @@ if (j.contains("enemies")) {
        }
 
        tempEnemy.setPos(sf::Vector2f(
-           enemyData["x"].get<float>() * tileSize,
-           enemyData["y"].get<float>() * tileSize
+           enemyData["x"].get<float>() * tileSize + leftmargin,
+           enemyData["y"].get<float>() * tileSize + topmargin
        ));
 
             if (enemyData["iswall"].get<int>() == 1) {

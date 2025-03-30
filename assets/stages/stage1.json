@@ -14,34 +14,91 @@
     },
     "enemies": [
       {
-        "x": 29,
-        "y": 14,
+        "_comment": "1st turret",
+        "x": 9,
+        "y": 4,
+        "color": "red",
+        "type": 0,
+        "direction": 1,
+        "iswall": 0
+      },
+      {
+        "_comment": "2nd turret",
+        "x": 16,
+        "y": 4,
+        "color": "red",
+        "type": 0,
+        "direction": 1,
+        "iswall": 0
+      },
+      {
+        "_comment": "3rd turret",
+        "x": 18,
+        "y": 7,
+        "color": "red",
+        "type": 0,
+        "direction": 1,
+        "iswall": 0
+      },
+      {
+        "_comment": "4th turret",
+        "x": 11,
+        "y": 7,
+        "color": "red",
+        "type": 0,
+        "direction": 1,
+        "iswall": 0
+      },
+      {
+        "_comment": "5th turret",
+        "x": 9,
+        "y": 10,
         "color": "red",
         "type": 0,
         "direction": -1,
         "iswall": 0
       },
       {
-        "x": 20,
-        "y": 9,
+        "_comment": "6th turret",
+        "x": 16,
+        "y": 10,
         "color": "red",
-        "type": 1,
+        "type": 0,
         "direction": -1,
         "iswall": 0
       },
       {
-        "x": 23,
-        "y": 14,
+        "_comment": "7th turret",
+        "x": 18,
+        "y": 13,
+        "color": "red",
+        "type": 0,
+        "direction": 1,
+        "iswall": 0
+      },
+      {
+        "_comment": "8th turret",
+        "x": 11,
+        "y": 13,
+        "color": "red",
+        "type": 0,
+        "direction": 1,
+        "iswall": 0
+      },
+      {
+        "_comment": "Chasing enemy",
+        "x": 18,
+        "y": 13,
         "color": "red",
         "type": 1,
-        "direction": -1,
-        "iswall": 1
+        "direction": 1,
+        "iswall": 0
       }
     ],
     "tiles": [
       {
         "_comment": "Bottom right green border corner",
-        "texture": "assets/images/top-left-border.png",
+        "texture": "assets/images/bottom-right-border.png",
         "position": {
           "x": 25,
           "y": 19
@@ -99,7 +156,7 @@
           "y": 0
         },
         "size": {
-          "width": 25,
+          "width": 24,
           "height": 1
         },
         "type": 0
@@ -112,7 +169,7 @@
           "y": 19
         },
         "size": {
-          "width": 25,
+          "width": 24,
           "height": 1
         },
         "type": 1
@@ -144,82 +201,11 @@
         "type": 0
       },
       {
+        "_comment": "Top left corner",
         "texture": "assets/images/tile-corner-8.png",
         "position": {
-          "x": 12,
-          "y": 4
-        },
-        "size": {
-          "width": 2,
-          "height": 15
-        },
-        "type": 0
-      },
-      {
-        "texture": "assets/images/tile-walls-8.png",
-        "position": {
-          "x": 1,
-          "y": 15
-        },
-        "size": {
-          "width": 4,
-          "height": 1
-        },
-        "type": 0
-      },
-      {
-        "texture": "assets/images/tile-walls-8.png",
-        "position": {
-          "x": 9,
-          "y": 13
-        },
-        "size": {
-          "width": 3,
-          "height": 1
-        },
-        "type": 0
-      },
-      {
-        "texture": "assets/images/tile-walls-8.png",
-        "position": {
-          "x": 1,
-          "y": 11
-        },
-        "size": {
-          "width": 3,
-          "height": 1
-        },
-        "type": 0
-      },
-      {
-        "texture": "assets/images/tile-walls-8.png",
-        "position": {
-          "x": 9,
-          "y": 9
-        },
-        "size": {
-          "width": 3,
-          "height": 1
-        },
-        "type": 0
-      },
-      {
-        "texture": "assets/images/tile-walls-8.png",
-        "position": {
-          "x": 5,
-          "y": 8
-        },
-        "size": {
-          "width": 2,
-          "height": 1
-        },
-        "type": 0
-      },
-      {
-        "texture": "assets/images/tile-walls-8.png",
-        "position": {
-          "x": 1,
-          "y": 5
+          "x": 2,
+          "y": 2
         },
         "size": {
           "width": 1,
@@ -228,7 +214,169 @@
         "type": 0
       },
       {
+        "_comment": "Bottom left corner",
+        "texture": "assets/images/tile-corner-8.png",
+        "position": {
+          "x": 2,
+          "y": 17
+        },
+        "size": {
+          "width": 1,
+          "height": 1
+        },
+        "type": 0
+      },
+      {
+        "_comment": "Left outer wall",
         "texture": "assets/images/tile-walls-8.png",
+        "position": {
+          "x": 2,
+          "y": 3
+        },
+        "size": {
+          "width": 1,
+          "height": 14
+        },
+        "type": 0
+      },
+      {
+        "_comment": "Top outer wall",
+        "texture": "assets/images/tile-walls-8.png",
+        "position": {
+          "x": 3,
+          "y": 2
+        },
+        "size": {
+          "width": 20,
+          "height": 1
+        },
+        "type": 0
+      },
+      {
+        "_comment": "Top right corner",
+        "texture": "assets/images/tile-corner-8.png",
+        "position": {
+          "x": 23,
+          "y": 2
+        },
+        "size": {
+          "width": 1,
+          "height": 1
+        },
+        "type": 0
+      },
+      {
+        "_comment": "Right outer wall",
+        "texture": "assets/images/tile-walls-8.png",
+        "position": {
+          "x": 23,
+          "y": 3
+        },
+        "size": {
+          "width": 1,
+          "height": 11
+        },
+        "type": 0
+      },
+      {
+        "_comment": "Bottom outer wall",
+        "texture": "assets/images/tile-walls-8.png",
+        "position": {
+          "x": 3,
+          "y": 17
+        },
+        "size": {
+          "width": 20,
+          "height": 1
+        },
+        "type": 0
+      },
+      {
+        "_comment": "Bottom right corner",
+        "texture": "assets/images/tile-corner-8.png",
+        "position": {
+          "x": 23,
+          "y": 17
+        },
+        "size": {
+          "width": 1,
+          "height": 1
+        },
+        "type": 0
+      },
+      {
+        "_comment": "Second bottom right corner",
+        "texture": "assets/images/tile-corner-8.png",
+        "position": {
+          "x": 23,
+          "y": 14
+        },
+        "size": {
+          "width": 1,
+          "height": 1
+        },
+        "type": 0
+      },
+
+      {
+        "_comment": "1st platform",
+        "texture": "assets/images/tile-corner-8.png",
+        "position": {
+          "x": 5,
+          "y": 14
+        },
+        "size": {
+          "width": 1,
+          "height": 1
+        },
+        "type": 0
+      },
+
+      {
+        "_comment": "2nd platform",
+        "texture": "assets/images/tile-corner-8.png",
+        "position": {
+          "x": 3,
+          "y": 11
+        },
+        "size": {
+          "width": 1,
+          "height": 1
+        },
+        "type": 0
+      },
+
+      {
+        "_comment": "3rd platform",
+        "texture": "assets/images/tile-corner-8.png",
+        "position": {
+          "x": 5,
+          "y": 8
+        },
+        "size": {
+          "width": 1,
+          "height": 1
+        },
+        "type": 0
+      },
+
+      {
+        "_comment": "4th platform",
+        "texture": "assets/images/tile-corner-8.png",
+        "position": {
+          "x": 3,
+          "y": 5
+        },
+        "size": {
+          "width": 1,
+          "height": 1
+        },
+        "type": 0
+      },
+
+      {
+        "_comment": "1st inner wall corner",
+        "texture": "assets/images/tile-corner-8.png",
         "position": {
           "x": 6,
           "y": 5
@@ -239,11 +387,139 @@
         },
         "type": 0
       },
+
+      {
+        "_comment": "1st inner wall",
+        "texture": "assets/images/tile-walls-8.png",
+        "position": {
+          "x": 6,
+          "y": 6
+        },
+        "size": {
+          "width": 1,
+          "height": 11
+        },
+        "type": 0
+      },
+
+      {
+        "_comment": "1st hall floor",
+        "texture": "assets/images/tile-walls-8.png",
+        "position": {
+          "x": 7,
+          "y": 5
+        },
+        "size": {
+          "width": 13,
+          "height": 1
+        },
+        "type": 0
+      },
+
+      {
+        "_comment": "1st hall floor corner",
+        "texture": "assets/images/tile-corner-8.png",
+        "position": {
+          "x": 20,
+          "y": 5
+        },
+        "size": {
+          "width": 1,
+          "height": 1
+        },
+        "type": 0
+      },
+
+      {
+        "_comment": "2nd hall floor",
+        "texture": "assets/images/tile-walls-8.png",
+        "position": {
+          "x": 10,
+          "y": 8
+        },
+        "size": {
+          "width": 13,
+          "height": 1
+        },
+        "type": 0
+      },
+
+      {
+        "_comment": "2nd hall floor corner",
+        "texture": "assets/images/tile-corner-8.png",
+        "position": {
+          "x": 9,
+          "y": 8
+        },
+        "size": {
+          "width": 1,
+          "height": 1
+        },
+        "type": 0
+      },
+
+      {
+        "_comment": "3rd hall floor",
+        "texture": "assets/images/tile-walls-8.png",
+        "position": {
+          "x": 7,
+          "y": 11
+        },
+        "size": {
+          "width": 13,
+          "height": 1
+        },
+        "type": 0
+      },
+
+      {
+        "_comment": "3rd hall floor corner",
+        "texture": "assets/images/tile-corner-8.png",
+        "position": {
+          "x": 20,
+          "y": 11
+        },
+        "size": {
+          "width": 1,
+          "height": 1
+        },
+        "type": 0
+      },
+
+      {
+        "_comment": "4th hall floor",
+        "texture": "assets/images/tile-walls-8.png",
+        "position": {
+          "x": 10,
+          "y": 14
+        },
+        "size": {
+          "width": 13,
+          "height": 1
+        },
+        "type": 0
+      },
+
+      {
+        "_comment": "4th hall floor corner",
+        "texture": "assets/images/tile-corner-8.png",
+        "position": {
+          "x": 9,
+          "y": 14
+        },
+        "size": {
+          "width": 1,
+          "height": 1
+        },
+        "type": 0
+      },
+
+
       {
         "texture": "assets/images/Star.png",
         "position": {
-          "x": 24,
-          "y": 18
+          "x": 23,
+          "y": 16
         },
         "size": {
           "width": 1,

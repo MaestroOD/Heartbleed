@@ -304,7 +304,7 @@ void Game::run() {
 
         for (Enemy& enemy : gameenemies) {
             enemy.draw(*window);
-            if (enemy.getCanAttack()) {
+            if (enemy.getCanMove()) {
                 enemy.drawBullet(*window);
             }
         }
@@ -339,7 +339,7 @@ void checkPlayerEnemyCollision(Player& player, Enemy& enemy, sf::Vector2f& direc
         push = 0.0f;
     }
     if (enemy.getCollider().checkCollision(player.getCollider(), direction, push)) {
-        if (push == 0.0f && enemy.getCanAttack()) {
+        if (push == 0.0f && !enemy.getCanMove()) {
             enemy.disableAttack();
             player.takeDamage(enemy.getDamage());
         }

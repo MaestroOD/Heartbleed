@@ -105,8 +105,9 @@ bool Collider::checkCollision(Collider &other, sf::Vector2f &direction, float pu
     float deltaY = otherPosition.y - thisPosition.y;
     float intersectX = std::abs(deltaX) - (std::abs(otherHalfSize.x) + std::abs(thisHalfSize.x));
     float intersectY = std::abs(deltaY) - (std::abs(otherHalfSize.y) + std::abs(thisHalfSize.y));
+    const float tolerance = 0.1f;
 
-    if (intersectX < 0.f && intersectY < 0.f)
+    if (intersectX < 0.0f && intersectY < 0.0f)
     {
         push = std::min(std::max(push, 0.0f), 1.0f);
 
