@@ -14,6 +14,8 @@
 #include <vector>
 #include <optional>
 #include <string>
+#include <sstream>
+#include <iomanip>
 
 void checkTilePlayerCollision(std::vector<Tile>& tiles, Player& player, sf::Vector2f& direction);
 void checkTileEnemyCollision(std::vector<Tile>& tiles, Enemy& enemy, sf::Vector2f& direction);
@@ -34,7 +36,7 @@ void Game::run() {
     music.play();
 
     sf::Font font;
-    if (!font.openFromFile("assets/font/Hyper Oxide.ttf")) {
+    if (!font.openFromFile("assets/font/VCR.ttf")) {
         std::cerr << "Failed to load font\n";
     }
 
@@ -127,6 +129,18 @@ void Game::run() {
     debugText.setFillColor(sf::Color::White);
     debugText.setPosition(sf::Vector2f(50.f, 10.f));
 
+    sf::Text timerText(font);
+    timerText.setCharacterSize(32);
+    timerText.setFillColor(sf::Color::Green);
+    timerText.setPosition(sf::Vector2f(96.f, 760.f));
+
+    sf::Text stageTitle(font);
+    stageTitle.setCharacterSize(46);
+    stageTitle.setFillColor(sf::Color::Green);
+    stageTitle.setPosition(sf::Vector2f(96.f, 16.f));
+    stageTitle.setString(currentStage->getName());
+
+    sf::Clock gameClock;
     sf::Clock deltaClock;
     bool debugMode = false;
 
@@ -178,6 +192,7 @@ void Game::run() {
             currentStage = &stages[current];
             player.setPosition(currentStage->getPlayerSpawn());
             gametiles = currentStage->getTiles();
+            stageTitle.setString(currentStage->getName());
         }
 
 /*         if (player.getMode()) {
@@ -245,11 +260,32 @@ void Game::run() {
             }
         }
 
-        window->clear(sf::Color(0x3b3b3b));
+        window->clear(sf::Color(16, 36, 29, 255));
 
         if (debugMode) {
             window->draw(debugText);
         }
+
+
+
+        
+        sf::Time elapsed = gameClock.getElapsedTime();
+        long totalMs = elapsed.asMilliseconds();
+        
+        int minutes = totalMs / (60 * 1000);
+        int seconds = (totalMs % (60 * 1000)) / 1000;
+        int centiseconds = (totalMs % 1000) / 10;
+        
+        std::ostringstream oss;
+        oss << std::setw(2) << std::setfill('0') << minutes << ":"
+            << std::setw(2) << std::setfill('0') << seconds << ":"
+            << std::setw(2) << std::setfill('0') << centiseconds;
+        
+        timerText.setString("Time: " + oss.str());
+        
+
+        window->draw(timerText);
+        window->draw(stageTitle);
 
         player.renderBullet(*window);
         player.render(*window);

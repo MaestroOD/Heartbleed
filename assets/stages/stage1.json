@@ -1,4 +1,7 @@
 {
+    "stageName": {
+      "name": "sys/figuring_it_out"
+    },
     "playerSpawn": {
       "_comment": "Spawn bottom left corner",
       "x": 3,

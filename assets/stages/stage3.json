@@ -1,4 +1,7 @@
 {
+  "stageName": {
+    "name": "sys/security_breach"
+  },
   "playerSpawn": {
     "x": 2,
     "y": 2

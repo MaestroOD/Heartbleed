@@ -42,7 +42,7 @@ public:
 protected:
     sf::Texture texture;       // Idle texture
     sf::Texture attackTexture; // Attack texture
-    sf::RectangleShape enemy;  // Change to a sprite later
+    sf::RectangleShape enemy;  // Change to a sprite later?
     int health;
     sf::Vector2f position;
     sf::Vector2f velocity;

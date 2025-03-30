@@ -1,4 +1,7 @@
 {
+  "stageName": {
+    "name": "sys/initializing_defense..."
+  },
     "playerSpawn": {
       "x": 24,
       "y": 3

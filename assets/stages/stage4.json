@@ -1,4 +1,7 @@
 {
+    "stageName": {
+      "name": "sys/the_defender"
+    },
     "playerSpawn": {
       "x": 3,
       "y": 12

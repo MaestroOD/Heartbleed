@@ -30,8 +30,11 @@ public:
     sf::Vector2f getPlayerSpawn() const;
     sf::Vector2f getGoalPoint() const;
     std::vector<Enemy>& getEnemies();
+    std::string getName();
 
 private:
+
+    std::string stageName;
     // Map to hold textures (persist for the stage's lifetime)
     std::unordered_map<std::string, sf::Texture> textures;
 

@@ -47,6 +47,10 @@ Stage::Stage(const std::string& jsonFile) {
     
     json j;
     file >> j;
+
+    if (j.contains("stageName")) {
+        stageName = j["stageName"]["name"].get<std::string>();
+    }
     
     // Read player spawn point.
     if (j.contains("playerSpawn")) {
@@ -154,6 +158,10 @@ sf::Vector2f Stage::getGoalPoint() const {
 
 std::vector<Enemy>& Stage::getEnemies() {
     return enemies;
+}
+
+std::string Stage::getName() {
+    return stageName;
 }
 
 Tile Stage::parseTile(const nlohmann::json& tileData) {
