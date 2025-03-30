@@ -2,15 +2,15 @@
 
 Boss::Boss() : Enemy({160, 160}, sf::Color::White, false), otherBullet({ 64, 64 }, 1)
 {
-	if (!texture.loadFromFile("assets/images/boss-idle-1.png")) 
+	if (!texture.loadFromFile("assets/images/enemy/boss-idle-1.png")) 
 	{
 		std::cerr << "Cannot load in idle boss texture!";
 	}
-	if (!attackTexture.loadFromFile("assets/images/boss-idle-2.png")) 
+	if (!attackTexture.loadFromFile("assets/images/enemy/boss-idle-2.png")) 
 	{
 		std::cerr << "Cannot load in attack boss texture!";
 	}
-	if (!hurtTexture.loadFromFile("assets/images/boss-hurt.png"))
+	if (!hurtTexture.loadFromFile("assets/images/enemy/boss-hurt.png"))
 	{
 		std::cerr << "Cannot load in hurt boss texture!";
 	}

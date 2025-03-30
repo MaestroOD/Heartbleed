@@ -18,22 +18,22 @@ Enemy::Enemy(sf::Vector2f size, sf::Color color, bool cMove) : collider(enemy), 
 
     if (canMove)
     {
-        if (!texture.loadFromFile("assets/images/chaser.png"))
+        if (!texture.loadFromFile("assets/images/enemy/chaser.png"))
         {
             std::cerr << "Error: Unable to load in enemy sprite!";
         }
-        if (!attackTexture.loadFromFile("assets/images/chaser-attack.png"))
+        if (!attackTexture.loadFromFile("assets/images/enemy/chaser-attack.png"))
         {
             std::cerr << "Error: Unable to load in enemy sprite!";
         }
     }
     else
     {
-        if (!texture.loadFromFile("assets/images/turret.png"))
+        if (!texture.loadFromFile("assets/images/enemy/turret.png"))
         {
             std::cerr << "Error: Unable to load in enemy sprite!";
         }
-        if (!attackTexture.loadFromFile("assets/images/turret-attack.png"))
+        if (!attackTexture.loadFromFile("assets/images/enemy/turret-attack.png"))
         {
             std::cerr << "Error: Unable to load in enemy sprite!";
         }
@@ -243,7 +243,7 @@ void Enemy::setDetectionRange(float newRange)
 void Enemy::setAsWall()
 {
     isWall = true;
-    if (!texture.loadFromFile("assets/images/tile-corner.png"))
+    if (!texture.loadFromFile("assets/images/terrain/tile-corner.png"))
     {
         std::cerr << "Error: Unable to load in enemy sprite!";
     }

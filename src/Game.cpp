@@ -326,10 +326,12 @@ void Game::run() {
 
 
         for (Enemy& enemy : gameenemies) {
+            
             enemy.draw(*window);
-            if (enemy.getCanMove()) {
+            if (!enemy.getCanMove()) {
                 enemy.drawBullet(*window);
             }
+         
         }
         
         window->display();

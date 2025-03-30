@@ -5,7 +5,7 @@ Bullet::Bullet(sf::Vector2f size, int o)
     owner = o;
     bullet.setSize(size);
 
-    if (!texture.loadFromFile("assets/images/bullet-1-8.png"))
+    if (!texture.loadFromFile("assets/images/enemy/bullet-1-8.png"))
     {
         std::cerr << "Error loading in bullet texture" << std::endl;
     }

@@ -1,99 +1,247 @@
 {
     "stageName": {
-      "name": "sys/the_defender"
+      "name": "sys/final-defense"
     },
     "playerSpawn": {
-      "x": 3,
-      "y": 12
+      "_comment": "Spawn top left corner",
+      "x": 4,
+      "y": 2
     },
     "goalPoint": {
-      "x": 12,
-      "y": 12
+      "_comment": "Goal bottom right corner",
+      "x": 24,
+      "y": 18
     },
     "enemies": [
       {
-        "x": 11,
-        "y": 14,
+        "_comment": "1st turret",
+        "x": 9,
+        "y": 4,
         "color": "red",
         "type": 0,
-        "direction": -1,
-        "iswall": 0
-      },
-      {
-        "x": 15,
-        "y": 14,
-        "color": "red",
-        "type": 1,
-        "direction": -1,
+        "direction": 1,
         "iswall": 0
       }
     ],
     "tiles": [
       {
-        "texture": "assets/images/tile-walls-8.png",
+        "_comment": "Bottom right green border corner",
+        "texture": "assets/images/terrain/bottom-right-border.png",
         "position": {
-          "x": 0,
-          "y": 0
+          "x": 25,
+          "y": 19
         },
         "size": {
-          "width": 26,
+          "width": 1,
           "height": 1
         },
         "type": 0
       },
       {
-        "texture": "assets/images/tile-corner-8.png",
+        "_comment": "Bottom left green border corner",
+        "texture": "assets/images/terrain/bottom-left-border.png",
         "position": {
           "x": 0,
           "y": 19
         },
         "size": {
-          "width": 26,
+          "width": 1,
           "height": 1
         },
-        "type": 1
+        "type": 0
       },
       {
-        "texture": "assets/images/tile-corner-8.png",
-        "position": {
-          "x": 0,
-          "y": 0
-        },
-        "size": {
-          "width": 1,
-          "height": 19
-        },
-        "type": 1
-      },
-      {
-        "texture": "assets/images/tile-corner-8.png",
+        "_comment": "Top right green border corner",
+        "texture": "assets/images/terrain/top-right-border.png",
         "position": {
           "x": 25,
           "y": 0
         },
         "size": {
           "width": 1,
-          "height": 19
+          "height": 1
         },
         "type": 0
       },
       {
-        "texture": "assets/images/tile-corner-8.png",
+        "_comment": "Top left green border corner",
+        "texture": "assets/images/terrain/top-left-border.png",
         "position": {
-          "x": 12,
-          "y": 4
+          "x": 0,
+          "y": 0
         },
         "size": {
-          "width": 2,
-          "height": 15
+          "width": 1,
+          "height": 1
         },
         "type": 0
       },
       {
-        "texture": "assets/images/tile-walls-8.png",
+        "_comment": "Top green border wall",
+        "texture": "assets/images/terrain/floor-border.png",
         "position": {
           "x": 1,
-          "y": 15
+          "y": 0
+        },
+        "size": {
+          "width": 24,
+          "height": 1
+        },
+        "type": 0
+      },
+      {
+        "_comment": "Bottom green border wall",
+        "texture": "assets/images/terrain/floor-border.png",
+        "position": {
+          "x": 1,
+          "y": 19
+        },
+        "size": {
+          "width": 24,
+          "height": 1
+        },
+        "type": 1
+      },
+      {
+        "_comment": "Left green border wall",
+        "texture": "assets/images/terrain/wall-border.png",
+        "position": {
+          "x": 0,
+          "y": 1
+        },
+        "size": {
+          "width": 1,
+          "height": 18
+        },
+        "type": 1
+      },
+      {
+        "_comment": "Right green border wall",
+        "texture": "assets/images/terrain/wall-border.png",
+        "position": {
+          "x": 25,
+          "y": 1
+        },
+        "size": {
+          "width": 1,
+          "height": 18
+        },
+        "type": 0
+      },
+      {
+        "_comment": "Top left corner",
+        "texture": "assets/images/terrain/tile-corner-8.png",
+        "position": {
+          "x": 2,
+          "y": 2
+        },
+        "size": {
+          "width": 1,
+          "height": 1
+        },
+        "type": 0
+      },
+      {
+        "_comment": "Bottom left corner",
+        "texture": "assets/images/terrain/tile-corner-8.png",
+        "position": {
+          "x": 2,
+          "y": 17
+        },
+        "size": {
+          "width": 1,
+          "height": 1
+        },
+        "type": 0
+      },
+      {
+        "_comment": "Top right corner",
+        "texture": "assets/images/terrain/tile-corner-8.png",
+        "position": {
+          "x": 23,
+          "y": 2
+        },
+        "size": {
+          "width": 1,
+          "height": 1
+        },
+        "type": 0
+      },
+  
+      {
+        "_comment": "Bottom right corner",
+        "texture": "assets/images/terrain/tile-corner-8.png",
+        "position": {
+          "x": 23,
+          "y": 17
+        },
+        "size": {
+          "width": 1,
+          "height": 1
+        },
+        "type": 0
+      },
+  
+      {
+        "_comment": "Left outer wall",
+        "texture": "assets/images/terrain/tile-walls-8.png",
+        "position": {
+          "x": 2,
+          "y": 3
+        },
+        "size": {
+          "width": 1,
+          "height": 14
+        },
+        "type": 0
+      },
+  
+      {
+        "_comment": "Top right corner",
+        "texture": "assets/images/terrain/tile-corner-8.png",
+        "position": {
+          "x": 23,
+          "y": 2
+        },
+        "size": {
+          "width": 1,
+          "height": 1
+        },
+        "type": 0
+      },
+      {
+        "_comment": "Right outer wall",
+        "texture": "assets/images/terrain/tile-walls-8.png",
+        "position": {
+          "x": 23,
+          "y": 3
+        },
+        "size": {
+          "width": 1,
+          "height": 14
+        },
+        "type": 0
+      },
+      {
+        "_comment": "Bottom outer wall",
+        "texture": "assets/images/terrain/tile-walls-8.png",
+        "position": {
+          "x": 3,
+          "y": 17
+        },
+        "size": {
+          "width": 20,
+          "height": 1
+        },
+        "type": 0
+      },
+  
+      {
+        "_comment": "1st platform",
+        "texture": "assets/images/terrain/tile-corner-8.png",
+        "position": {
+          "x": 6,
+          "y": 14
         },
         "size": {
           "width": 4,
@@ -101,78 +249,33 @@
         },
         "type": 0
       },
+  
       {
-        "texture": "assets/images/tile-walls-8.png",
+        "_comment": "2nd platform",
+        "texture": "assets/images/terrain/tile-corner-8.png",
         "position": {
-          "x": 9,
-          "y": 13
-        },
-        "size": {
-          "width": 3,
-          "height": 1
-        },
-        "type": 0
-      },
-      {
-        "texture": "assets/images/tile-walls-8.png",
-        "position": {
-          "x": 1,
+          "x": 10,
           "y": 11
         },
         "size": {
-          "width": 3,
+          "width": 4,
           "height": 1
         },
         "type": 0
       },
+  
       {
-        "texture": "assets/images/tile-walls-8.png",
+        "_comment": "3rd platform",
+        "texture": "assets/images/terrain/tile-corner-8.png",
         "position": {
-          "x": 9,
-          "y": 9
-        },
-        "size": {
-          "width": 3,
-          "height": 1
-        },
-        "type": 0
-      },
-      {
-        "texture": "assets/images/tile-walls-8.png",
-        "position": {
-          "x": 5,
+          "x": 6,
           "y": 8
         },
         "size": {
-          "width": 2,
-          "height": 1
-        },
-        "type": 0
-      },
-      {
-        "texture": "assets/images/tile-walls-8.png",
-        "position": {
-          "x": 1,
-          "y": 5
-        },
-        "size": {
-          "width": 1,
-          "height": 1
-        },
-        "type": 0
-      },
-      {
-        "texture": "assets/images/tile-walls-8.png",
-        "position": {
-          "x": 6,
-          "y": 5
-        },
-        "size": {
-          "width": 1,
+          "width": 4,
           "height": 1
         },
         "type": 0
       }
     ]
   }
-  

@@ -30,7 +30,7 @@
   ],
   "tiles": [
     {
-      "texture": "assets/images/tile-walls-8.png",
+      "texture": "assets/images/terrain/tile-walls-8.png",
       "position": {
         "x": 0,
         "y": 0
@@ -42,7 +42,7 @@
       "type": 0
     },
     {
-      "texture": "assets/images/tile-corner-8.png",
+      "texture": "assets/images/terrain/tile-corner-8.png",
       "position": {
         "x": 0,
         "y": 19
@@ -54,7 +54,7 @@
       "type": 1
     },
     {
-      "texture": "assets/images/tile-corner-8.png",
+      "texture": "assets/images/terrain/tile-corner-8.png",
       "position": {
         "x": 0,
         "y": 0
@@ -66,7 +66,7 @@
       "type": 1
     },
     {
-      "texture": "assets/images/tile-corner-8.png",
+      "texture": "assets/images/terrain/tile-corner-8.png",
       "position": {
         "x": 25,
         "y": 0
@@ -78,7 +78,7 @@
       "type": 0
     },
     {
-      "texture": "assets/images/tile-corner-8.png",
+      "texture": "assets/images/terrain/tile-corner-8.png",
       "position": {
         "x": 12,
         "y": 1
@@ -90,7 +90,7 @@
       "type": 0
     },
     {
-      "texture": "assets/images/tile-walls-8.png",
+      "texture": "assets/images/terrain/tile-walls-8.png",
       "position": {
         "x": 1,
         "y": 15
@@ -102,7 +102,7 @@
       "type": 0
     },
     {
-      "texture": "assets/images/tile-walls-8.png",
+      "texture": "assets/images/terrain/tile-walls-8.png",
       "position": {
         "x": 9,
         "y": 13
@@ -114,7 +114,7 @@
       "type": 0
     },
     {
-      "texture": "assets/images/tile-walls-8.png",
+      "texture": "assets/images/terrain/tile-walls-8.png",
       "position": {
         "x": 1,
         "y": 11
@@ -126,7 +126,7 @@
       "type": 0
     },
     {
-      "texture": "assets/images/tile-walls-8.png",
+      "texture": "assets/images/terrain/tile-walls-8.png",
       "position": {
         "x": 9,
         "y": 9
@@ -138,7 +138,7 @@
       "type": 0
     },
     {
-      "texture": "assets/images/tile-walls-8.png",
+      "texture": "assets/images/terrain/tile-walls-8.png",
       "position": {
         "x": 5,
         "y": 8
@@ -150,7 +150,7 @@
       "type": 0
     },
     {
-      "texture": "assets/images/tile-walls-8.png",
+      "texture": "assets/images/terrain/tile-walls-8.png",
       "position": {
         "x": 1,
         "y": 5
@@ -162,7 +162,7 @@
       "type": 0
     },
     {
-      "texture": "assets/images/Star.png",
+      "texture": "assets/images/terrain/Star.png",
       "position": {
         "x": 2,
         "y": 18
@@ -174,7 +174,7 @@
       "type": 2
     },
     {
-      "texture": "assets/images/tile-corner-8.png",
+      "texture": "assets/images/terrain/tile-corner-8.png",
       "position": {
         "x": 9,
         "y": 16

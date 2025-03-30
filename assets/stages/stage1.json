@@ -98,7 +98,7 @@
     "tiles": [
       {
         "_comment": "Bottom right green border corner",
-        "texture": "assets/images/bottom-right-border.png",
+        "texture": "assets/images/terrain/bottom-right-border.png",
         "position": {
           "x": 25,
           "y": 19
@@ -111,7 +111,7 @@
       },
       {
         "_comment": "Bottom left green border corner",
-        "texture": "assets/images/bottom-left-border.png",
+        "texture": "assets/images/terrain/bottom-left-border.png",
         "position": {
           "x": 0,
           "y": 19
@@ -124,7 +124,7 @@
       },
       {
         "_comment": "Top right green border corner",
-        "texture": "assets/images/top-right-border.png",
+        "texture": "assets/images/terrain/top-right-border.png",
         "position": {
           "x": 25,
           "y": 0
@@ -137,7 +137,7 @@
       },
       {
         "_comment": "Top left green border corner",
-        "texture": "assets/images/top-left-border.png",
+        "texture": "assets/images/terrain/top-left-border.png",
         "position": {
           "x": 0,
           "y": 0
@@ -150,7 +150,7 @@
       },
       {
         "_comment": "Top green border wall",
-        "texture": "assets/images/floor-border.png",
+        "texture": "assets/images/terrain/floor-border.png",
         "position": {
           "x": 1,
           "y": 0
@@ -163,7 +163,7 @@
       },
       {
         "_comment": "Bottom green border wall",
-        "texture": "assets/images/floor-border.png",
+        "texture": "assets/images/terrain/floor-border.png",
         "position": {
           "x": 1,
           "y": 19
@@ -176,7 +176,7 @@
       },
       {
         "_comment": "Left green border wall",
-        "texture": "assets/images/wall-border.png",
+        "texture": "assets/images/terrain/wall-border.png",
         "position": {
           "x": 0,
           "y": 1
@@ -189,7 +189,7 @@
       },
       {
         "_comment": "Right green border wall",
-        "texture": "assets/images/wall-border.png",
+        "texture": "assets/images/terrain/wall-border.png",
         "position": {
           "x": 25,
           "y": 1
@@ -202,7 +202,7 @@
       },
       {
         "_comment": "Top left corner",
-        "texture": "assets/images/tile-corner-8.png",
+        "texture": "assets/images/terrain/tile-corner-8.png",
         "position": {
           "x": 2,
           "y": 2
@@ -215,7 +215,7 @@
       },
       {
         "_comment": "Bottom left corner",
-        "texture": "assets/images/tile-corner-8.png",
+        "texture": "assets/images/terrain/tile-corner-8.png",
         "position": {
           "x": 2,
           "y": 17
@@ -228,7 +228,7 @@
       },
       {
         "_comment": "Left outer wall",
-        "texture": "assets/images/tile-walls-8.png",
+        "texture": "assets/images/terrain/tile-walls-8.png",
         "position": {
           "x": 2,
           "y": 3
@@ -241,7 +241,7 @@
       },
       {
         "_comment": "Top outer wall",
-        "texture": "assets/images/tile-walls-8.png",
+        "texture": "assets/images/terrain/tile-walls-8.png",
         "position": {
           "x": 3,
           "y": 2
@@ -254,7 +254,7 @@
       },
       {
         "_comment": "Top right corner",
-        "texture": "assets/images/tile-corner-8.png",
+        "texture": "assets/images/terrain/tile-corner-8.png",
         "position": {
           "x": 23,
           "y": 2
@@ -267,7 +267,7 @@
       },
       {
         "_comment": "Right outer wall",
-        "texture": "assets/images/tile-walls-8.png",
+        "texture": "assets/images/terrain/tile-walls-8.png",
         "position": {
           "x": 23,
           "y": 3
@@ -280,7 +280,7 @@
       },
       {
         "_comment": "Bottom outer wall",
-        "texture": "assets/images/tile-walls-8.png",
+        "texture": "assets/images/terrain/tile-walls-8.png",
         "position": {
           "x": 3,
           "y": 17
@@ -293,7 +293,7 @@
       },
       {
         "_comment": "Bottom right corner",
-        "texture": "assets/images/tile-corner-8.png",
+        "texture": "assets/images/terrain/tile-corner-8.png",
         "position": {
           "x": 23,
           "y": 17
@@ -306,7 +306,7 @@
       },
       {
         "_comment": "Second bottom right corner",
-        "texture": "assets/images/tile-corner-8.png",
+        "texture": "assets/images/terrain/tile-corner-8.png",
         "position": {
           "x": 23,
           "y": 14
@@ -320,7 +320,7 @@
 
       {
         "_comment": "1st platform",
-        "texture": "assets/images/tile-corner-8.png",
+        "texture": "assets/images/terrain/tile-corner-8.png",
         "position": {
           "x": 5,
           "y": 14
@@ -334,7 +334,7 @@
 
       {
         "_comment": "2nd platform",
-        "texture": "assets/images/tile-corner-8.png",
+        "texture": "assets/images/terrain/tile-corner-8.png",
         "position": {
           "x": 3,
           "y": 11
@@ -348,7 +348,7 @@
 
       {
         "_comment": "3rd platform",
-        "texture": "assets/images/tile-corner-8.png",
+        "texture": "assets/images/terrain/tile-corner-8.png",
         "position": {
           "x": 5,
           "y": 8
@@ -362,21 +362,21 @@
 
       {
         "_comment": "4th platform",
-        "texture": "assets/images/tile-corner-8.png",
+        "texture": "assets/images/terrain/tile-corner-8.png",
         "position": {
           "x": 3,
-          "y": 5
+          "y": 3
         },
         "size": {
           "width": 1,
-          "height": 1
+          "height": 3
         },
         "type": 0
       },
 
       {
         "_comment": "1st inner wall corner",
-        "texture": "assets/images/tile-corner-8.png",
+        "texture": "assets/images/terrain/tile-corner-8.png",
         "position": {
           "x": 6,
           "y": 5
@@ -390,7 +390,7 @@
 
       {
         "_comment": "1st inner wall",
-        "texture": "assets/images/tile-walls-8.png",
+        "texture": "assets/images/terrain/tile-walls-8.png",
         "position": {
           "x": 6,
           "y": 6
@@ -404,7 +404,7 @@
 
       {
         "_comment": "1st hall floor",
-        "texture": "assets/images/tile-walls-8.png",
+        "texture": "assets/images/terrain/tile-walls-8.png",
         "position": {
           "x": 7,
           "y": 5
@@ -418,7 +418,7 @@
 
       {
         "_comment": "1st hall floor corner",
-        "texture": "assets/images/tile-corner-8.png",
+        "texture": "assets/images/terrain/tile-corner-8.png",
         "position": {
           "x": 20,
           "y": 5
@@ -432,7 +432,7 @@
 
       {
         "_comment": "2nd hall floor",
-        "texture": "assets/images/tile-walls-8.png",
+        "texture": "assets/images/terrain/tile-walls-8.png",
         "position": {
           "x": 10,
           "y": 8
@@ -446,7 +446,7 @@
 
       {
         "_comment": "2nd hall floor corner",
-        "texture": "assets/images/tile-corner-8.png",
+        "texture": "assets/images/terrain/tile-corner-8.png",
         "position": {
           "x": 9,
           "y": 8
@@ -460,7 +460,7 @@
 
       {
         "_comment": "3rd hall floor",
-        "texture": "assets/images/tile-walls-8.png",
+        "texture": "assets/images/terrain/tile-walls-8.png",
         "position": {
           "x": 7,
           "y": 11
@@ -474,7 +474,7 @@
 
       {
         "_comment": "3rd hall floor corner",
-        "texture": "assets/images/tile-corner-8.png",
+        "texture": "assets/images/terrain/tile-corner-8.png",
         "position": {
           "x": 20,
           "y": 11
@@ -488,7 +488,7 @@
 
       {
         "_comment": "4th hall floor",
-        "texture": "assets/images/tile-walls-8.png",
+        "texture": "assets/images/terrain/tile-walls-8.png",
         "position": {
           "x": 10,
           "y": 14
@@ -502,7 +502,7 @@
 
       {
         "_comment": "4th hall floor corner",
-        "texture": "assets/images/tile-corner-8.png",
+        "texture": "assets/images/terrain/tile-corner-8.png",
         "position": {
           "x": 9,
           "y": 14
@@ -516,7 +516,7 @@
 
 
       {
-        "texture": "assets/images/Star.png",
+        "texture": "assets/images/terrain/Star.png",
         "position": {
           "x": 23,
           "y": 16

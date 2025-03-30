@@ -1,7 +1,7 @@
 {
     "tiles": [
       {
-        "texture": "assets/ui-texture/weapons-1.png",
+        "texture": "assets/images/UI/weapons-1.png",
         "position": {
           "x": -2.5,
           "y": 5.5
