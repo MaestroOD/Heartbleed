@@ -10,23 +10,31 @@ Collider::Collider(sf::Sprite &bodyRef)
 {
 }
 
+Collider::Collider()
+    : bodyPtr(nullptr),
+      spritePtr(nullptr)
+{
+}
+
 Collider::~Collider()
 {
     // default destructor is fine, or keep empty if needed
 }
 
-// Copy constructor
-Collider::Collider(const Collider &other)
+Collider::Collider(const Collider& other)
 {
-    // copy logic
     this->bodyPtr = other.bodyPtr;
+    this->spritePtr = other.spritePtr;
 }
 
-// Assignment operator
-Collider &Collider::operator=(const Collider &other)
+
+Collider& Collider::operator=(const Collider& other)
 {
     if (this != &other)
+    {
         this->bodyPtr = other.bodyPtr;
+        this->spritePtr = other.spritePtr;
+    }
     return *this;
 }
 
@@ -58,11 +66,28 @@ Vector2f Collider::getHalfSize() const
 {
     if (bodyPtr)
     {
+        // If we’re wrapping a RectangleShape
         return bodyPtr->getSize() / 2.0f;
+    }
+    else if (spritePtr)
+    {
+        // If we’re wrapping a Sprite
+        // 1) Get the local width/height = 32×18 in your case
+        sf::FloatRect local = spritePtr->getLocalBounds(); 
+
+        // 2) Multiply by the sprite’s scale (2×2), so 64×36 overall
+        float scaledWidth  = local.size.x  * spritePtr->getScale().x;
+        float scaledHeight = local.size.y * spritePtr->getScale().y;
+
+        // 3) Return half
+        return {scaledWidth / 2.f, scaledHeight / 2.f};
+
+        //return local.getCenter();
     }
     else
     {
-        return {32, 32}; // constant
+        // If somehow neither pointer is set
+        return {0.f, 0.f};
     }
 }
 
@@ -78,8 +103,8 @@ bool Collider::checkCollision(Collider &other, sf::Vector2f &direction, float pu
 
     float deltaX = otherPosition.x - thisPosition.x;
     float deltaY = otherPosition.y - thisPosition.y;
-    float intersectX = std::abs(deltaX) - (otherHalfSize.x + thisHalfSize.x);
-    float intersectY = std::abs(deltaY) - (otherHalfSize.y + thisHalfSize.y);
+    float intersectX = std::abs(deltaX) - (std::abs(otherHalfSize.x) + std::abs(thisHalfSize.x));
+    float intersectY = std::abs(deltaY) - (std::abs(otherHalfSize.y) + std::abs(thisHalfSize.y));
 
     if (intersectX < 0.f && intersectY < 0.f)
     {

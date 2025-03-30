@@ -69,9 +69,9 @@ if (j.contains("enemies")) {
            enemyData["type"].get<int>() == 1
        );
        
-tempEnemy.setPos(sf::Vector2f(enemyData["x"].get<float>() * tileSize + leftmargin, enemyData["y"].get<float>() * tileSize + topmargin));
+        tempEnemy.setPos(sf::Vector2f(enemyData["x"].get<float>() * tileSize + leftmargin, enemyData["y"].get<float>() * tileSize + topmargin));
 
-      tempEnemy.setColor(stringToColor(enemyData["color"].get<std::string>()));
+        tempEnemy.setColor(stringToColor(enemyData["color"].get<std::string>()));
 
 
        if (enemyData["type"].get<int>() == 1) {

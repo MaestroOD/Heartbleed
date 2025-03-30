@@ -9,7 +9,7 @@ SRC_FILES    = ./src/main.cpp ./src/Game.cpp ./src/Bullet.cpp ./src/Enemy.cpp ./
 OBJ_FILES    = $(SRC_FILES:.cpp=.o)
 INCLUDE_PATH = -I./include
 
-all: clean $(TARGET)
+all: $(TARGET)
 
 $(TARGET): $(OBJ_FILES)
 	$(CPP) -o $@ $^ $(SFML_LIB) $(SFML_LIBS) $(INCLUDE_PATH)

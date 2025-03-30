@@ -7,6 +7,7 @@ class Collider
 public:
     Collider(RectangleShape &bodyRef);
     Collider(Sprite &bodyRef); // For player and enemies with sprite sheets
+    Collider();
     ~Collider();               // We'll define it in the .cpp
 
     // Copy & assignment

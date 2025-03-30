@@ -2,13 +2,13 @@
 #include "Bullet.hpp"
 #include <cmath>
 #include <iostream>
-Player::Player() : collider(sprite), bullet({}, 0), upBullet({}, 0), sprite(texture), hurtSound(getSoundBuffer("hurt")), laserSound(getSoundBuffer("laser"))
+Player::Player() : sprite(texture), collider(), bullet({}, 0), upBullet({}, 0), hurtSound(getSoundBuffer("hurt")), laserSound(getSoundBuffer("laser"))
 {
     // Initialize base values of player
-    Vector2f size = { 64, 64 };
+    Vector2f size = { 64, 18 };
     health = 5;
     currentBullet = 1;
-    position = Vector2f(200, 200);
+    position = Vector2f(0, 0);
     velocity = Vector2f(0, 0);
     speed = 150.0f;
     jumpPower = 125.0f;
@@ -31,7 +31,7 @@ Player::Player() : collider(sprite), bullet({}, 0), upBullet({}, 0), sprite(text
     upBullet.setColor(sf::Color::Red);
 
     // Initialize sprite
-    if (!texture.loadFromFile("assets/images/Player.png"))
+    if (!texture.loadFromFile("assets/images/Player2.png"))
     {
         std::cerr << "Error loading in player texture" << std::endl;
     }
@@ -43,12 +43,18 @@ Player::Player() : collider(sprite), bullet({}, 0), upBullet({}, 0), sprite(text
     laserSound.setPitch(1.2);
 
     // Switched from Rect to Sprite
-    rectSourceSprite = IntRect({ 0, 0 }, { 32, 32 });
+    rectSourceSprite = IntRect({ 0, 0 }, { 32, 18 });
     sprite.setTexture(texture);
     sprite.setTextureRect(rectSourceSprite);
-    sprite.setOrigin({ 16, 16 });
+    sprite.setOrigin({ 16, 9 });
     sprite.setScale({ 2.0f, 2.0f });
     sprite.setPosition(position);
+
+    //sf::FloatRect local = sprite.getLocalBounds(); // x,y,w,h in SFML 3
+    //sprite.setOrigin({local.size.x * 0.5f, local.size.y * 0.5f});
+
+    collider = Collider(sprite);
+    
 }
 
 void Player::handleInput(Keyboard::Scancode key, bool checkPressed, RenderWindow& window)
@@ -239,7 +245,7 @@ void Player::checkEnemyBullet(Bullet& bullet, int damage)
     sf::Vector2f otherPosition = bullet.getPos();
     sf::Vector2f otherHalfSize = bullet.getHalfSize();
     sf::Vector2f thisPosition = sprite.getPosition();
-    sf::Vector2f thisHalfSize = { 16, 16 };
+    sf::Vector2f thisHalfSize = { 16, 9 };
 
     float deltaX = otherPosition.x - thisPosition.x;
     float deltaY = otherPosition.y - thisPosition.y;

@@ -112,9 +112,9 @@ void Game::run() {
     enemy2.setPos(sf::Vector2f(420, 331));
     enemy2.setDetectionRange(250.f);
     enemy2.setDirection(-1.f); */
-    Boss boss;
-    boss.setPos({800, 400});
-    boss.setDirection(-1.f);
+    //Boss boss;
+    //boss.setPos({800, 400});
+    //boss.setDirection(-1.f);
 
     sf::Text debugText(font);
     debugText.setCharacterSize(20);
@@ -159,7 +159,7 @@ void Game::run() {
 
         //enemy.update(dt, player.getPosition());
         //enemy2.update(dt, player.getPosition());
-        boss.update(dt);
+        //boss.update(dt);
 
         const float tolerance = 16.0f;
         sf::Vector2f playerPos = player.getPosition();
@@ -196,11 +196,11 @@ void Game::run() {
         checkTilePlayerCollision(gametiles, player, direction);
 
 
-        checkTileEnemyCollision(gametiles, boss, enemyDirection2);
-        checkPlayerEnemyCollision(player, boss, direction);
-        boss.checkBullet(*player.getBullet());
-        player.checkEnemyBullet(boss.getBullet(), boss.getDamage());
-        player.checkEnemyBullet(boss.getOtherBullet(), boss.getDamage());
+        //checkTileEnemyCollision(gametiles, boss, enemyDirection2);
+        //checkPlayerEnemyCollision(player, boss, direction);
+        //boss.checkBullet(*player.getBullet());
+        //player.checkEnemyBullet(boss.getBullet(), boss.getDamage());
+        //player.checkEnemyBullet(boss.getOtherBullet(), boss.getDamage());
 
 
         for (Enemy& enemy : gameenemies) {
@@ -255,9 +255,9 @@ void Game::run() {
         //enemy2.drawBullet(*window);
         //enemy2.draw(*window);
 
-        boss.drawBullet(*window);
-        boss.drawVBullet(*window);
-        boss.draw(*window);
+        //boss.drawBullet(*window);
+        //boss.drawVBullet(*window);
+        //boss.draw(*window);
 
 
         for (Enemy& enemy : gameenemies) {
