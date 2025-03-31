@@ -5,7 +5,7 @@ Bullet::Bullet(sf::Vector2f size, int o)
     owner = o;
     bullet.setSize(size);
 
-    if (!texture.loadFromFile("assets/images/bullet-1-8.png"))
+    if (!texture.loadFromFile("assets/images/enemy/bullet-1-8.png"))
     {
         std::cerr << "Error loading in bullet texture" << std::endl;
     }
@@ -52,4 +52,11 @@ void Bullet::setSpeed(float spd)
 void Bullet::setColor(sf::Color col)
 {
     bullet.setFillColor(col);
+}
+
+void Bullet::setTexture(const sf::Texture &newTex)
+{
+    // Make an actual copy in the bullet’s internal texture
+    texture = newTex;
+    bullet.setTexture(&texture); // bullet is an sf::RectangleShape
 }

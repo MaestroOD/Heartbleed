@@ -1,8 +1,8 @@
 {
   "tiles": [
         {
-      "texture": "assets/ui-texture/hp-bar-5.png",
-      "position": {
+          "texture": "assets/images/UI/hp-bar-5.png",
+          "position": {
         "x": 26.5,
         "y": 4
       },

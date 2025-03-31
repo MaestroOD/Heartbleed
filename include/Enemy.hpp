@@ -33,24 +33,25 @@ public:
     void onCollision(sf::Vector2f direction);
     void setMove(bool move);
     void setAsWall();
+    void setNotWall();
     void printStatus() const;
+    void setDirection(int dir);
 
     Bullet& getBullet() { return enemyBullet; };
     Collider& getCollider() { return collider; };
     sf::SoundBuffer& getSoundBuffer(std::string soundName);
 
 protected:
-    sf::Texture texture;       // Idle texture
-    sf::Texture attackTexture; // Attack texture
-    sf::RectangleShape enemy;  // Change to a sprite later
+    bool isWall;
+    bool isBoss;
+    sf::RectangleShape enemy;  // Change to a sprite later?
     int health;
     sf::Vector2f position;
     sf::Vector2f velocity;
     float speed;
     float range = 250.0f;
     bool canMove;
-    bool isWall;
-    bool isBoss;
+
     sf::SoundBuffer hurtBuffer;
     sf::Sound hurtSound;
     sf::SoundBuffer laserBuffer;
@@ -58,6 +59,7 @@ protected:
     sf::SoundBuffer screamBuffer;
     sf::Sound screamSound;
     Collider collider;
+    int direction;
 
     int damage;
     bool canAttack;
@@ -66,5 +68,8 @@ protected:
     float timeSinceScream; // hehehehaw
     Time dt;
     Clock enemyClock;
+    sf::Texture texture;       // Idle texture
+    sf::Texture attackTexture; // Attack texture
     Bullet enemyBullet;
+
 };

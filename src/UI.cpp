@@ -9,34 +9,40 @@
 #define totalx = 32 * tilex
 #define totaly = 25 * tiley
 
-#define origin = sf::Vector2f(0.f,0.f)
+#define origin = sf::Vector2f(0.f, 0.f)
 #define innerorigin = sf::Vector2f(leftmargin, topmargin)
 
 using json = nlohmann::json;
 
-UI::UI(const std::string& jsonFile) {
+UI::UI(const std::string &jsonFile)
+{
 
     constexpr float tileSize = 32.f;
     constexpr float leftmargin = 0 * tileSize;
     constexpr float topmargin = 0 * tileSize;
 
     std::ifstream file(jsonFile);
-    if (!file.is_open()) {
+    if (!file.is_open())
+    {
         std::cerr << "Error: Could not open UI file: " << jsonFile << std::endl;
         return;
     }
-    
+
     json j;
     file >> j;
-        
+
     // Process tiles.
-    if (j.contains("tiles")) {
-        for (const auto& tileData : j["tiles"]) {
+    if (j.contains("tiles"))
+    {
+        for (const auto &tileData : j["tiles"])
+        {
             // Retrieve the texture name.
             std::string textureName = tileData.value("texture", "");
             // If a texture is specified and not already loaded, load it.
-            if (!textureName.empty() && textures.find(textureName) == textures.end()) {
-                if (!loadTexture(textureName, textureName)) {
+            if (!textureName.empty() && textures.find(textureName) == textures.end())
+            {
+                if (!loadTexture(textureName, textureName))
+                {
                     std::cerr << "Error loading texture: " << textureName << std::endl;
                 }
             }
@@ -47,9 +53,11 @@ UI::UI(const std::string& jsonFile) {
     }
 }
 
-bool UI::loadTexture(const std::string& textureName, const std::string& filename) {
+bool UI::loadTexture(const std::string &textureName, const std::string &filename)
+{
     sf::Texture texture;
-    if (!texture.loadFromFile(filename)) {
+    if (!texture.loadFromFile(filename))
+    {
         std::cerr << "Error: Could not load texture from " << filename << std::endl;
         return false;
     }
@@ -58,23 +66,28 @@ bool UI::loadTexture(const std::string& textureName, const std::string& filename
     return true;
 }
 
-const sf::Texture& UI::getTexture(const std::string& textureName) const {
+const sf::Texture &UI::getTexture(const std::string &textureName) const
+{
     auto it = textures.find(textureName);
-    if (it == textures.end()) {
+    if (it == textures.end())
+    {
         throw std::runtime_error("Texture " + textureName + " not found.");
     }
     return it->second;
 }
 
-void UI::addTile(const Tile& tile) {
+void UI::addTile(const Tile &tile)
+{
     tiles.push_back(tile);
 }
 
-std::vector<Tile>& UI::getTiles() {
+std::vector<Tile> &UI::getTiles()
+{
     return tiles;
 }
 
-Tile UI::parseTile(const nlohmann::json& tileData) {
+Tile UI::parseTile(const nlohmann::json &tileData)
+{
     constexpr float tileSize = 32.f;
     constexpr float leftmargin = 3 * tileSize;
     constexpr float topmargin = 3 * tileSize;
@@ -84,7 +97,7 @@ Tile UI::parseTile(const nlohmann::json& tileData) {
     float posY = tileData["position"]["y"].get<float>() * tileSize;
 
     // Convert the JSON "size" (in tile units) to pixels.
-    float width  = tileData["size"]["width"].get<float>() * tileSize;
+    float width = tileData["size"]["width"].get<float>() * tileSize;
     float height = tileData["size"]["height"].get<float>() * tileSize;
 
     // Adjust the position to account for SFML's center-based origin:
@@ -97,12 +110,16 @@ Tile UI::parseTile(const nlohmann::json& tileData) {
 
     // Retrieve the texture pointer if a texture name is provided.
     std::string textureName = tileData.value("texture", "");
-    sf::Texture* texturePtr = nullptr;
-    if (!textureName.empty()) {
-        try {
+    sf::Texture *texturePtr = nullptr;
+    if (!textureName.empty())
+    {
+        try
+        {
             // Note: const_cast is used here to match the expected pointer type in Tile.
-            texturePtr = const_cast<sf::Texture*>(&getTexture(textureName));
-        } catch (const std::runtime_error& e) {
+            texturePtr = const_cast<sf::Texture *>(&getTexture(textureName));
+        }
+        catch (const std::runtime_error &e)
+        {
             std::cerr << e.what() << std::endl;
             texturePtr = nullptr;
         }
@@ -110,4 +127,3 @@ Tile UI::parseTile(const nlohmann::json& tileData) {
 
     return Tile(texturePtr, size, centerPosition, type);
 }
-

@@ -27,7 +27,7 @@
         "x": 16,
         "y": 4,
         "color": "red",
-        "type": 1,
+        "type": 0,
         "direction": 1,
         "iswall": 0
       },
@@ -45,7 +45,7 @@
         "x": 11,
         "y": 7,
         "color": "red",
-        "type": 1,
+        "type": 0,
         "direction": 1,
         "iswall": 0
       },
@@ -54,7 +54,7 @@
         "x":12,
         "y": 10,
         "color": "red",
-        "type": 1,
+        "type": 0,
         "direction": -1,
         "iswall": 0
       },

@@ -12,7 +12,7 @@
         "x": 10, // position the enemy will spawn (measured in 32x32 blocks from origin of topleft)
         "y": 4,
         "color": "red", // colour -> replace with sprite?
-        "type": 0, // 0 is stationary/moving?
+        "type": 0, // 0 is turret, 1 is chaser
         "direction": -1 // initial facing, -1 = left, 1 = right
       },
       {

@@ -2,38 +2,41 @@
 #include <iostream>
 #include <cmath>
 
-Enemy::Enemy(sf::Vector2f size, sf::Color color, bool cMove) : collider(enemy), enemyBullet({ 32, 32 }, 1), hurtSound(getSoundBuffer("hurt")), laserSound(getSoundBuffer("laser")), screamSound(getSoundBuffer("hehehehaw"))
+Enemy::Enemy(sf::Vector2f size, sf::Color color, bool cMove) : collider(enemy), enemyBullet({32, 32}, 1), hurtSound(getSoundBuffer("hurt")), laserSound(getSoundBuffer("laser")), screamSound(getSoundBuffer("hehehehaw"))
 {
+    isWall = false;
     health = 4;
     velocity = Vector2f(0, 0);
     speed = 150.0f;
     setDamage(1);
     enemyBullet.setSpeed(1000.f);
     enemyBullet.setDamage(1);
-    enemyBullet.setPos({ 100000.f, 100000.f });
+    enemyBullet.setPos({100000.f, 100000.f});
     canAttack = true;
-    atkCooldown = 0.8f;
+    atkCooldown = 1.5f;
     canMove = cMove;
-    isWall = false;
+    timeSinceAtk = 1;
+
+    direction = 1;
 
     if (canMove)
     {
-        if (!texture.loadFromFile("assets/images/chaser.png"))
+        if (!texture.loadFromFile("assets/images/enemy/chaser.png"))
         {
             std::cerr << "Error: Unable to load in enemy sprite!";
         }
-        if (!attackTexture.loadFromFile("assets/images/chaser-attack.png"))
+        if (!attackTexture.loadFromFile("assets/images/enemy/chaser-attack.png"))
         {
             std::cerr << "Error: Unable to load in enemy sprite!";
         }
     }
     else
     {
-        if (!texture.loadFromFile("assets/images/turret.png"))
+        if (!texture.loadFromFile("assets/images/enemy/turret.png"))
         {
             std::cerr << "Error: Unable to load in enemy sprite!";
         }
-        if (!attackTexture.loadFromFile("assets/images/turret-attack.png"))
+        if (!attackTexture.loadFromFile("assets/images/enemy/turret-attack.png"))
         {
             std::cerr << "Error: Unable to load in enemy sprite!";
         }
@@ -57,26 +60,48 @@ Enemy::Enemy(sf::Vector2f size, sf::Color color, bool cMove) : collider(enemy), 
     std::srand(time(0));
 }
 
-Enemy::Enemy(const Enemy& other)
+Enemy::Enemy(const Enemy &other)
     : enemy(other.enemy),
-    collider(enemy),
-    enemyBullet(other.enemyBullet),
-    health(other.health),
-    velocity(other.velocity),
-    speed(other.speed),
-    damage(other.damage),
-    canAttack(other.canAttack),
-    atkCooldown(other.atkCooldown),
-    canMove(other.canMove),
-    attackTexture(other.attackTexture),
-    texture(other.texture),
-    hurtSound(getSoundBuffer("hurt")),
-    laserSound(getSoundBuffer("laser")),
-    screamSound(getSoundBuffer("hehehehaw"))
+      collider(enemy),
+      enemyBullet(other.enemyBullet),
+      health(other.health),
+      velocity(other.velocity),
+      speed(other.speed),
+      damage(other.damage),
+      canAttack(other.canAttack),
+      atkCooldown(other.atkCooldown),
+      canMove(other.canMove),
+      attackTexture(other.attackTexture),
+      texture(other.texture),
+      hurtSound(getSoundBuffer("hurt")),
+      laserSound(getSoundBuffer("laser")),
+      screamSound(getSoundBuffer("hehehehaw")),
+      isWall(other.isWall),
+      isBoss(other.isBoss),
+      direction(other.direction)
 {
+    // 1) Copy over your float-based times
+    timeSinceScream = other.timeSinceScream;
+    timeSinceAtk = other.timeSinceAtk;
+
+    // 2) The new sf::Clock starts fresh:
+    enemyClock.restart();
+
+    // (Optional) If you want to know how much time had elapsed for the old enemy:
+    float oldElapsed = other.enemyClock.getElapsedTime().asSeconds();
+    // There's no built-in method in SFML to "set" the new clock to oldElapsed,
+    // so you simply store that if needed, or ignore it.
+
+    // If you still need the bullet texture, load or assign it here
+    // (Better yet, pass by reference from some resource manager)
+    sf::Texture bulletTexture;
+    if (!bulletTexture.loadFromFile("assets/images/enemy/bullet-1-8.png"))
+    {
+        std::cerr << "Failed to load bullet textures\n";
+    }
+
     enemy.setTexture(&texture);
 }
-
 
 void Enemy::setDamage(int dmg)
 {
@@ -107,7 +132,7 @@ void Enemy::setColor(sf::Color color)
     enemy.setFillColor(color);
 }
 
-void Enemy::checkBullet(Bullet& bullet)
+void Enemy::checkBullet(Bullet &bullet)
 {
     sf::Vector2f otherPosition = bullet.getPos();
     sf::Vector2f otherHalfSize = bullet.getHalfSize();
@@ -202,19 +227,19 @@ void Enemy::fireProjectile()
     if (canAttack && !isWall && health > 0)
     {
         disableAttack();
-        timeSinceAtk = enemyClock.getElapsedTime().asSeconds();
+        timeSinceAtk = (int)enemyClock.getElapsedTime().asSeconds();
         // fire projectile
         int dir = 1;
         enemyBullet.setSize(sf::Vector2f(32, 32));
-        if (!isBoss) 
+        if (!isBoss)
         {
             enemyBullet.setPos(enemy.getPosition());
         }
-        else 
+        else
         {
-            enemyBullet.setPos({ enemy.getPosition().x, 180.f + (std::rand() % 650)});
+            enemyBullet.setPos({enemy.getPosition().x, 180.f + (std::rand() % 650)});
         }
-        
+
         if (enemy.getScale().x < 0)
         {
             dir = -1;
@@ -227,7 +252,7 @@ void Enemy::fireProjectile()
 
 void Enemy::setDirection(float dir)
 {
-    enemy.setScale({ dir, 1.0f });
+    enemy.setScale({dir, 1.0f});
 }
 
 void Enemy::setSpeed(float newSpeed)
@@ -243,7 +268,7 @@ void Enemy::setDetectionRange(float newRange)
 void Enemy::setAsWall()
 {
     isWall = true;
-    if (!texture.loadFromFile("assets/images/tile-corner.png"))
+    if (!texture.loadFromFile("assets/images/terrain/tile-corner.png"))
     {
         std::cerr << "Error: Unable to load in enemy sprite!";
     }
@@ -251,6 +276,11 @@ void Enemy::setAsWall()
     enemy.setTexture(&texture);
     setColor(sf::Color::Red);
     hurtSound.setPitch(0.8);
+}
+
+void Enemy::setNotWall()
+{
+    isWall = false;
 }
 
 void Enemy::onCollision(Vector2f direction)
@@ -269,13 +299,19 @@ void Enemy::onCollision(Vector2f direction)
     }
 }
 
-void Enemy::draw(sf::RenderWindow& window)
+void Enemy::draw(sf::RenderWindow &window)
 {
     window.draw(enemy);
 }
 
-void Enemy::drawBullet(sf::RenderWindow& window)
+void Enemy::drawBullet(sf::RenderWindow &window)
 {
+    sf::Texture bulletTexture;
+    if (!bulletTexture.loadFromFile("assets/images/enemy/bullet-1-8.png"))
+    {
+        std::cerr << "Failed to load bullet textures\n";
+    }
+    enemyBullet.setTexture(bulletTexture);
     enemyBullet.draw(window, dt);
 }
 
@@ -284,7 +320,7 @@ void Enemy::setMove(bool move)
     canMove = move;
 }
 
-SoundBuffer& Enemy::getSoundBuffer(std::string soundName)
+SoundBuffer &Enemy::getSoundBuffer(std::string soundName)
 {
     if (soundName.compare("hurt") == 0)
     {
@@ -315,7 +351,8 @@ SoundBuffer& Enemy::getSoundBuffer(std::string soundName)
     }
 }
 
-void Enemy::printStatus() const {
+void Enemy::printStatus() const
+{
     std::cout << "----- Enemy Status -----" << std::endl;
     std::cout << "Position: (" << enemy.getPosition().x << ", " << enemy.getPosition().y << ")" << std::endl;
     std::cout << "Velocity: (" << velocity.x << ", " << velocity.y << ")" << std::endl;
@@ -328,8 +365,10 @@ void Enemy::printStatus() const {
     std::cout << "Attack Cooldown: " << atkCooldown << std::endl;
     std::cout << "Time Since Last Attack: " << timeSinceAtk << std::endl;
     std::cout << "Damage: " << damage << std::endl;
-    //std::cout << "Bullet Position: ("
-    //    << enemyBullet.getPos().x << ", "
-    //    << enemyBullet.getPos().y << ")" << std::endl;
+    std::cout << "IsWall: " << isWall << std::endl;
+    std::cout << "IsBoss: " << isBoss << std::endl;
+    // std::cout << "Bullet Position: ("
+    //     << enemyBullet.getPos().x << ", "
+    //     << enemyBullet.getPos().y << ")" << std::endl;
     std::cout << "------------------------" << std::endl;
 }
