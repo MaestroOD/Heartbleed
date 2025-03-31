@@ -9,8 +9,8 @@
   },
   "goalPoint": {
     "_comment": "Goal bottom right corner",
-    "x": 22,
-    "y": 16
+     "x": 16,
+        "y": 16
   },
   "enemies": [
     {
@@ -30,11 +30,30 @@
       "type": 0,
       "direction": 1,
       "iswall": 0
-    }    ,
+    },
     {
       "_comment": "3rd turret",
       "x": 11,
       "y": 11,
+      "color": "red",
+      "type": 0,
+      "direction": -1,
+      "iswall": 0
+    },
+    {
+      "_comment": "4th turret",
+      "x": 16,
+      "y": 3,
+      "color": "red",
+      "type": 0,
+      "direction": -1,
+      "iswall": 0
+    },
+
+    {
+      "_comment": "5th turret",
+      "x": 20,
+      "y": 12,
       "color": "red",
       "type": 0,
       "direction": -1,
@@ -344,10 +363,58 @@
       },
       "type": 0
     },
+
+    {
+      "_comment": "top right-ish wall",
+      "texture": "assets/images/terrain/tile-walls-8.png",
+      "position": {
+        "x": 14,
+        "y": 5
+      },
+      "size": {
+        "width": 6,
+        "height": 1
+      },
+      "type": 0
+    },
+
+    {
+      "_comment": "midle right-ish wall",
+      "texture": "assets/images/terrain/tile-walls-8.png",
+      "position": {
+        "x": 18,
+        "y": 9
+      },
+      "size": {
+        "width": 6,
+        "height": 1
+      },
+      "type": 0
+    },
+
+    {
+      "_comment": "lower right-ish wall",
+      "texture": "assets/images/terrain/tile-walls-8.png",
+      "position": {
+        "x": 14,
+        "y": 13
+      },
+      "size": {
+        "width": 7,
+        "height": 1
+      },
+      "type": 0
+    },
+
+
+
+
+
+
     {
       "texture": "assets/images/terrain/Star.png",
       "position": {
-        "x": 22,
+        "x": 15,
         "y": 16
       },
       "size": {

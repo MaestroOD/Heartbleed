@@ -77,7 +77,8 @@ Enemy::Enemy(const Enemy& other)
       laserSound(getSoundBuffer("laser")),
       screamSound(getSoundBuffer("hehehehaw")),
       isWall(other.isWall),
-      isBoss(other.isBoss)
+      isBoss(other.isBoss),
+      direction(other.direction)
 {
     // 1) Copy over your float-based times
     timeSinceScream = other.timeSinceScream;

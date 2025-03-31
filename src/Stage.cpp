@@ -77,10 +77,11 @@ if (j.contains("enemies")) {
 
         if (enemyData["type"].get<int>() == 0) {
             tempEnemy.setSpeed(100.f);
-        } else {
-            float dir = enemyData["direction"].get<float>();
-            tempEnemy.setDirection(dir);
-        }
+        } 
+        
+        float dir = enemyData["direction"].get<float>();
+        tempEnemy.setDirection(dir);
+        
 
        tempEnemy.setPos(sf::Vector2f(
            enemyData["x"].get<float>() * tileSize + leftmargin,

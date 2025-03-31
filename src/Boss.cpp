@@ -19,11 +19,11 @@ Boss::Boss() : Enemy({160, 160}, sf::Color::White, false), otherBullet({ 64, 64 
 	enemy.setTextureRect(sf::IntRect({ 0, 0 }, { 64, 64 }));
 	health = 30;
 	// Set both bullets to blue
-	enemyBullet.setSpeed(1500.f);
+	enemyBullet.setSpeed(400.f);
 	enemyBullet.setColor(sf::Color::Cyan);
 
 	otherBullet.setPos({ 100000.f, 100000.f });
-	otherBullet.setSpeed(1000.f);
+	otherBullet.setSpeed(300.f);
 	otherBullet.setDamage(1);
 	otherBullet.setColor(sf::Color::Magenta);
 
@@ -88,5 +88,9 @@ void Boss::takeDamage(int dmg)
 	}
 	std::cout << health;
 	hurtSound.play();
+	enemy.setTexture(&hurtTexture);
+	enemy.setTexture(&texture);
+	enemy.setTexture(&hurtTexture);
+	enemy.setTexture(&texture);
 	enemy.setTexture(&hurtTexture);
 }

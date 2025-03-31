@@ -136,9 +136,10 @@ int Game::run() {
     enemy2.setPos(sf::Vector2f(420, 331));
     enemy2.setDetectionRange(250.f);
     enemy2.setDirection(-1.f); */
-    //Boss boss;
-    //boss.setPos({800, 400});
-    //boss.setDirection(-1.f);
+
+    Boss boss;
+    boss.setPos({704, 400});
+    boss.setDirection(-1.f);
 
     sf::Text debugText(font);
     debugText.setCharacterSize(20);
@@ -196,16 +197,22 @@ int Game::run() {
 
         //enemy.update(dt, player.getPosition());
         //enemy2.update(dt, player.getPosition());
-        //boss.update(dt);
+        
+        if (current==3) {
+            boss.update(dt);
+        }
 
         const float tolerance = 16.0f;
-        sf::Vector2f playerPos = player.getPosition();
+        sf::Vector2f playerPos = player.getCollider().getPosition();
         sf::Vector2f goalPos = currentStage->getGoalPoint();
         
         if (std::abs(playerPos.x - goalPos.x) < tolerance &&
             std::abs(playerPos.y - goalPos.y) < tolerance) {
             // Load the next stage
             current++;
+            if (player.getHP() < 5) {
+            player.setHP(player.getHP()+1);
+            }
             currentStage = &stages[current];
             player.setPosition(currentStage->getPlayerSpawn());
             gametiles = currentStage->getTiles();
@@ -240,7 +247,10 @@ int Game::run() {
 
         //checkTileEnemyCollision(gametiles, boss, enemyDirection2);
         //checkPlayerEnemyCollision(player, boss, direction);
-        //boss.checkBullet(*player.getBullet());
+        
+        if (current==3) {
+        boss.checkBullet(*player.getBullet());
+        }
         //player.checkEnemyBullet(boss.getBullet(), boss.getDamage());
         //player.checkEnemyBullet(boss.getOtherBullet(), boss.getDamage());
 
@@ -271,7 +281,8 @@ int Game::run() {
             lastFrame.update(*window);
             bool restart = showGameOver(*window, font, lastFrame);
             if (restart) {
-                player.setHP(100);
+                player.setHP(5);
+                current = 0;
                 currentStage = &stages[0];
                 gametiles = currentStage->getTiles();
                 player.setPosition(currentStage->getPlayerSpawn());
@@ -324,6 +335,7 @@ int Game::run() {
 
         if (debugMode) {
             window->draw(debugText);
+            player.setHP(5);
         }
 
         player.renderBullet(*window);
@@ -336,9 +348,11 @@ int Game::run() {
         //enemy2.drawBullet(*window);
         //enemy2.draw(*window);
 
-        //boss.drawBullet(*window);
-        //boss.drawVBullet(*window);
-        //boss.draw(*window);
+        if (current == 3) {
+        boss.drawBullet(*window);
+        boss.drawVBullet(*window);
+        boss.draw(*window);
+        }
 
 
         for (Enemy& enemy : stageEnemies[current]) {
