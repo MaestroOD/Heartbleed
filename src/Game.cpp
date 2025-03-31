@@ -318,7 +318,7 @@ int Game::run()
             sf::Vector2u textureSize(winSize.x, winSize.y);
             sf::Texture lastFrame(textureSize);
             lastFrame.update(*window);
-            bool restart = showGameOver(*window, font, lastFrame);
+            bool restart = showGameOver(*window, font, gameClock.getElapsedTime());
             if (restart)
             {
                 player.setHP(5);
@@ -334,8 +334,10 @@ int Game::run()
             }
         }
 
-        /*         if (player.getPosition().x > 300.0f)
+        if (current == 3) {
+        if (boss.getHP() <= 0)
                 {
+                    std::cout << "boss dead";
                     bool playAgain = showEndScreen(*window, font, gameClock.getElapsedTime());
 
                     if (playAgain)
@@ -348,7 +350,8 @@ int Game::run()
                         window->close();
                         break;
                     }
-                } */
+                } 
+            }
 
         window->clear(sf::Color(16, 36, 29, 255));
 

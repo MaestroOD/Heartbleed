@@ -23,7 +23,11 @@ Player::Player() : sprite(texture), collider(), bullet({}, 0), upBullet({}, 0), 
     toggleMode = false;
     upgrade = true;
 
-    bullet.setDamage(1);
+    leftKey = sf::Keyboard::Scancode::A;
+    rightKey = sf::Keyboard::Scancode::D;
+    shootKey = sf::Keyboard::Scancode::Enter;
+
+    bullet.setDamage(2);
     bullet.setSpeed(1200.f);
 
     upBullet.setDamage(2);

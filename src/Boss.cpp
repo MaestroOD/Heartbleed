@@ -132,3 +132,7 @@ void Boss::takeDamage(int dmg)
 	flashDuration = 1.0f; // 1 second
 	flashTimer = 0.0f;
 }
+
+int Boss::getHP() {
+	return health;
+}

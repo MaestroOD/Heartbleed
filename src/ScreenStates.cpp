@@ -638,30 +638,18 @@ bool showGameOver(sf::RenderWindow &window, sf::Font &font, sf::Time timer)
             else if (const auto *keyPressed = event->getIf<sf::Event::KeyPressed>())
             {
                 // Up / W toggles selection
-                if (keyPressed->code == sf::Keyboard::Key::Up ||
-                    keyPressed->code == sf::Keyboard::Key::W)
+                if (keyPressed->code == sf::Keyboard::Key::R)
                 {
-                    selection = (selection == 0) ? 1 : 0;
+                    selection = 0;
                 }
-                // Down / S toggles selection
-                else if (keyPressed->code == sf::Keyboard::Key::Down ||
-                         keyPressed->code == sf::Keyboard::Key::S)
+                else if (keyPressed->code == sf::Keyboard::Key::Escape)
                 {
-                    if (selection == 0)
-                    {
-                        selection = 1;
-                    }
-                    else
-                    {
-                        selection = 0;
-                    }
+                    selection = 1;
                 }
-                // Enter confirms selection
-                else if (keyPressed->code == sf::Keyboard::Key::Enter || keyPressed->code == sf::Keyboard::Key::Escape)
                 {
                     // 0 = Play
                     if (selection == 0)
-                        return false; // "Play" chosen
+                        return true; // "Play" chosen
                     else
                         return false; // "Exit" chosen
                 }
