@@ -9,7 +9,7 @@
     },
     "goalPoint": {
       "_comment": "Goal bottom right corner",
-      "x": 22,
+      "x": 23,
       "y": 16
     },
     "enemies": [
@@ -27,7 +27,7 @@
         "x": 16,
         "y": 4,
         "color": "red",
-        "type": 0,
+        "type": 1,
         "direction": 1,
         "iswall": 0
       },
@@ -45,7 +45,7 @@
         "x": 11,
         "y": 7,
         "color": "red",
-        "type": 0,
+        "type": 1,
         "direction": 1,
         "iswall": 0
       },
@@ -54,7 +54,7 @@
         "x":12,
         "y": 10,
         "color": "red",
-        "type": 0,
+        "type": 1,
         "direction": -1,
         "iswall": 0
       },

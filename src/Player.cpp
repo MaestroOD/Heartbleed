@@ -24,10 +24,10 @@ Player::Player() : sprite(texture), collider(), bullet({}, 0), upBullet({}, 0), 
     upgrade = true;
 
     bullet.setDamage(1);
-    bullet.setSpeed(800.f);
+    bullet.setSpeed(1200.f);
 
     upBullet.setDamage(2);
-    upBullet.setSpeed(1200.f);
+    upBullet.setSpeed(400.f);
     upBullet.setColor(sf::Color::Red);
 
     // Initialize sprite

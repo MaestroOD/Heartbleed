@@ -4,6 +4,7 @@
 
 Enemy::Enemy(sf::Vector2f size, sf::Color color, bool cMove) : collider(enemy), enemyBullet({ 32, 32 }, 1), hurtSound(getSoundBuffer("hurt")), laserSound(getSoundBuffer("laser")), screamSound(getSoundBuffer("hehehehaw"))
 {
+    isWall = false;
     health = 4;
     velocity = Vector2f(0, 0);
     speed = 150.0f;
@@ -14,7 +15,8 @@ Enemy::Enemy(sf::Vector2f size, sf::Color color, bool cMove) : collider(enemy), 
     canAttack = true;
     atkCooldown = 1.5f;
     canMove = cMove;
-    isWall = false;
+    timeSinceAtk = 1;
+    
     direction = 1;
 
     if (canMove)
@@ -60,29 +62,44 @@ Enemy::Enemy(sf::Vector2f size, sf::Color color, bool cMove) : collider(enemy), 
 
 Enemy::Enemy(const Enemy& other)
     : enemy(other.enemy),
-    collider(enemy),
-    enemyBullet(other.enemyBullet),
-    health(other.health),
-    velocity(other.velocity),
-    speed(other.speed),
-    damage(other.damage),
-    canAttack(other.canAttack),
-    atkCooldown(other.atkCooldown),
-    canMove(other.canMove),
-    attackTexture(other.attackTexture),
-    texture(other.texture),
-    hurtSound(getSoundBuffer("hurt")),
-    laserSound(getSoundBuffer("laser")),
-    screamSound(getSoundBuffer("hehehehaw"))
+      collider(enemy),
+      enemyBullet(other.enemyBullet),
+      health(other.health),
+      velocity(other.velocity),
+      speed(other.speed),
+      damage(other.damage),
+      canAttack(other.canAttack),
+      atkCooldown(other.atkCooldown),
+      canMove(other.canMove),
+      attackTexture(other.attackTexture),
+      texture(other.texture),
+      hurtSound(getSoundBuffer("hurt")),
+      laserSound(getSoundBuffer("laser")),
+      screamSound(getSoundBuffer("hehehehaw")),
+      isWall(other.isWall),
+      isBoss(other.isBoss)
 {
+    // 1) Copy over your float-based times
+    timeSinceScream = other.timeSinceScream;
+    timeSinceAtk = other.timeSinceAtk;
+
+    // 2) The new sf::Clock starts fresh:
+    enemyClock.restart();
+
+    // (Optional) If you want to know how much time had elapsed for the old enemy:
+    float oldElapsed = other.enemyClock.getElapsedTime().asSeconds();
+    // There's no built-in method in SFML to "set" the new clock to oldElapsed,
+    // so you simply store that if needed, or ignore it.
+    
+    // If you still need the bullet texture, load or assign it here
+    // (Better yet, pass by reference from some resource manager)
     sf::Texture bulletTexture;
     if (!bulletTexture.loadFromFile("assets/images/enemy/bullet-1-8.png")){
         std::cerr << "Failed to load bullet textures\n";
     }
-    enemyBullet.setTexture(bulletTexture);
+
     enemy.setTexture(&texture);
 }
-
 
 void Enemy::setDamage(int dmg)
 {
@@ -208,7 +225,7 @@ void Enemy::fireProjectile()
     if (canAttack && !isWall && health > 0)
     {
         disableAttack();
-        timeSinceAtk = enemyClock.getElapsedTime().asSeconds();
+        timeSinceAtk = (int)enemyClock.getElapsedTime().asSeconds();
         // fire projectile
         int dir = 1;
         enemyBullet.setSize(sf::Vector2f(32, 32));
@@ -257,6 +274,11 @@ void Enemy::setAsWall()
     enemy.setTexture(&texture);
     setColor(sf::Color::Red);
     hurtSound.setPitch(0.8);
+}
+
+void Enemy::setNotWall()
+{
+    isWall = false;
 }
 
 void Enemy::onCollision(Vector2f direction)
@@ -340,6 +362,7 @@ void Enemy::printStatus() const {
     std::cout << "Time Since Last Attack: " << timeSinceAtk << std::endl;
     std::cout << "Damage: " << damage << std::endl;
     std::cout << "IsWall: " << isWall << std::endl;
+    std::cout << "IsBoss: " << isBoss << std::endl;
     //std::cout << "Bullet Position: ("
     //    << enemyBullet.getPos().x << ", "
     //    << enemyBullet.getPos().y << ")" << std::endl;

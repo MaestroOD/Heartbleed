@@ -343,6 +343,7 @@ int Game::run() {
 
         for (Enemy& enemy : stageEnemies[current]) {
             
+            enemy.setNotWall();
             enemy.draw(*window);
             enemy.getBullet().setTexture(bulletTexture);
             enemy.drawBullet(*window);
