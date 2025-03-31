@@ -34,6 +34,7 @@ public:
     void setMove(bool move);
     void setAsWall();
     void printStatus() const;
+    void setDirection(int dir);
 
     Bullet& getBullet() { return enemyBullet; };
     Collider& getCollider() { return collider; };
@@ -58,6 +59,7 @@ protected:
     sf::SoundBuffer screamBuffer;
     sf::Sound screamSound;
     Collider collider;
+    int direction;
 
     int damage;
     bool canAttack;

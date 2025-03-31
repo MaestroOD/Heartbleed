@@ -12,9 +12,10 @@ Enemy::Enemy(sf::Vector2f size, sf::Color color, bool cMove) : collider(enemy), 
     enemyBullet.setDamage(1);
     enemyBullet.setPos({ 100000.f, 100000.f });
     canAttack = true;
-    atkCooldown = 0.8f;
+    atkCooldown = 1.5f;
     canMove = cMove;
     isWall = false;
+    direction = 1;
 
     if (canMove)
     {
@@ -74,6 +75,11 @@ Enemy::Enemy(const Enemy& other)
     laserSound(getSoundBuffer("laser")),
     screamSound(getSoundBuffer("hehehehaw"))
 {
+    sf::Texture bulletTexture;
+    if (!bulletTexture.loadFromFile("assets/images/enemy/bullet-1-8.png")){
+        std::cerr << "Failed to load bullet textures\n";
+    }
+    enemyBullet.setTexture(bulletTexture);
     enemy.setTexture(&texture);
 }
 
@@ -276,6 +282,11 @@ void Enemy::draw(sf::RenderWindow& window)
 
 void Enemy::drawBullet(sf::RenderWindow& window)
 {
+    sf::Texture bulletTexture;
+    if (!bulletTexture.loadFromFile("assets/images/enemy/bullet-1-8.png")){
+        std::cerr << "Failed to load bullet textures\n";
+    }
+    enemyBullet.setTexture(bulletTexture);
     enemyBullet.draw(window, dt);
 }
 

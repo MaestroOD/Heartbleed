@@ -1,158 +1,324 @@
 {
   "stageName": {
-    "name": "sys/security_breach"
+    "name": "sys/security_breach  "
   },
   "playerSpawn": {
-    "x": 2,
-    "y": 2
+    "_comment": "Spawn bottom top left",
+    "x": 4,
+    "y": 3
   },
   "goalPoint": {
-    "x": 2,
-    "y": 18
+    "_comment": "Goal bottom left corner",
+    "x": 3.7,
+    "y": 17
   },
   "enemies": [
     {
-      "x": 11,
-      "y": 14,
+      "_comment": "1st turret (-1 is left facing, 1 is right)",
+      "x": 9,
+      "y": 4,
+      "color": "red",
+      "type": 0,
+      "direction": 1,
+      "iswall": 0
+    },
+
+    {
+      "_comment": "turret 2",
+      "x": 16,
+      "y": 12,
+      "color": "red",
+      "type": 0,
+      "direction": 1,
+      "iswall": 0
+    },
+
+    {
+      "_comment": "turret 3",
+      "x": 10,
+      "y": 12,
       "color": "red",
       "type": 0,
       "direction": -1,
       "iswall": 0
     },
+
     {
-      "x": 15,
-      "y": 14,
+      "_comment": "turret 4",
+      "x": 20,
+      "y": 15,
       "color": "red",
-      "type": 1,
+      "type": 0,
       "direction": -1,
       "iswall": 0
+    },
+
+    {
+      "_comment": "turret 4",
+      "x": 10,
+      "y": 15,
+      "color": "red",
+      "type": 0,
+      "direction": 1,
+      "iswall": 0
+    },
+
+
+
+    {
+      "_comment": "moving guy 1",
+      "x": 8,
+      "y": 6,
+      "color": "red",
+      "type": 1,
+      "direction": 1,
+      "iswall": 0
+    },
+
+    {
+      "_comment": "moving guy 2",
+      "x": 17,
+      "y": 6,
+      "color": "red",
+      "type": 1,
+      "direction": 1,
+      "iswall": 0
     }
+
   ],
   "tiles": [
     {
-      "texture": "assets/images/terrain/tile-walls-8.png",
+      "_comment": "Bottom right green border corner",
+      "texture": "assets/images/terrain/bottom-right-border.png",
       "position": {
-        "x": 0,
-        "y": 0
+        "x": 25,
+        "y": 19
       },
       "size": {
-        "width": 26,
+        "width": 1,
         "height": 1
       },
       "type": 0
     },
     {
-      "texture": "assets/images/terrain/tile-corner-8.png",
+      "_comment": "Bottom left green border corner",
+      "texture": "assets/images/terrain/bottom-left-border.png",
       "position": {
         "x": 0,
         "y": 19
       },
       "size": {
-        "width": 26,
+        "width": 1,
         "height": 1
       },
-      "type": 1
+      "type": 0
     },
     {
-      "texture": "assets/images/terrain/tile-corner-8.png",
-      "position": {
-        "x": 0,
-        "y": 0
-      },
-      "size": {
-        "width": 1,
-        "height": 19
-      },
-      "type": 1
-    },
-    {
-      "texture": "assets/images/terrain/tile-corner-8.png",
+      "_comment": "Top right green border corner",
+      "texture": "assets/images/terrain/top-right-border.png",
       "position": {
         "x": 25,
         "y": 0
       },
       "size": {
         "width": 1,
-        "height": 19
+        "height": 1
       },
       "type": 0
     },
     {
-      "texture": "assets/images/terrain/tile-corner-8.png",
+      "_comment": "Top left green border corner",
+      "texture": "assets/images/terrain/top-left-border.png",
       "position": {
-        "x": 12,
+        "x": 0,
+        "y": 0
+      },
+      "size": {
+        "width": 1,
+        "height": 1
+      },
+      "type": 0
+    },
+    {
+      "_comment": "Top green border wall",
+      "texture": "assets/images/terrain/floor-border.png",
+      "position": {
+        "x": 1,
+        "y": 0
+      },
+      "size": {
+        "width": 24,
+        "height": 1
+      },
+      "type": 0
+    },
+    {
+      "_comment": "Bottom green border wall",
+      "texture": "assets/images/terrain/floor-border.png",
+      "position": {
+        "x": 1,
+        "y": 19
+      },
+      "size": {
+        "width": 24,
+        "height": 1
+      },
+      "type": 1
+    },
+    {
+      "_comment": "Left green border wall",
+      "texture": "assets/images/terrain/wall-border.png",
+      "position": {
+        "x": 0,
         "y": 1
       },
       "size": {
-        "width": 2,
-        "height": 15
+        "width": 1,
+        "height": 18
+      },
+      "type": 1
+    },
+    {
+      "_comment": "Right green border wall",
+      "texture": "assets/images/terrain/wall-border.png",
+      "position": {
+        "x": 25,
+        "y": 1
+      },
+      "size": {
+        "width": 1,
+        "height": 18
       },
       "type": 0
     },
     {
-      "texture": "assets/images/terrain/tile-walls-8.png",
+      "_comment": "Top left corner",
+      "texture": "assets/images/terrain/tile-corner-8.png",
       "position": {
-        "x": 1,
-        "y": 15
+        "x": 2,
+        "y": 2
       },
       "size": {
-        "width": 4,
+        "width": 1,
         "height": 1
       },
       "type": 0
     },
     {
-      "texture": "assets/images/terrain/tile-walls-8.png",
+      "_comment": "Bottom left corner",
+      "texture": "assets/images/terrain/tile-corner-8.png",
       "position": {
-        "x": 9,
-        "y": 13
+        "x": 2,
+        "y": 17
       },
       "size": {
-        "width": 3,
+        "width": 1,
         "height": 1
       },
       "type": 0
     },
     {
+      "_comment": "Left outer wall",
       "texture": "assets/images/terrain/tile-walls-8.png",
       "position": {
-        "x": 1,
-        "y": 11
+        "x": 2,
+        "y": 3
       },
       "size": {
-        "width": 3,
-        "height": 1
+        "width": 1,
+        "height": 5
       },
       "type": 0
     },
     {
-      "texture": "assets/images/terrain/tile-walls-8.png",
-      "position": {
-        "x": 9,
-        "y": 9
-      },
-      "size": {
-        "width": 3,
-        "height": 1
-      },
-      "type": 0
-    },
-    {
-      "texture": "assets/images/terrain/tile-walls-8.png",
+      "_comment": "Second top left corner piece",
+      "texture": "assets/images/terrain/tile-corner-8.png",
       "position": {
         "x": 5,
+        "y": 2
+      },
+      "size": {
+        "width": 1,
+        "height": 1
+      },
+      "type": 0
+    },
+
+    {
+      "_comment": "third top left corner piece",
+      "texture": "assets/images/terrain/tile-corner-8.png",
+      "position": {
+        "x": 5,
+        "y": 4
+      },
+      "size": {
+        "width": 1,
+        "height": 1
+      },
+      "type": 0
+    },
+
+    {
+      "_comment": "middle left corner piece",
+      "texture": "assets/images/terrain/tile-corner-8.png",
+      "position": {
+        "x": 2,
         "y": 8
       },
       "size": {
-        "width": 2,
+        "width": 1,
         "height": 1
       },
       "type": 0
     },
+
     {
+      "_comment": "Left-ish wall 2",
       "texture": "assets/images/terrain/tile-walls-8.png",
       "position": {
-        "x": 1,
+        "x": 5,
+        "y": 3
+      },
+      "size": {
+        "width": 1,
+        "height": 1
+      },
+      "type": 0
+    },
+
+    {
+      "_comment": "Top wall",
+      "texture": "assets/images/terrain/tile-walls-8.png",
+      "position": {
+        "x": 6,
+        "y": 4
+      },
+      "size": {
+        "width": 17,
+        "height": 1
+      },
+      "type": 0
+    },
+
+    {
+      "_comment": "Middle wall 1",
+      "texture": "assets/images/terrain/tile-walls-8.png",
+      "position": {
+        "x": 3,
+        "y": 8
+      },
+      "size": {
+        "width": 16,
+        "height": 1
+      },
+      "type": 0
+    },
+
+    {
+      "_comment": "Top right corner",
+      "texture": "assets/images/terrain/tile-corner-8.png",
+      "position": {
+        "x": 23,
         "y": 5
       },
       "size": {
@@ -162,28 +328,244 @@
       "type": 0
     },
     {
-      "texture": "assets/images/terrain/Star.png",
+      "_comment": "middle corner 1",
+      "texture": "assets/images/terrain/tile-corner-8.png",
+      "position": {
+        "x": 19,
+        "y": 8
+      },
+      "size": {
+        "width": 1,
+        "height": 1
+      },
+      "type": 0
+    },
+
+    {
+      "_comment": "middle corner 2",
+      "texture": "assets/images/terrain/tile-corner-8.png",
+      "position": {
+        "x": 19,
+        "y": 11
+      },
+      "size": {
+        "width": 1,
+        "height": 1
+      },
+      "type": 0
+    },
+
+    {
+      "_comment": "bottom right corner",
+      "texture": "assets/images/terrain/tile-corner-8.png",
+      "position": {
+        "x": 23,
+        "y": 17
+      },
+      "size": {
+        "width": 1,
+        "height": 1
+      },
+      "type": 0
+    },
+
+    {
+      "_comment": "Right outer wall",
+      "texture": "assets/images/terrain/tile-walls-8.png",
+      "position": {
+        "x": 23,
+        "y": 4
+      },
+      "size": {
+        "width": 1,
+        "height": 13
+      },
+      "type": 0
+    },
+
+    {
+      "_comment": "Middle vertical wall",
+      "texture": "assets/images/terrain/tile-walls-8.png",
+      "position": {
+        "x": 19,
+        "y": 9
+      },
+      "size": {
+        "width": 1,
+        "height": 2
+      },
+      "type": 0
+    },
+
+    {
+      "_comment": "lower middle wall",
+      "texture": "assets/images/terrain/tile-walls-8.png",
+      "position": {
+        "x": 3,
+        "y": 11
+      },
+      "size": {
+        "width": 16,
+        "height": 1
+      },
+      "type": 0
+    },
+
+
+    {
+      "_comment": "Bottom outer wall",
+      "texture": "assets/images/terrain/tile-walls-8.png",
+      "position": {
+        "x": 6,
+        "y": 17
+      },
+      "size": {
+        "width": 17,
+        "height": 1
+      },
+      "type": 0
+    },
+
+    {
+      "_comment": "Bottom left area corner",
+      "texture": "assets/images/terrain/tile-corner-8.png",
+      "position": {
+        "x": 5,
+        "y": 17
+      },
+      "size": {
+        "width": 1,
+        "height": 1
+      },
+      "type": 0
+    },
+
+    {
+      "_comment": "Bottom left area corner2",
+      "texture": "assets/images/terrain/tile-corner-8.png",
+      "position": {
+        "x": 5,
+        "y": 14
+      },
+      "size": {
+        "width": 1,
+        "height": 1
+      },
+      "type": 0
+    },
+
+    {
+      "_comment": "Bottom left area vertical wall",
+      "texture": "assets/images/terrain/tile-walls-8.png",
+      "position": {
+        "x": 5,
+        "y": 15
+      },
+      "size": {
+        "width": 1,
+        "height": 2
+      },
+      "type": 0
+    },
+
+    {
+      "_comment": "Bottom left area corner 3",
+      "texture": "assets/images/terrain/tile-corner-8.png",
       "position": {
         "x": 2,
-        "y": 18
+        "y": 11
+      },
+      "size": {
+        "width": 1,
+        "height": 1
+      },
+      "type": 0
+    },
+
+    {
+      "_comment": "Bottom left area corner 4",
+      "texture": "assets/images/terrain/tile-corner-8.png",
+      "position": {
+        "x": 2,
+        "y": 17
+      },
+      "size": {
+        "width": 1,
+        "height": 1
+      },
+      "type": 0
+    },
+
+    {
+      "_comment": "Bottom left area vertical wall",
+      "texture": "assets/images/terrain/tile-walls-8.png",
+      "position": {
+        "x": 2,
+        "y": 12
+      },
+      "size": {
+        "width": 1,
+        "height": 5
+      },
+      "type": 0
+    },
+
+    {
+      "_comment": "enemy stand 1",
+      "texture": "assets/images/terrain/tile-corner-8.png",
+      "position": {
+        "x": 20,
+        "y": 14
+      },
+      "size": {
+        "width": 3,
+        "height": 1
+      },
+      "type": 0
+    },
+
+    {
+      "_comment": "enemy stand 2",
+      "texture": "assets/images/terrain/tile-corner-8.png",
+      "position": {
+        "x": 15,
+        "y": 14
+      },
+      "size": {
+        "width": 2,
+        "height": 1
+      },
+      "type": 0
+    },
+
+    {
+      "_comment": "enemy stand 3",
+      "texture": "assets/images/terrain/tile-corner-8.png",
+      "position": {
+        "x": 9,
+        "y": 14
+      },
+      "size": {
+        "width": 3,
+        "height": 1
+      },
+      "type": 0
+    },
+
+
+
+    {
+      "texture": "assets/images/terrain/Star.png",
+      "position": {
+        "x": 3.5,
+        "y": 17
       },
       "size": {
         "width": 1,
         "height": 1
       },
       "type": 2
-    },
-    {
-      "texture": "assets/images/terrain/tile-corner-8.png",
-      "position": {
-        "x": 9,
-        "y": 16
-      },
-      "size": {
-        "width": 2,
-        "height": 1
-      },
-      "type": 1
     }
   ]
 }
+  

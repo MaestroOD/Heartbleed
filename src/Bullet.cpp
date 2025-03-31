@@ -53,3 +53,10 @@ void Bullet::setColor(sf::Color col)
 {
     bullet.setFillColor(col);
 }
+
+void Bullet::setTexture(const sf::Texture& newTex)
+{
+    // Make an actual copy in the bullet’s internal texture
+    texture = newTex;
+    bullet.setTexture(&texture); // bullet is an sf::RectangleShape
+}

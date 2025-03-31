@@ -40,6 +40,11 @@ int Game::run() {
         std::cerr << "Failed to load font\n";
     }
 
+    sf::Texture bulletTexture;
+    if (!bulletTexture.loadFromFile("assets/images/enemy/bullet-1-8.png")){
+        std::cerr << "Failed to load bullet textures\n";
+    }
+
     unsigned int width = 1024;
     unsigned int height = 800;
 
@@ -138,7 +143,7 @@ int Game::run() {
     sf::Text debugText(font);
     debugText.setCharacterSize(20);
     debugText.setFillColor(sf::Color::White);
-    debugText.setPosition(sf::Vector2f(50.f, 10.f));
+    debugText.setPosition(sf::Vector2f(640.f, 10.f));
 
     sf::Text timerText(font);
     timerText.setCharacterSize(32);
@@ -220,8 +225,8 @@ int Game::run() {
         if (debugMode) {
             int fps = static_cast<int>(1 / dt.asSeconds());
             debugText.setString("Fps: " + std::to_string(fps) +
-                "\nPlayer Coords: x: " + std::to_string(player.getPosition().x) +
-                ", y: " + std::to_string(player.getPosition().y) +
+                "\nPlayer Coords: x: " + std::to_string((int)player.getPosition().x) +
+                ", y: " + std::to_string((int)player.getPosition().y) +
                 "\nPlayer Block: x: " + std::to_string(static_cast<int>((player.getPosition().x / 32) - 3)) +
                 ", y: " + std::to_string(static_cast<int>((player.getPosition().y / 32) - 3)));
         }
@@ -294,9 +299,7 @@ int Game::run() {
         
         window->clear(sf::Color(16, 36, 29, 255));
 
-        if (debugMode) {
-            window->draw(debugText);
-        }
+
 
 
 
@@ -319,6 +322,10 @@ int Game::run() {
         window->draw(timerText);
         window->draw(stageTitle);
 
+        if (debugMode) {
+            window->draw(debugText);
+        }
+
         player.renderBullet(*window);
         player.render(*window);
         renderTiles(gametiles, window);
@@ -337,9 +344,9 @@ int Game::run() {
         for (Enemy& enemy : stageEnemies[current]) {
             
             enemy.draw(*window);
-            if (!enemy.getCanMove()) {
-                enemy.drawBullet(*window);
-            }
+            enemy.getBullet().setTexture(bulletTexture);
+            enemy.drawBullet(*window);
+            
          
         }
         
