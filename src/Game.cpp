@@ -186,6 +186,31 @@ int Game::run()
                 {
                     debugMode = !debugMode;
                 }
+                if (keyPressed->scancode == sf::Keyboard::Scancode::Escape)
+                {
+                    auto winSize = window->getSize();
+                    sf::Vector2u textureSize(winSize.x, winSize.y);
+
+                    sf::Texture lastFrame(textureSize);
+
+                    lastFrame.update(*window);
+                    music.pause();
+                    gameClock.stop();
+                    MenuResult menuResult = showPaused(*window, font, lastFrame, gameClock.getElapsedTime(), music, player);
+                    if (menuResult == MenuResult::Play)
+                    {
+                        gameClock.start();
+                        deltaClock.restart();
+                        player.resetDeltaTime();
+                        music.play();
+                        continue;
+                    }
+                    else if (menuResult == MenuResult::Exit)
+                    {
+                        delete window;
+                        return 0;
+                    }
+                }
             }
             // Stop input
             else if (const auto *keyPressed = event->getIf<sf::Event::KeyReleased>())

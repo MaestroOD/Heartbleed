@@ -48,6 +48,10 @@ private:
     Clock inGameClock; // Total elapsed time in-game
     Clock spriteClock;
 
+    sf::Keyboard::Scancode leftKey;
+    sf::Keyboard::Scancode rightKey;
+    sf::Keyboard::Scancode shootKey;
+
 public:
     Player();
     // Is run every frame, checks for user input and fires function corresponding to input
@@ -69,6 +73,8 @@ public:
     void setPosition(Vector2f pos);
     void upgradeBullet();
     Vector2f getPosition();
+    void resetDeltaTime(); // Unpause
+    bool changeControls();
     int getBulletType();
 
     Collider &getCollider() { return collider; }

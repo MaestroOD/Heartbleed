@@ -60,12 +60,12 @@ void Player::handleInput(Keyboard::Scancode key, bool checkPressed, RenderWindow
 {
     if (checkPressed == true)
     {
-        if (key == Keyboard::Scancode::A)
+        if (key == leftKey)
         {
             sprite.setScale({-2.f, 2.f}); // Flip right
             left = true;
         }
-        if (key == Keyboard::Scancode::D)
+        if (key == rightKey)
         {
             sprite.setScale({2.f, 2.f}); // Flip left
             right = true;
@@ -78,7 +78,7 @@ void Player::handleInput(Keyboard::Scancode key, bool checkPressed, RenderWindow
                 jump();
             }
         }
-        if (key == Keyboard::Scancode::Enter)
+        if (key == shootKey)
         {
             isFiring = true;
         }
@@ -100,11 +100,11 @@ void Player::handleInput(Keyboard::Scancode key, bool checkPressed, RenderWindow
     }
     if (checkPressed == false)
     {
-        if (key == Keyboard::Scancode::A)
+        if (key == leftKey)
         {
             left = false;
         }
-        if (key == Keyboard::Scancode::D)
+        if (key == rightKey)
         {
             right = false;
         }
@@ -112,7 +112,7 @@ void Player::handleInput(Keyboard::Scancode key, bool checkPressed, RenderWindow
         {
             space = false;
         }
-        if (key == Keyboard::Scancode::Enter)
+        if (key == shootKey)
         {
             isFiring = false;
         }
@@ -364,5 +364,28 @@ SoundBuffer &Player::getSoundBuffer(std::string soundName)
         }
 
         return laserBuffer;
+    }
+}
+void Player::resetDeltaTime()
+{
+    deltaClock.restart();
+    coyoteTime = false;
+}
+
+bool Player::changeControls()
+{
+    if (leftKey == sf::Keyboard::Scancode::A)
+    {
+        leftKey = sf::Keyboard::Scancode::J;
+        rightKey = sf::Keyboard::Scancode::L;
+        shootKey = sf::Keyboard::Scancode::CapsLock;
+        return true;
+    }
+    else
+    {
+        leftKey = sf::Keyboard::Scancode::A;
+        rightKey = sf::Keyboard::Scancode::D;
+        shootKey = sf::Keyboard::Scancode::Enter;
+        return false;
     }
 }
