@@ -21,14 +21,13 @@ Collider::~Collider()
     // default destructor is fine, or keep empty if needed
 }
 
-Collider::Collider(const Collider& other)
+Collider::Collider(const Collider &other)
 {
     this->bodyPtr = other.bodyPtr;
     this->spritePtr = other.spritePtr;
 }
 
-
-Collider& Collider::operator=(const Collider& other)
+Collider &Collider::operator=(const Collider &other)
 {
     if (this != &other)
     {
@@ -73,16 +72,16 @@ Vector2f Collider::getHalfSize() const
     {
         // If we’re wrapping a Sprite
         // 1) Get the local width/height = 32×18 in your case
-        sf::FloatRect local = spritePtr->getLocalBounds(); 
+        sf::FloatRect local = spritePtr->getLocalBounds();
 
         // 2) Multiply by the sprite’s scale (2×2), so 64×36 overall
-        float scaledWidth  = local.size.x  * spritePtr->getScale().x;
+        float scaledWidth = local.size.x * spritePtr->getScale().x;
         float scaledHeight = local.size.y * spritePtr->getScale().y;
 
         // 3) Return half
         return {scaledWidth / 2.f, scaledHeight / 2.f};
 
-        //return local.getCenter();
+        // return local.getCenter();
     }
     else
     {
@@ -93,8 +92,6 @@ Vector2f Collider::getHalfSize() const
 
 bool Collider::checkCollision(Collider &other, sf::Vector2f &direction, float push)
 {
-
-
 
     sf::Vector2f otherPosition = other.getPosition();
     sf::Vector2f otherHalfSize = other.getHalfSize();

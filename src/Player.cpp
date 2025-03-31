@@ -5,7 +5,7 @@
 Player::Player() : sprite(texture), collider(), bullet({}, 0), upBullet({}, 0), hurtSound(getSoundBuffer("hurt")), laserSound(getSoundBuffer("laser"))
 {
     // Initialize base values of player
-    Vector2f size = { 64, 18 };
+    Vector2f size = {64, 18};
     health = 5;
     currentBullet = 1;
     position = Vector2f(0, 0);
@@ -43,32 +43,31 @@ Player::Player() : sprite(texture), collider(), bullet({}, 0), upBullet({}, 0), 
     laserSound.setPitch(1.2);
 
     // Switched from Rect to Sprite
-    rectSourceSprite = IntRect({ 0, 0 }, { 32, 18 });
+    rectSourceSprite = IntRect({0, 0}, {32, 18});
     sprite.setTexture(texture);
     sprite.setTextureRect(rectSourceSprite);
-    sprite.setOrigin({ 16, 9 });
-    sprite.setScale({ 2.0f, 2.0f });
+    sprite.setOrigin({16, 9});
+    sprite.setScale({2.0f, 2.0f});
     sprite.setPosition(position);
 
-    //sf::FloatRect local = sprite.getLocalBounds(); // x,y,w,h in SFML 3
-    //sprite.setOrigin({local.size.x * 0.5f, local.size.y * 0.5f});
+    // sf::FloatRect local = sprite.getLocalBounds(); // x,y,w,h in SFML 3
+    // sprite.setOrigin({local.size.x * 0.5f, local.size.y * 0.5f});
 
     collider = Collider(sprite);
-    
 }
 
-void Player::handleInput(Keyboard::Scancode key, bool checkPressed, RenderWindow& window)
+void Player::handleInput(Keyboard::Scancode key, bool checkPressed, RenderWindow &window)
 {
     if (checkPressed == true)
     {
         if (key == Keyboard::Scancode::A)
         {
-            sprite.setScale({ -2.f, 2.f }); // Flip right
+            sprite.setScale({-2.f, 2.f}); // Flip right
             left = true;
         }
         if (key == Keyboard::Scancode::D)
         {
-            sprite.setScale({ 2.f, 2.f }); // Flip left
+            sprite.setScale({2.f, 2.f}); // Flip left
             right = true;
         }
         if (key == Keyboard::Scancode::Space)
@@ -197,13 +196,13 @@ void Player::fire()
         if (currentBullet == 1)
         {
             bullet.setSize(sf::Vector2f(32, 32));
-            bullet.setPos({(sprite.getPosition().x), (sprite.getPosition().y -15)});
+            bullet.setPos({(sprite.getPosition().x), (sprite.getPosition().y - 15)});
             bullet.setDirection(dir);
         }
         else if (currentBullet == 2)
         {
             upBullet.setSize(sf::Vector2f(32, 32));
-            upBullet.setPos({(sprite.getPosition().x), (sprite.getPosition().y -15)});
+            upBullet.setPos({(sprite.getPosition().x), (sprite.getPosition().y - 15)});
             upBullet.setDirection(dir);
         }
         laserSound.play();
@@ -240,12 +239,12 @@ void Player::onCollision(Vector2f direction)
     }
 }
 
-void Player::checkEnemyBullet(Bullet& bullet, int damage)
+void Player::checkEnemyBullet(Bullet &bullet, int damage)
 {
     sf::Vector2f otherPosition = bullet.getPos();
     sf::Vector2f otherHalfSize = bullet.getHalfSize();
     sf::Vector2f thisPosition = sprite.getPosition();
-    sf::Vector2f thisHalfSize = { 16, 9 };
+    sf::Vector2f thisHalfSize = {16, 9};
 
     float deltaX = otherPosition.x - thisPosition.x;
     float deltaY = otherPosition.y - thisPosition.y;
@@ -295,12 +294,12 @@ void Player::update()
     sprite.setTextureRect(rectSourceSprite);
 }
 
-void Player::render(RenderWindow& window)
+void Player::render(RenderWindow &window)
 {
     window.draw(sprite);
 }
 
-void Player::renderBullet(RenderWindow& window)
+void Player::renderBullet(RenderWindow &window)
 {
     if (currentBullet == 1)
     {
@@ -312,7 +311,7 @@ void Player::renderBullet(RenderWindow& window)
     }
 }
 
-Bullet* Player::getBullet()
+Bullet *Player::getBullet()
 {
     if (currentBullet == 2)
     {
@@ -346,7 +345,7 @@ int Player::getBulletType()
     return currentBullet;
 }
 
-SoundBuffer& Player::getSoundBuffer(std::string soundName)
+SoundBuffer &Player::getSoundBuffer(std::string soundName)
 {
     if (soundName.compare("hurt") == 0)
     {

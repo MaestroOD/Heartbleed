@@ -14,6 +14,9 @@ public:
 	void takeDamage(int dmg) override;
 	void fireOtherProjectile();
 	void drawVBullet(RenderWindow &window);
+	bool isFlashing = false;
+	float flashDuration = 0.6f;   // how many seconds to stay in the hurt texture
+	float flashTimer = 0.0f;
 
 	Bullet &getOtherBullet() { return otherBullet; }; 
 

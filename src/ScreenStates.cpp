@@ -1,6 +1,5 @@
 #include "ScreenState.hpp"
 
-
 MenuResult showMenu(sf::RenderWindow &window, sf::Font &font)
 {
 

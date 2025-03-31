@@ -20,7 +20,7 @@ public:
     void setDamage(int dmg);
     void setSpeed(float speed);
     void setColor(sf::Color col);
-    void setTexture(const sf::Texture& newTex);
+    void setTexture(const sf::Texture &newTex);
 
 private:
     sf::RectangleShape bullet;

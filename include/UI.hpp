@@ -10,22 +10,23 @@
 #ifndef UI_HPP
 #define UI_HPP
 
-class UI {
+class UI
+{
 public:
     // Constructs a stage by reading data from a JSON file.
-    UI(const std::string& jsonFile);
+    UI(const std::string &jsonFile);
 
     // Loads a texture and stores it in the texture map.
-    bool loadTexture(const std::string& textureName, const std::string& filename);
+    bool loadTexture(const std::string &textureName, const std::string &filename);
 
     // Retrieves a texture by name.
-    const sf::Texture& getTexture(const std::string& textureName) const;
+    const sf::Texture &getTexture(const std::string &textureName) const;
 
     // Adds a Tile to the stage.
-    void addTile(const Tile& tile);
+    void addTile(const Tile &tile);
 
     // Accessors for stage data.
-    std::vector<Tile>& getTiles();
+    std::vector<Tile> &getTiles();
 
 private:
     // Map to hold textures (persist for the stage's lifetime)
@@ -35,8 +36,7 @@ private:
     std::vector<Tile> tiles;
 
     // Helper to parse a single tile from JSON.
-    Tile parseTile(const nlohmann::json& tileData);
+    Tile parseTile(const nlohmann::json &tileData);
 };
 
 #endif // UI_HPP
-
