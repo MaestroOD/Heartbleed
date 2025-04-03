@@ -17,7 +17,7 @@
         "_comment": "1st turret",
         "x": 9,
         "y": 4,
-        "color": "red",
+        "color": "green",
         "type": 0,
         "direction": 1,
         "iswall": 0

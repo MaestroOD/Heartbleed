@@ -10,6 +10,7 @@ MenuResult showMenu(sf::RenderWindow &window, sf::Font &font)
 
     sf::Clock animationClock;
     bool showFirstFrame = true;
+    int bulletFrame = 0;
 
     sf::Texture backgroundTexture;
     sf::Texture borderTexture; // I fucking hate this shit, sfml just doesn't like the name greenBorderTexture
@@ -18,9 +19,14 @@ MenuResult showMenu(sf::RenderWindow &window, sf::Font &font)
     sf::Texture hardTexture;
     sf::Texture exitTexture;
     sf::Texture wasdTexture;
+    sf::Texture spaceTexture;
     sf::Texture jump1Texture;
     sf::Texture jump2Texture;
-
+    sf::Texture bullet1Texture;
+    sf::Texture bullet2Texture;
+    sf::Texture bullet3Texture;
+    sf::Texture bullet4Texture;
+    sf::Texture enterTexture;
 
     (void)backgroundTexture.loadFromFile("assets/images/title-screen/title-bg.png");
     (void)borderTexture.loadFromFile("assets/images/title-screen/title-box.png");
@@ -31,6 +37,12 @@ MenuResult showMenu(sf::RenderWindow &window, sf::Font &font)
     (void)wasdTexture.loadFromFile("assets/images/title-screen/wasd.png");
     (void)jump1Texture.loadFromFile("assets/images/title-screen/jump0.png");
     (void)jump2Texture.loadFromFile("assets/images/title-screen/jump1.png");
+    (void)spaceTexture.loadFromFile("assets/images/title-screen/space.png");
+    (void)bullet1Texture.loadFromFile("assets/images/title-screen/bullet0.png");
+    (void)bullet2Texture.loadFromFile("assets/images/title-screen/bullet1.png");
+    (void)bullet3Texture.loadFromFile("assets/images/title-screen/bullet2.png");
+    (void)bullet4Texture.loadFromFile("assets/images/title-screen/bullet3.png");
+    (void)enterTexture.loadFromFile("assets/images/title-screen/enter.png");
 
 
     sf::Sprite background(backgroundTexture);
@@ -42,7 +54,12 @@ MenuResult showMenu(sf::RenderWindow &window, sf::Font &font)
     sf::Sprite wasdSprite(wasdTexture);
     sf::Sprite jumpSprite1(jump1Texture);
     sf::Sprite jumpSprite2(jump2Texture);
-
+    sf::Sprite spaceSprite(spaceTexture);
+    sf::Sprite bulletSprite1(bullet1Texture);
+    sf::Sprite bulletSprite2(bullet2Texture);
+    sf::Sprite bulletSprite3(bullet3Texture);
+    sf::Sprite bulletSprite4(bullet4Texture);
+    sf::Sprite enterSprite(enterTexture);
 
 
     sf::FloatRect bounds = playSprite.getLocalBounds();
@@ -62,10 +79,18 @@ MenuResult showMenu(sf::RenderWindow &window, sf::Font &font)
     playSprite.setPosition({510.f, 400.f});
     hardSprite.setPosition({510.f, 500.f});
     exitSprite.setPosition({510.f, 600.f});
-    wasdSprite.setPosition({140.f, 450.f});
+    wasdSprite.setPosition({140.f, 350.f});
     wasdSprite.setScale({2.0f,2.0f});
     jumpSprite1.setPosition({768.f,400.f});
     jumpSprite2.setPosition({768.f,400.f});
+    bulletSprite1.setPosition({130.f,500.f});
+    bulletSprite2.setPosition({130.f,500.f});
+    bulletSprite3.setPosition({130.f,500.f});
+    bulletSprite4.setPosition({130.f,500.f});
+    spaceSprite.setPosition({752.f,480.f});
+    enterSprite.setPosition({145.f,555.f});
+    enterSprite.setScale({1.9f,1.9f});
+
 
 
     int selection = 0;
@@ -77,6 +102,7 @@ MenuResult showMenu(sf::RenderWindow &window, sf::Font &font)
         if (animationClock.getElapsedTime() >= sf::seconds(1.f))
         {
             showFirstFrame = !showFirstFrame;
+            bulletFrame = (bulletFrame+1) % 4;
             animationClock.restart();
         }
 
@@ -135,11 +161,31 @@ MenuResult showMenu(sf::RenderWindow &window, sf::Font &font)
         window.draw(hardSprite);
         window.draw(exitSprite);
         window.draw(wasdSprite);
+        window.draw(spaceSprite);
+        window.draw(enterSprite);
 
         if (showFirstFrame)
             window.draw(jumpSprite1);
         else
             window.draw(jumpSprite2);
+
+        switch (bulletFrame)
+        {
+            case 0:
+                window.draw(bulletSprite1);
+                break;
+            case 1:
+                window.draw(bulletSprite2);
+                break;
+            case 2:
+                window.draw(bulletSprite3);
+                break;
+            case 3:
+                window.draw(bulletSprite4);
+                break;
+        }
+
+
 
         window.display();
     }
@@ -272,12 +318,12 @@ MenuResult showPaused(sf::RenderWindow &window, sf::Font &font, const sf::Textur
                 {
                     return MenuResult::Play;
                 }
-                else if (key->code == sf::Keyboard::Key::Up)
+                else if (key->code == sf::Keyboard::Key::Up || key->code == sf::Keyboard::Key::W)
                 {
                     selectedIndex = (selectedIndex - 1 + buttons.size()) % buttons.size();
                     updateButtonScale(selectedIndex);
                 }
-                else if (key->code == sf::Keyboard::Key::Down)
+                else if (key->code == sf::Keyboard::Key::Down || key->code == sf::Keyboard::Key::S)
                 {
                     selectedIndex = (selectedIndex + 1) % buttons.size();
                     updateButtonScale(selectedIndex);
@@ -621,7 +667,8 @@ bool showGameOver(sf::RenderWindow &window, sf::Font &font, sf::Time timer)
     title.setPosition({512.f, 200.f});
 
     sf::Text text1(font);
-    text1.setString("Press [R] to attack the anti-virus again\n");
+    text1.setString("Destroyed by Norton Anti-Virus of all things...\n");
+    //text1.setString("Press [R] to attack the anti-virus again\n");
     text1.setCharacterSize(22);
     text1.setFillColor(sf::Color::Red);
     text1.setOrigin(text1.getLocalBounds().size / 2.f);
@@ -680,10 +727,13 @@ bool showGameOver(sf::RenderWindow &window, sf::Font &font, sf::Time timer)
                 // Up / W toggles selection
                 if (keyPressed->code == sf::Keyboard::Key::R)
                 {
-                    selection = 0;
+                    selection = 1;
                 }
                 else if (keyPressed->code == sf::Keyboard::Key::Escape)
                 {
+                    selection = 1;
+                }
+                else {
                     selection = 1;
                 }
                 {
