@@ -96,7 +96,7 @@ Stage::Stage(const std::string &jsonFile)
                             tempEnemy.setAsWall();
                     } */
 
-            tempEnemy.setDetectionRange(250.f);
+            tempEnemy.setDetectionRange(200.f);
             // Explicit copy here (copy constructor used automatically):
             enemies.push_back(tempEnemy);
         }

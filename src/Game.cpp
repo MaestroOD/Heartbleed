@@ -34,6 +34,7 @@ int Game::run()
     {
         std::cerr << "Failed to load music\n";
     }
+    music.setVolume(10);
     music.play();
 
     sf::Font font;
@@ -132,6 +133,7 @@ int Game::run()
             enemy.setColor(sf::Color::Red);
             enemy.setDamage(2);
         }
+        enemy.setColor(sf::Color::Magenta);
         enemy.printStatus();
     }
 

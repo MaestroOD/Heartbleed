@@ -17,7 +17,7 @@ private:
     float jumpPower;
     float timeLastFired;
     float timeSinceFall;
-    int health;        // 100 Default
+    int health;        // 5 Default
     int currentBullet; // 1 default
     bool isOnGround;
     bool coyoteTime;
@@ -47,6 +47,7 @@ private:
     Clock deltaClock;
     Clock inGameClock; // Total elapsed time in-game
     Clock spriteClock;
+    float lastDamageTime = 0.0f;
 
     sf::Keyboard::Scancode leftKey;
     sf::Keyboard::Scancode rightKey;

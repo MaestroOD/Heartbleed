@@ -215,8 +215,13 @@ void Player::fire()
 
 void Player::takeDamage(int amount)
 {
+    float currentTime = inGameClock.getElapsedTime().asSeconds();
+    if (currentTime - lastDamageTime < 1.0f)
+        return;
+
     health = std::max(0, health - amount);
     hurtSound.play();
+    lastDamageTime = currentTime;
 }
 
 void Player::onCollision(Vector2f direction)

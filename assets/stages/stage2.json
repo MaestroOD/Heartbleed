@@ -17,7 +17,7 @@
       "_comment": "1st turret",
       "x": 3,
       "y": 5,
-      "color": "green",
+      "color": "magenta",
       "type": 0,
       "direction": 1,
       "iswall": 0
@@ -26,7 +26,7 @@
       "_comment": "2nd turret",
       "x": 3,
       "y": 13,
-      "color": "green",
+      "color": "magenta",
       "type": 0,
       "direction": 1,
       "iswall": 0
@@ -35,7 +35,7 @@
       "_comment": "3rd turret",
       "x": 11,
       "y": 11,
-      "color": "green",
+      "color": "magenta",
       "type": 0,
       "direction": -1,
       "iswall": 0
@@ -44,7 +44,7 @@
       "_comment": "4th turret",
       "x": 16,
       "y": 3,
-      "color": "green",
+      "color": "magenta",
       "type": 0,
       "direction": -1,
       "iswall": 0
@@ -54,7 +54,7 @@
       "_comment": "5th turret",
       "x": 20,
       "y": 12,
-      "color": "green",
+      "color": "magenta",
       "type": 0,
       "direction": -1,
       "iswall": 0
@@ -62,7 +62,7 @@
   ],
   "tiles": [
     {
-      "_comment": "Bottom right green border corner",
+      "_comment": "Bottom right magenta border corner",
       "texture": "assets/images/terrain/bottom-right-border.png",
       "position": {
         "x": 25,
@@ -75,7 +75,7 @@
       "type": 0
     },
     {
-      "_comment": "Bottom left green border corner",
+      "_comment": "Bottom left magenta border corner",
       "texture": "assets/images/terrain/bottom-left-border.png",
       "position": {
         "x": 0,
@@ -88,7 +88,7 @@
       "type": 0
     },
     {
-      "_comment": "Top right green border corner",
+      "_comment": "Top right magenta border corner",
       "texture": "assets/images/terrain/top-right-border.png",
       "position": {
         "x": 25,
@@ -101,7 +101,7 @@
       "type": 0
     },
     {
-      "_comment": "Top left green border corner",
+      "_comment": "Top left magenta border corner",
       "texture": "assets/images/terrain/top-left-border.png",
       "position": {
         "x": 0,
@@ -114,7 +114,7 @@
       "type": 0
     },
     {
-      "_comment": "Top green border wall",
+      "_comment": "Top magenta border wall",
       "texture": "assets/images/terrain/floor-border.png",
       "position": {
         "x": 1,
@@ -127,7 +127,7 @@
       "type": 0
     },
     {
-      "_comment": "Bottom green border wall",
+      "_comment": "Bottom magenta border wall",
       "texture": "assets/images/terrain/floor-border.png",
       "position": {
         "x": 1,
@@ -140,7 +140,7 @@
       "type": 1
     },
     {
-      "_comment": "Left green border wall",
+      "_comment": "Left magenta border wall",
       "texture": "assets/images/terrain/wall-border.png",
       "position": {
         "x": 0,
@@ -153,7 +153,7 @@
       "type": 1
     },
     {
-      "_comment": "Right green border wall",
+      "_comment": "Right magenta border wall",
       "texture": "assets/images/terrain/wall-border.png",
       "position": {
         "x": 25,
