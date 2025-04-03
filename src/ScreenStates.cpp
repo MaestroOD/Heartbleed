@@ -8,6 +8,9 @@
 MenuResult showMenu(sf::RenderWindow &window, sf::Font &font)
 {
 
+    sf::Clock animationClock;
+    bool showFirstFrame = true;
+
     sf::Texture backgroundTexture;
     sf::Texture borderTexture; // I fucking hate this shit, sfml just doesn't like the name greenBorderTexture
     sf::Texture titleTexture;
@@ -15,6 +18,9 @@ MenuResult showMenu(sf::RenderWindow &window, sf::Font &font)
     sf::Texture hardTexture;
     sf::Texture exitTexture;
     sf::Texture wasdTexture;
+    sf::Texture jump1Texture;
+    sf::Texture jump2Texture;
+
 
     (void)backgroundTexture.loadFromFile("assets/images/title-screen/title-bg.png");
     (void)borderTexture.loadFromFile("assets/images/title-screen/title-box.png");
@@ -23,6 +29,9 @@ MenuResult showMenu(sf::RenderWindow &window, sf::Font &font)
     (void)hardTexture.loadFromFile("assets/images/title-screen/normal-mode-btn.png");
     (void)exitTexture.loadFromFile("assets/images/title-screen/quit-btn.png");
     (void)wasdTexture.loadFromFile("assets/images/title-screen/wasd.png");
+    (void)jump1Texture.loadFromFile("assets/images/title-screen/jump0.png");
+    (void)jump2Texture.loadFromFile("assets/images/title-screen/jump1.png");
+
 
     sf::Sprite background(backgroundTexture);
     sf::Sprite border(borderTexture);
@@ -31,6 +40,10 @@ MenuResult showMenu(sf::RenderWindow &window, sf::Font &font)
     sf::Sprite hardSprite(hardTexture);
     sf::Sprite exitSprite(exitTexture);
     sf::Sprite wasdSprite(wasdTexture);
+    sf::Sprite jumpSprite1(jump1Texture);
+    sf::Sprite jumpSprite2(jump2Texture);
+
+
 
     sf::FloatRect bounds = playSprite.getLocalBounds();
     sf::Vector2f size = bounds.size;
@@ -49,7 +62,11 @@ MenuResult showMenu(sf::RenderWindow &window, sf::Font &font)
     playSprite.setPosition({510.f, 400.f});
     hardSprite.setPosition({510.f, 500.f});
     exitSprite.setPosition({510.f, 600.f});
-    wasdSprite.setPosition({350.f, 600.f});
+    wasdSprite.setPosition({140.f, 450.f});
+    wasdSprite.setScale({2.0f,2.0f});
+    jumpSprite1.setPosition({768.f,400.f});
+    jumpSprite2.setPosition({768.f,400.f});
+
 
     int selection = 0;
 
@@ -57,6 +74,12 @@ MenuResult showMenu(sf::RenderWindow &window, sf::Font &font)
 
     while (window.isOpen())
     {
+        if (animationClock.getElapsedTime() >= sf::seconds(1.f))
+        {
+            showFirstFrame = !showFirstFrame;
+            animationClock.restart();
+        }
+
         while (const std::optional<sf::Event> event = window.pollEvent())
         {
             if (!event.has_value())
@@ -71,6 +94,9 @@ MenuResult showMenu(sf::RenderWindow &window, sf::Font &font)
             {
                 if (keyPressed->code == sf::Keyboard::Key::H) {
                     return MenuResult::HardMode;
+                }
+                else if (keyPressed->code == sf::Keyboard::Key::Escape) {
+                    return MenuResult::Exit;
                 }
                 else if (keyPressed->code == sf::Keyboard::Key::Up || keyPressed->code == sf::Keyboard::Key::W)
                     selection = (selection - 1 + menuSprites.size()) % menuSprites.size();
@@ -109,6 +135,12 @@ MenuResult showMenu(sf::RenderWindow &window, sf::Font &font)
         window.draw(hardSprite);
         window.draw(exitSprite);
         window.draw(wasdSprite);
+
+        if (showFirstFrame)
+            window.draw(jumpSprite1);
+        else
+            window.draw(jumpSprite2);
+
         window.display();
     }
     return MenuResult::Exit;
