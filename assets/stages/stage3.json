@@ -17,7 +17,7 @@
       "_comment": "1st turret (-1 is left facing, 1 is right)",
       "x": 9,
       "y": 4,
-      "color": "red",
+      "color": "green",
       "type": 0,
       "direction": 1,
       "iswall": 0
@@ -27,7 +27,7 @@
       "_comment": "turret 2",
       "x": 16,
       "y": 12,
-      "color": "red",
+      "color": "green",
       "type": 0,
       "direction": 1,
       "iswall": 0
@@ -37,7 +37,7 @@
       "_comment": "turret 3",
       "x": 10,
       "y": 12,
-      "color": "red",
+      "color": "green",
       "type": 0,
       "direction": -1,
       "iswall": 0
@@ -47,7 +47,7 @@
       "_comment": "turret 4",
       "x": 20,
       "y": 15,
-      "color": "red",
+      "color": "green",
       "type": 0,
       "direction": -1,
       "iswall": 0
@@ -57,7 +57,7 @@
       "_comment": "turret 4",
       "x": 10,
       "y": 15,
-      "color": "red",
+      "color": "green",
       "type": 0,
       "direction": 1,
       "iswall": 0
@@ -69,7 +69,7 @@
       "_comment": "moving guy 1",
       "x": 8,
       "y": 6,
-      "color": "red",
+      "color": "green",
       "type": 1,
       "direction": 1,
       "iswall": 0
@@ -79,7 +79,7 @@
       "_comment": "moving guy 2",
       "x": 17,
       "y": 6,
-      "color": "red",
+      "color": "green",
       "type": 1,
       "direction": 1,
       "iswall": 0

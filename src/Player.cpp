@@ -271,7 +271,11 @@ void Player::update()
     {
         fire();
     }
-    if (!canFire && inGameClock.getElapsedTime().asSeconds() - timeLastFired >= 0.5f)
+    if (currentBullet == 1 && !canFire && inGameClock.getElapsedTime().asSeconds() - timeLastFired >= 0.5f)
+    {
+        canFire = true;
+    }
+    if (currentBullet == 2 && !canFire && inGameClock.getElapsedTime().asSeconds() - timeLastFired >= 1.0f)
     {
         canFire = true;
     }

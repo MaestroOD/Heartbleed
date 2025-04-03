@@ -128,6 +128,10 @@ int Game::run()
     std::vector<Bullet> bulletVec;
     for (Enemy &enemy : stageEnemies[current])
     {
+        if (hardModeEnabled) {
+            enemy.setColor(sf::Color::Red);
+            enemy.setDamage(2);
+        }
         enemy.printStatus();
     }
 
@@ -444,7 +448,7 @@ void checkPlayerEnemyCollision(Player &player, Enemy &enemy, sf::Vector2f &direc
     }
     if (enemy.getCollider().checkCollision(player.getCollider(), direction, push))
     {
-        if (push == 0.0f && !enemy.getCanMove())
+        if (push == 0.0f && enemy.getCanMove())
         {
             enemy.disableAttack();
             player.takeDamage(enemy.getDamage());
