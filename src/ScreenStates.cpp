@@ -14,6 +14,7 @@ MenuResult showMenu(sf::RenderWindow &window, sf::Font &font)
     sf::Texture playTexture;
     sf::Texture hardTexture;
     sf::Texture exitTexture;
+    sf::Texture wasdTexture;
 
     (void)backgroundTexture.loadFromFile("assets/images/title-screen/title-bg.png");
     (void)borderTexture.loadFromFile("assets/images/title-screen/title-box.png");
@@ -21,6 +22,7 @@ MenuResult showMenu(sf::RenderWindow &window, sf::Font &font)
     (void)playTexture.loadFromFile("assets/images/title-screen/play-game-btn.png");
     (void)hardTexture.loadFromFile("assets/images/title-screen/normal-mode-btn.png");
     (void)exitTexture.loadFromFile("assets/images/title-screen/quit-btn.png");
+    (void)wasdTexture.loadFromFile("assets/images/title-screen/wasd.png");
 
     sf::Sprite background(backgroundTexture);
     sf::Sprite border(borderTexture);
@@ -28,6 +30,7 @@ MenuResult showMenu(sf::RenderWindow &window, sf::Font &font)
     sf::Sprite playSprite(playTexture);
     sf::Sprite hardSprite(hardTexture);
     sf::Sprite exitSprite(exitTexture);
+    sf::Sprite wasdSprite(wasdTexture);
 
     sf::FloatRect bounds = playSprite.getLocalBounds();
     sf::Vector2f size = bounds.size;
@@ -46,6 +49,7 @@ MenuResult showMenu(sf::RenderWindow &window, sf::Font &font)
     playSprite.setPosition({510.f, 400.f});
     hardSprite.setPosition({510.f, 500.f});
     exitSprite.setPosition({510.f, 600.f});
+    wasdSprite.setPosition({350.f, 600.f});
 
     int selection = 0;
 
@@ -65,7 +69,10 @@ MenuResult showMenu(sf::RenderWindow &window, sf::Font &font)
             }
             else if (const auto *keyPressed = event->getIf<sf::Event::KeyPressed>())
             {
-                if (keyPressed->code == sf::Keyboard::Key::Up || keyPressed->code == sf::Keyboard::Key::W)
+                if (keyPressed->code == sf::Keyboard::Key::H) {
+                    return MenuResult::HardMode;
+                }
+                else if (keyPressed->code == sf::Keyboard::Key::Up || keyPressed->code == sf::Keyboard::Key::W)
                     selection = (selection - 1 + menuSprites.size()) % menuSprites.size();
                 else if (keyPressed->code == sf::Keyboard::Key::Down || keyPressed->code == sf::Keyboard::Key::S)
                     selection = (selection + 1) % menuSprites.size();
@@ -101,6 +108,7 @@ MenuResult showMenu(sf::RenderWindow &window, sf::Font &font)
         window.draw(playSprite);
         window.draw(hardSprite);
         window.draw(exitSprite);
+        window.draw(wasdSprite);
         window.display();
     }
     return MenuResult::Exit;

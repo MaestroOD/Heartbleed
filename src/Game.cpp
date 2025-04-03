@@ -128,6 +128,10 @@ int Game::run()
     std::vector<Bullet> bulletVec;
     for (Enemy &enemy : stageEnemies[current])
     {
+        if (hardModeEnabled) {
+            enemy.setColor(sf::Color::Blue);
+            enemy.setDamage(2);
+        }
         enemy.printStatus();
     }
 
