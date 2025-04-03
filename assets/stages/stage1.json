@@ -33,20 +33,11 @@
       },
       {
         "_comment": "3rd turret",
-        "x": 18,
+        "x": 15,
         "y": 7,
         "color": "green",
         "type": 0,
-        "direction": 1,
-        "iswall": 0
-      },
-      {
-        "_comment": "4th turret",
-        "x": 11,
-        "y": 7,
-        "color": "green",
-        "type": 1,
-        "direction": 1,
+        "direction": -1,
         "iswall": 0
       },
       {

@@ -12,17 +12,6 @@
       "x": 24,
       "y": 18
     },
-    "enemies": [
-      {
-        "_comment": "1st turret",
-        "x": 9,
-        "y": 4,
-        "color": "green",
-        "type": 0,
-        "direction": 1,
-        "iswall": 0
-      }
-    ],
     "tiles": [
       {
         "_comment": "Bottom right green border corner",
